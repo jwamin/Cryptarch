@@ -12,6 +12,11 @@
 		3DDDFAFE1FD980DB00C00561 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DDDFAFC1FD980DB00C00561 /* Main.storyboard */; };
 		3DDDFB001FD980DB00C00561 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DDDFAFF1FD980DB00C00561 /* Assets.xcassets */; };
 		3DDDFB031FD980DB00C00561 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DDDFB011FD980DB00C00561 /* LaunchScreen.storyboard */; };
+		3DDDFB0B1FD9814000C00561 /* BTCPriceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB0A1FD9814000C00561 /* BTCPriceModel.swift */; };
+		3DDDFB0D1FD9826200C00561 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB0C1FD9826200C00561 /* TableViewController.swift */; };
+		3DDDFB301FD982CF00C00561 /* BTCBuyTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB2F1FD982CF00C00561 /* BTCBuyTableCell.swift */; };
+		3DDDFB331FD9894A00C00561 /* BTCModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB311FD9894A00C00561 /* BTCModel.xcdatamodeld */; };
+		3DDDFB391FD98F6A00C00561 /* CDBTCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB381FD98F6A00C00561 /* CDBTCManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +27,12 @@
 		3DDDFAFF1FD980DB00C00561 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3DDDFB021FD980DB00C00561 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3DDDFB041FD980DB00C00561 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3DDDFB0A1FD9814000C00561 /* BTCPriceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTCPriceModel.swift; sourceTree = "<group>"; };
+		3DDDFB0C1FD9826200C00561 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		3DDDFB2F1FD982CF00C00561 /* BTCBuyTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTCBuyTableCell.swift; sourceTree = "<group>"; };
+		3DDDFB321FD9894A00C00561 /* BTCModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BTCModel.xcdatamodel; sourceTree = "<group>"; };
+		3DDDFB381FD98F6A00C00561 /* CDBTCManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDBTCManager.swift; sourceTree = "<group>"; };
+		3DDDFB3A1FD9BE4D00C00561 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = BitcoinInvestmentMonitor/README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +49,7 @@
 		3DDDFAEC1FD980DA00C00561 = {
 			isa = PBXGroup;
 			children = (
+				3DDDFB3A1FD9BE4D00C00561 /* README.md */,
 				3DDDFAF71FD980DB00C00561 /* BitcoinInvestmentMonitor */,
 				3DDDFAF61FD980DB00C00561 /* Products */,
 			);
@@ -56,7 +68,12 @@
 			children = (
 				3DDDFAF81FD980DB00C00561 /* AppDelegate.swift */,
 				3DDDFAFA1FD980DB00C00561 /* ViewController.swift */,
+				3DDDFB381FD98F6A00C00561 /* CDBTCManager.swift */,
+				3DDDFB0A1FD9814000C00561 /* BTCPriceModel.swift */,
 				3DDDFAFC1FD980DB00C00561 /* Main.storyboard */,
+				3DDDFB2F1FD982CF00C00561 /* BTCBuyTableCell.swift */,
+				3DDDFB0C1FD9826200C00561 /* TableViewController.swift */,
+				3DDDFB311FD9894A00C00561 /* BTCModel.xcdatamodeld */,
 				3DDDFAFF1FD980DB00C00561 /* Assets.xcassets */,
 				3DDDFB011FD980DB00C00561 /* LaunchScreen.storyboard */,
 				3DDDFB041FD980DB00C00561 /* Info.plist */,
@@ -137,7 +154,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DDDFAFB1FD980DB00C00561 /* ViewController.swift in Sources */,
+				3DDDFB0B1FD9814000C00561 /* BTCPriceModel.swift in Sources */,
+				3DDDFB391FD98F6A00C00561 /* CDBTCManager.swift in Sources */,
 				3DDDFAF91FD980DB00C00561 /* AppDelegate.swift in Sources */,
+				3DDDFB301FD982CF00C00561 /* BTCBuyTableCell.swift in Sources */,
+				3DDDFB0D1FD9826200C00561 /* TableViewController.swift in Sources */,
+				3DDDFB331FD9894A00C00561 /* BTCModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,6 +299,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3C42F7N9CQ;
 				INFOPLIST_FILE = BitcoinInvestmentMonitor/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jossy.BitcoinInvestmentMonitor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -292,6 +315,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3C42F7N9CQ;
 				INFOPLIST_FILE = BitcoinInvestmentMonitor/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jossy.BitcoinInvestmentMonitor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -322,6 +346,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3DDDFB311FD9894A00C00561 /* BTCModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3DDDFB321FD9894A00C00561 /* BTCModel.xcdatamodel */,
+			);
+			currentVersion = 3DDDFB321FD9894A00C00561 /* BTCModel.xcdatamodel */;
+			path = BTCModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 3DDDFAED1FD980DA00C00561 /* Project object */;
 }
