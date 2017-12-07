@@ -12,7 +12,7 @@ class TableViewController: UITableViewController,BTCPriceDelegate,BTCManagerDele
 
     let btcPriceMonitor:BTCPriceModel = BTCPriceModel()
     let btcManager:CDBTCManager = CDBTCManager()
-    
+    var refresh:UIRefreshControl?
     override func viewDidLoad() {
         super.viewDidLoad()
         btcPriceMonitor.delegate = self
@@ -21,16 +21,31 @@ class TableViewController: UITableViewController,BTCPriceDelegate,BTCManagerDele
         btcManager.initEntity()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        self.title = "My Bitcoin"
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        let point = CGPoint(x: tableView.frame.origin.x, y: tableView.frame.origin.y)
+        refresh = UIRefreshControl(frame: CGRect(origin: point, size: CGSize(width: tableView.frame.width, height: 32.0)))
+        
+        refresh!.addTarget(self, action: #selector(handlePullToRefresh), for: UIControlEvents.valueChanged)
+        tableView.refreshControl = refresh
     }
 
+    @objc func handlePullToRefresh(_ sender:UIRefreshControl){
+        sender.beginRefreshing()
+        btcPriceMonitor.getUpdateBitcoinPrice()
+    }
+    
+    
+    
     func updatedPrice() {
         print("notified price update")
         print(btcPriceMonitor.btcRate)
          DispatchQueue.main.async {
             self.tableView.reloadData()
+            if let refresh = self.refresh {
+                refresh.endRefreshing()
+            }
         }
     }
     

@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.title = "Add BTC Buy"
+        self.title = "Add BTC Buy"
         // Do any additional setup after loading the view, typically from a nib.
     }
 
