@@ -9,6 +9,7 @@ Swift
 * Pull to refresh
 
 ## TODO
+* Handle refresh error in the event of poor connection
 * New UI
 
 ### Techniques Used
