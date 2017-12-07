@@ -77,13 +77,15 @@ class BTCPriceModel: NSObject {
     func processInfo(buy:Buy) -> Dictionary<String,String>{
         
         var buyDict:Dictionary<String,String> = [:]
-        
+        let dateF = DateFormatter()
+        dateF.dateFormat = "yyyy-MM-dd"
         let originalPrice = buy.btcAmount * Float(buy.btcRateAtPurchase)
         let currentPrice = buy.btcAmount * btcRate;
         let appreciationDecimal = currentPrice / originalPrice;
         let actualDecimal = (appreciationDecimal>1) ? appreciationDecimal-1 : appreciationDecimal
         buyDict["buy"] = String(buy.btcAmount)
-        buyDict["date"] = DateFormatter().string(from: buy.dateOfPurchase!)
+        buyDict["date"] = dateF.string(from: buy.dateOfPurchase!)
+        print(buyDict["date"] ?? "no date")
         buyDict["rateAtBuy"] = String(buy.btcRateAtPurchase)
         buyDict["priceAtBuy"] = String(originalPrice)
         buyDict["currentRate"] = String(btcRate)

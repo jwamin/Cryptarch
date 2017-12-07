@@ -70,7 +70,8 @@ class TableViewController: UITableViewController,BTCPriceDelegate,BTCManagerDele
         let cell = tableView.dequeueReusableCell(withIdentifier: "btcbuy", for: indexPath) as! BTCBuyTableCell
         tableView.rowHeight = cell.frame.height
         let labelDict = btcPriceMonitor.processInfo(buy: btcManager.fetchedBuys[indexPath.row])
-
+        
+       
          
          cell.btcAmountLabel.text = labelDict["buy"]
          cell.dateLabel.text = labelDict["date"]

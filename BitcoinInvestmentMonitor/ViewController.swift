@@ -36,8 +36,12 @@ class ViewController: UIViewController {
     
     @IBAction func add(_ sender: Any) {
         
+        let dateF = DateFormatter()
+        dateF.dateFormat = "yyyy-MM-dd"
+        
         var buyInfo:Dictionary<String,String> = [:]
-        buyInfo["date"] = DateFormatter().string(from: datePicker.date)
+        buyInfo["date"] = dateF.string(from: datePicker.date)
+        print(buyInfo["date"],datePicker.date)
         buyInfo["btcAmount"] = btcAmountField.text
         buyInfo["btcRate"] = rateAtPurchaseField.text
         

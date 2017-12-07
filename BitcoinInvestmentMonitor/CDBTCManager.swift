@@ -45,7 +45,11 @@ class CDBTCManager: NSObject {
         let obj = NSEntityDescription.insertNewObject(forEntityName: "Buy", into: managedObjectContext) as! Buy
         
         //add buy info to object
-        obj.dateOfPurchase = DateFormatter().date(from: buyInfo["date"]!) ?? Date()
+        let dateF = DateFormatter()
+        dateF.dateFormat = "yyyy-MM-dd"
+        
+        
+        obj.dateOfPurchase = dateF.date(from: buyInfo["date"]!) ?? Date()
         obj.btcAmount = Float(buyInfo["btcAmount"] ?? "0.01") ?? 0.01
         obj.btcRateAtPurchase = Double(buyInfo["btcRate"] ?? "7800.120") ?? 7800.120
         

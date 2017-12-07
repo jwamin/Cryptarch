@@ -10,7 +10,6 @@ Swift
 ## TODO
 * Pull to refresh
 * Titles
-* Fix labels
 
 ### Techniques Used
 * Parsing JSON with Swift

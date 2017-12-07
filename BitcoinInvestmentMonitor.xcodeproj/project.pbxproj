@@ -32,7 +32,7 @@
 		3DDDFB2F1FD982CF00C00561 /* BTCBuyTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTCBuyTableCell.swift; sourceTree = "<group>"; };
 		3DDDFB321FD9894A00C00561 /* BTCModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BTCModel.xcdatamodel; sourceTree = "<group>"; };
 		3DDDFB381FD98F6A00C00561 /* CDBTCManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDBTCManager.swift; sourceTree = "<group>"; };
-		3DDDFB3A1FD9BE4D00C00561 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = BitcoinInvestmentMonitor/README.md; sourceTree = "<group>"; };
+		3DDDFB3A1FD9BE4D00C00561 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
