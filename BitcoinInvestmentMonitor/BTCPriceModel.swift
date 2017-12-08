@@ -23,7 +23,9 @@ class BTCPriceModel: NSObject {
     
     func getUpdateBitcoinPrice(){
         DispatchQueue.global(qos: .background).async {
-            if let url = URL(string: "https://api.coindesk.com/v1/bpi/currentprice.json"){
+            let cburl = "https://api.coinbase.com/v2/prices/spot?currency=USD"
+            //"https://api.coindesk.com/v1/bpi/currentprice.json"
+            if let url = URL(string:cburl){
                 var errorPointer:Error?
                 let task = URLSession.shared.dataTask(with: url, completionHandler: {
                     (data, response, error) in
@@ -35,29 +37,40 @@ class BTCPriceModel: NSObject {
                         //let str = String.init(data: data!, encoding: .utf8)
                         do{
                             let dict = try JSONSerialization.jsonObject(with: data!, options: .init(rawValue: 0)) as! Dictionary<String,Any>
-                            //print(dict)
-                            if let bpi = dict["bpi"] as? Dictionary<String,Any>{
-                                //print(bpi)
-                                if let usd = bpi["USD"] as? Dictionary<String,Any> {
-                                    
-                                    //print(usd)
-                                    if let rate = usd["rate_float"]{
-                                        self.btcRate = Float(rate as! Float)
-//                                        DispatchQueue.main.async {
-//                                            self.setBTCLabelString()
-//                                        }
+                            print(dict)
+                            
+                            if let data = dict["data"] as? Dictionary<String,Any>{
+                            
+                                                                //print(usd)
+                                    if let rate = data["amount"] as? NSString{
+                                        self.btcRate = rate.floatValue
                                         self.delegate?.updatedPrice()
                                     } else {
                                         print("fail at rate")
                                     }
-                                    
-                                    
-                                } else {
-                                    print("fail at USD")
-                                }
-                            } else {
-                                print("fail at bpi")
                             }
+//                            if let bpi = dict["bpi"] as? Dictionary<String,Any>{
+//                                //print(bpi)
+//                                if let usd = bpi["USD"] as? Dictionary<String,Any> {
+//
+//                                    //print(usd)
+//                                    if let rate = usd["rate_float"]{
+//                                        self.btcRate = Float(rate as! Float)
+////                                        DispatchQueue.main.async {
+////                                            self.setBTCLabelString()
+////                                        }
+//                                        self.delegate?.updatedPrice()
+//                                    } else {
+//                                        print("fail at rate")
+//                                    }
+//
+//
+//                                } else {
+//                                    print("fail at USD")
+//                                }
+//                            } else {
+//                                print("fail at bpi")
+//                            }
                         } catch {
                             fatalError()
                         }
@@ -82,10 +95,10 @@ class BTCPriceModel: NSObject {
         let originalPrice = buy.btcAmount * Float(buy.btcRateAtPurchase)
         let currentPrice = buy.btcAmount * btcRate;
         let appreciationDecimal = currentPrice / originalPrice;
-        let actualDecimal = (appreciationDecimal>1) ? appreciationDecimal-1 : appreciationDecimal
+        let actualDecimal = (appreciationDecimal>1) ? appreciationDecimal-1 : 1-appreciationDecimal
         buyDict["buy"] = String(buy.btcAmount)
         buyDict["date"] = dateF.string(from: buy.dateOfPurchase!)
-        print(buyDict["date"] ?? "no date")
+
         buyDict["rateAtBuy"] = String(buy.btcRateAtPurchase)
         buyDict["priceAtBuy"] = String(originalPrice)
         buyDict["currentRate"] = String(btcRate)
