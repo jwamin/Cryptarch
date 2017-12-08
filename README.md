@@ -11,7 +11,8 @@ Swift
 
 ## TODO
 * Handle refresh error in the event of poor connection
-* New UI
+* Edit Screen
+* Better UI
 
 ### Techniques Used
 * Parsing JSON with Swift
