@@ -49,6 +49,15 @@ class TableViewController: UITableViewController,BTCPriceDelegate,BTCManagerDele
         }
     }
     
+    func displayError() {
+        let error = UIAlertController(title: "Error refreshing price", message: "Please try again later...", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: {(_) in
+            self.refresh?.endRefreshing()
+        })
+        error.addAction(action)
+        self.present(error, animated: true, completion: nil)
+    }
+    
     func updatedCore() {
         tableView.reloadData()
     }

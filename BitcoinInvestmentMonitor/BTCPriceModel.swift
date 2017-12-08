@@ -10,6 +10,7 @@ import UIKit
 
 protocol BTCPriceDelegate {
     func updatedPrice()
+    func displayError()
 }
 
 class BTCPriceModel: NSObject {
@@ -32,7 +33,7 @@ class BTCPriceModel: NSObject {
                     if let gotError = error{
                         errorPointer = gotError
                         print(errorPointer as Any)
-                        fatalError()
+                        self.delegate?.displayError()
                     } else {
                         //let str = String.init(data: data!, encoding: .utf8)
                         do{
