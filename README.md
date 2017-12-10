@@ -13,6 +13,12 @@ Swift
 ## TODO
 * Edit Screen
 * Better UI
+* `heightForRowAtIndexPath:` - tap for detail
+
+## Nice to have
+* `CoreGraphics` drawing arrows
+* more `UITableView` methods. Reorder
+* Comparitive rates
 
 ### Techniques Used
 * Parsing JSON with Swift

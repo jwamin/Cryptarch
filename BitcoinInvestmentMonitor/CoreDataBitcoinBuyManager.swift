@@ -70,9 +70,11 @@ class CDBTCManager: NSObject {
             try managedObjectContext.save()
             
             fetchedBuys.remove(at: index)
+            delegate?.updatedCore()
+
         } catch {
             fatalError("Failed to fetch buys: \(error)")
-        }
+        } 
     }
     
 }

@@ -34,6 +34,21 @@ class ViewController: UIViewController {
         view.endEditing(false)
     }
     
+    static func defaultSettings()->Dictionary<String,String>{
+        
+        let dateF = DateFormatter()
+        dateF.dateFormat = "yyyy-MM-dd"
+        
+        var buyInfo:Dictionary<String,String> = [:]
+        buyInfo["date"] = dateF.string(from: Date())
+        buyInfo["btcAmount"] = "1.0"
+        buyInfo["btcRate"] = "20"
+        
+        return buyInfo
+        
+    }
+    
+    
     @IBAction func add(_ sender: Any) {
         
         let dateF = DateFormatter()

@@ -9,14 +9,15 @@
 import UIKit
 
 class BTCBuyTableCell: UITableViewCell {
-    @IBOutlet weak var btcAmountLabel: UILabel!
     
+    @IBOutlet weak var btcAmountLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var appreciationLabel: UILabel!
     @IBOutlet weak var currentPriceLabel: UILabel!
     @IBOutlet weak var currentRateLabel: UILabel!
     @IBOutlet weak var usdAtBuyLabel: UILabel!
     @IBOutlet weak var btcRateAtBuyLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
