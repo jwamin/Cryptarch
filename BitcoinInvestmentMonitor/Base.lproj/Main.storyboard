@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,13 +20,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HxZ-j5-h2x">
-                                <rect key="frame" x="166" y="214" width="42" height="21"/>
+                                <rect key="frame" x="166" y="214" width="42" height="20.333333333333343"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TTp-LV-Jv7">
-                                <rect key="frame" x="0.0" y="384" width="375" height="394"/>
+                                <rect key="frame" x="0.0" y="372" width="375" height="406"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="btcbuy" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="btcbuy" rowHeight="218" id="qBB-jX-L1R" customClass="BTCBuyTableCell" customModule="BitcoinInvestmentMonitor" customModuleProvider="target">
@@ -181,17 +182,23 @@
                         <constraints>
                             <constraint firstItem="X71-I6-9RN" firstAttribute="trailing" secondItem="TTp-LV-Jv7" secondAttribute="trailing" id="2Pn-N4-UzZ"/>
                             <constraint firstItem="X71-I6-9RN" firstAttribute="bottom" secondItem="TTp-LV-Jv7" secondAttribute="bottom" id="APf-PV-6yG"/>
-                            <constraint firstItem="HxZ-j5-h2x" firstAttribute="top" secondItem="X71-I6-9RN" secondAttribute="top" constant="126" id="Exp-2y-qqs"/>
                             <constraint firstItem="TTp-LV-Jv7" firstAttribute="leading" secondItem="X71-I6-9RN" secondAttribute="leading" id="GRf-r5-HlS"/>
-                            <constraint firstItem="TTp-LV-Jv7" firstAttribute="top" secondItem="HxZ-j5-h2x" secondAttribute="bottom" constant="149" id="nny-bh-zZV"/>
+                            <constraint firstItem="HxZ-j5-h2x" firstAttribute="top" secondItem="X71-I6-9RN" secondAttribute="top" constant="126" id="UOS-lp-pZd"/>
+                            <constraint firstItem="TTp-LV-Jv7" firstAttribute="height" secondItem="tnk-8U-wVw" secondAttribute="height" multiplier="0.5" id="dts-e5-nk8"/>
+                            <constraint firstItem="TTp-LV-Jv7" firstAttribute="top" secondItem="HxZ-j5-h2x" secondAttribute="bottom" constant="137.66666666666666" id="i3t-Je-HDR"/>
                             <constraint firstItem="HxZ-j5-h2x" firstAttribute="centerX" secondItem="X71-I6-9RN" secondAttribute="centerX" id="xRt-is-e9n"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="X71-I6-9RN"/>
                     </view>
-                    <navigationItem key="navigationItem" id="mqC-ob-5aJ"/>
+                    <navigationItem key="navigationItem" id="mqC-ob-5aJ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Bpk-WQ-A8k">
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="show" identifier="addSegue" id="uQv-Kb-YsI"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="TTp-LV-Jv7" id="Ahh-IR-xyU"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="addSegue" id="u7K-m8-hWv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NRF-55-iVd" userLabel="First Responder" sceneMemberID="firstResponder"/>
