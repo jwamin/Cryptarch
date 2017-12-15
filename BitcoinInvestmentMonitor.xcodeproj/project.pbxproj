@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3DAEF53D1FE43A1B00F9B22C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAEF53C1FE43A1B00F9B22C /* MainViewController.swift */; };
 		3DDDFAF91FD980DB00C00561 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFAF81FD980DB00C00561 /* AppDelegate.swift */; };
 		3DDDFAFB1FD980DB00C00561 /* AddEditScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFAFA1FD980DB00C00561 /* AddEditScreenController.swift */; };
 		3DDDFAFE1FD980DB00C00561 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DDDFAFC1FD980DB00C00561 /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3DAEF53C1FE43A1B00F9B22C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3DDDFAF51FD980DB00C00561 /* BitcoinInvestmentMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BitcoinInvestmentMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DDDFAF81FD980DB00C00561 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DDDFAFA1FD980DB00C00561 /* AddEditScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditScreenController.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 		3DDDFAF71FD980DB00C00561 /* BitcoinInvestmentMonitor */ = {
 			isa = PBXGroup;
 			children = (
+				3DAEF53C1FE43A1B00F9B22C /* MainViewController.swift */,
 				3DDDFAF81FD980DB00C00561 /* AppDelegate.swift */,
 				3DDDFAFA1FD980DB00C00561 /* AddEditScreenController.swift */,
 				3DDDFB381FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift */,
@@ -160,6 +163,7 @@
 				3DDDFB301FD982CF00C00561 /* BTCBuyTableCell.swift in Sources */,
 				3DDDFB0D1FD9826200C00561 /* TableViewController.swift in Sources */,
 				3DDDFB331FD9894A00C00561 /* BTCModel.xcdatamodeld in Sources */,
+				3DAEF53D1FE43A1B00F9B22C /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

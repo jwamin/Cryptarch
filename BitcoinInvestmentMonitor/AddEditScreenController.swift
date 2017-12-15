@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var tableViewParent:TableViewController?
+    var tableViewParent:MainViewController?
     
     @IBOutlet weak var btcAmountField: UITextField!
     @IBOutlet weak var rateAtPurchaseField: UITextField!
