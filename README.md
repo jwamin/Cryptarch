@@ -19,6 +19,8 @@ Swift
 * `CoreGraphics` drawing arrows
 * more `UITableView` methods. Reorder
 * Comparitive rates
+* Other crypto currencies (LTC/ETH)
+* Cumulative view
 
 ### Techniques Used
 * Parsing JSON with Swift
