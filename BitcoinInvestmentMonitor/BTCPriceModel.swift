@@ -103,7 +103,8 @@ class BTCPriceModel: NSObject {
         buyDict["rateAtBuy"] = String(buy.btcRateAtPurchase)
         buyDict["priceAtBuy"] = String(originalPrice)
         buyDict["currentRate"] = String(btcRate)
-        
+        buyDict["currency"] = buy.cryptoCurrency
+        print(buy.cryptoCurrency,CryptoTicker.ticker(ticker: buy.cryptoCurrency))
         buyDict["currentPrice"] = String(format: "%.2f", arguments: [currentPrice])
         buyDict["appreciation"] = String(format: "%.2f", arguments:[(actualDecimal * 100)])+"%";
         buyDict["direction"] = (appreciationDecimal>1) ? "up" : "down"

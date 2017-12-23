@@ -18,6 +18,7 @@
 		3DDDFB301FD982CF00C00561 /* BTCBuyTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB2F1FD982CF00C00561 /* BTCBuyTableCell.swift */; };
 		3DDDFB331FD9894A00C00561 /* BTCModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB311FD9894A00C00561 /* BTCModel.xcdatamodeld */; };
 		3DDDFB391FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB381FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift */; };
+		57DA6FE51FEE4EFC00568BEB /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DA6FE41FEE4EFC00568BEB /* Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		3DDDFB321FD9894A00C00561 /* BTCModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BTCModel.xcdatamodel; sourceTree = "<group>"; };
 		3DDDFB381FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataBitcoinBuyManager.swift; sourceTree = "<group>"; };
 		3DDDFB3A1FD9BE4D00C00561 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		57DA6FE41FEE4EFC00568BEB /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				3DDDFAFC1FD980DB00C00561 /* Main.storyboard */,
 				3DDDFB2F1FD982CF00C00561 /* BTCBuyTableCell.swift */,
 				3DDDFB0C1FD9826200C00561 /* TableViewController.swift */,
+				57DA6FE41FEE4EFC00568BEB /* Helpers.swift */,
 				3DDDFB311FD9894A00C00561 /* BTCModel.xcdatamodeld */,
 				3DDDFAFF1FD980DB00C00561 /* Assets.xcassets */,
 				3DDDFB011FD980DB00C00561 /* LaunchScreen.storyboard */,
@@ -160,6 +163,7 @@
 				3DDDFB0B1FD9814000C00561 /* BTCPriceModel.swift in Sources */,
 				3DDDFB391FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift in Sources */,
 				3DDDFAF91FD980DB00C00561 /* AppDelegate.swift in Sources */,
+				57DA6FE51FEE4EFC00568BEB /* Helpers.swift in Sources */,
 				3DDDFB301FD982CF00C00561 /* BTCBuyTableCell.swift in Sources */,
 				3DDDFB0D1FD9826200C00561 /* TableViewController.swift in Sources */,
 				3DDDFB331FD9894A00C00561 /* BTCModel.xcdatamodeld in Sources */,

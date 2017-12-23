@@ -12,12 +12,13 @@ class ViewController: UIViewController {
 
     var tableViewParent:MainViewController?
     
+    @IBOutlet weak var currencyPicker: UISegmentedControl!
     @IBOutlet weak var btcAmountField: UITextField!
     @IBOutlet weak var rateAtPurchaseField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Add BTC Buy"
+        self.title = "Add Crypto Buy"
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -43,7 +44,7 @@ class ViewController: UIViewController {
         buyInfo["date"] = dateF.string(from: Date())
         buyInfo["btcAmount"] = "1.0"
         buyInfo["btcRate"] = "20"
-        
+        buyInfo["currency"] = CryptoTicker.btc.stringValue()
         return buyInfo
         
     }
@@ -56,10 +57,10 @@ class ViewController: UIViewController {
         
         var buyInfo:Dictionary<String,String> = [:]
         buyInfo["date"] = dateF.string(from: datePicker.date)
-        print(buyInfo["date"],datePicker.date)
+        //print(buyInfo["date"],datePicker.date)
         buyInfo["btcAmount"] = btcAmountField.text
         buyInfo["btcRate"] = rateAtPurchaseField.text
-        
+        buyInfo["currency"] = CryptoTicker(rawValue: currencyPicker.selectedSegmentIndex)?.stringValue()
         tableViewParent?.btcManager.commitToCore(buyInfo:buyInfo)
         navigationController?.popViewController(animated: true)
     }
