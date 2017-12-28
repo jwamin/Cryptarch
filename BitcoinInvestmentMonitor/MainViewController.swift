@@ -154,7 +154,8 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         let cell = tableView.dequeueReusableCell(withIdentifier: "btcbuy", for: indexPath) as! BTCBuyTableCell
         
         let labelDict = btcPriceMonitor.processInfo(buy: currentItems[indexPath.row])
-        
+        let isRising = (labelDict["direction"] == "up")
+        cell.initialiseTickerView(isRising: isRising)
         cell.btcAmountLabel.text = labelDict["buy"]
         cell.dateLabel.text = labelDict["date"]
         cell.btcRateAtBuyLabel.text = labelDict["rateAtBuy"]
@@ -163,7 +164,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         
         cell.currentPriceLabel.text = "$"+(labelDict["currentPrice"] ?? "missing")
         cell.appreciationLabel.text = (labelDict["direction"] == "up") ? "+"+labelDict["appreciation"]! : "-"+labelDict["appreciation"]!
-        cell.appreciationLabel.textColor = (labelDict["direction"] == "up") ? UIColor.green : UIColor.red
+        cell.appreciationLabel.textColor = isRising ? UIColor.green : UIColor.red
         
         
         return cell
