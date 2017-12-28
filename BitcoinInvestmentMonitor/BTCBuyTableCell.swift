@@ -33,6 +33,7 @@ class BTCBuyTableCell: UITableViewCell {
 
     func initialiseTickerView(isRising:Bool=true){
         ticker = TickerView(parent: self, isRising: isRising)
+        ticker.backgroundColor = UIColor.clear
         self.addSubview(ticker)
     }
     
@@ -49,15 +50,17 @@ class TickerView : UIView {
     init(parent:UIView,isRising:Bool=true) {
         
         var rect = CGRect()
+        
         let dimension:CGFloat = 10.0
         let constantMaybe:CGFloat = 1
         let xcoord = (parent.frame.width)-(dimension * constantMaybe)
         let ycoord = (parent.frame.height)-(dimension * constantMaybe)
+        let offset:CGFloat = 3.0
         //let backup = CGRect(x: 0.0, y: 0.0, width: dimension, height: dimension)
         if (isRising){
-            rect = CGRect(x: xcoord, y: 0.0, width: dimension, height: dimension)
+            rect = CGRect(x: xcoord-offset, y: 0.0+offset, width: dimension, height: dimension)
         } else {
-            rect = CGRect(x: xcoord, y: ycoord, width: dimension, height: dimension)
+            rect = CGRect(x: xcoord-offset, y: ycoord-offset, width: dimension, height: dimension)
         }
         //rect = backup
         
@@ -72,7 +75,7 @@ class TickerView : UIView {
     override func draw(_ rect: CGRect) {
         
         let context = UIGraphicsGetCurrentContext()
-        context?.setFillColor(UIColor.white.cgColor)
+        context?.setFillColor(UIColor.clear.cgColor)
         let path = CGPath(rect: rect, transform: nil)
         context?.addPath(path)
         context?.fillPath()
