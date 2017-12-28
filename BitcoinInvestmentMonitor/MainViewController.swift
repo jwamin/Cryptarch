@@ -14,10 +14,15 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     let btcPriceMonitor:BTCPriceModel = BTCPriceModel()
     let btcManager:CDBTCManager = CDBTCManager()
     var refresh:UIRefreshControl?
-    
+    var totalValue:Float! {
+        didSet{
+            totalLabel.text = String(format: "$%.2f", totalValue)
+        }
+    }
     var currentItems:[Buy] = []
     var formerItems:[Buy] = []
     
+    @IBOutlet weak var totalLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         btcPriceMonitor.delegate = self
@@ -54,6 +59,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             self.tableView.reloadData()
             if let refresh = self.refresh {
                 refresh.endRefreshing()
+                self.calculateTotal()
             }
         }
     }
@@ -81,20 +87,33 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         //            tableView.deleteRows(at: indexPaths, with: .automatic)
         //        }
         
-        
+        //Calculate current amount
         
     }
+    
+    func calculateTotal(){
+        var tempValue:Float = 0.0
+        for value in currentItems{
+            tempValue+=value.btcAmount
+        }
+        
+        totalValue = tempValue*btcPriceMonitor.btcRate
+        print("updated label value to: \(totalValue)")
+    }
+    
+    
     
     func displayError() {
         let error = UIAlertController(title: "Error refreshing price", message: "Please try again later...", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         error.addAction(action)
-        self.present(error, animated: true, completion: {() in
-            self.refresh?.endRefreshing()
-        })
+        self.refresh?.endRefreshing()
+        self.present(error, animated: true, completion: nil)
     }
     
     func updatedCore() {
+        
+        
         
         //old set vs new, bulk update
         updateTableItems()
@@ -151,8 +170,9 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 218.0
+        return 218.0 // Arbitrary, refactor
     }
+    
     
     
     // Override to support conditional editing of the table view.

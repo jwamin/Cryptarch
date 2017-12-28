@@ -199,6 +199,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="TTp-LV-Jv7" id="Ahh-IR-xyU"/>
+                        <outlet property="totalLabel" destination="HxZ-j5-h2x" id="Xg5-bh-Jdb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NRF-55-iVd" userLabel="First Responder" sceneMemberID="firstResponder"/>
