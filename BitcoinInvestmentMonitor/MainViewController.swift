@@ -19,8 +19,8 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             totalLabel.text = String(format: "$%.2f", totalValue)
         }
     }
-    var currentItems:[Buy] = []
-    var formerItems:[Buy] = []
+    var currentItems:[[Buy]] = []
+    var formerItems:[[Buy]] = []
     
     @IBOutlet weak var totalLabel: UILabel!
     override func viewDidLoad() {
@@ -59,15 +59,49 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             self.tableView.reloadData()
             if let refresh = self.refresh {
                 refresh.endRefreshing()
-                self.calculateTotal()
+                //self.calculateTotal()
             }
         }
     }
-    
+
     func updateTableItems(){
         formerItems = currentItems
-        currentItems = btcManager.fetchedBuys
+        currentItems = []
+        var items:[[Buy]] = []
+        
+        //Process fetched buys into array of arrays
+
+        for (index,value) in BTCPriceModel.polling.enumerated(){
+            var theseItems:[Buy] = []
+            for buy in btcManager.fetchedBuys{
+                
+                if(buy.cryptoCurrency==value.stringValue()){
+                    theseItems.append(buy)
+                } else if (buy.cryptoCurrency==nil) {
+                    theseItems.append(buy)
+                }
+                
+//                switch(value){
+//                case .ltc:
+//
+//                case .btc:
+//
+//                default:
+//                    fatalError()
+//                }
+            }
+            if(theseItems.count>0){
+                items.append(theseItems)
+            }
+        }
+        print("about to print array:")
+        print(items,items.count)
+        
+        currentItems = items
+        
         var indexPaths:[IndexPath] = []
+        
+        //this worked before multi-section updates
         
         if(currentItems.count>formerItems.count){
             tableView.beginUpdates()
@@ -78,6 +112,9 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             tableView.insertRows(at: indexPaths, with: .right)
             tableView.endUpdates()
         }
+        
+        
+        
         //else if (currentItems.count<formerItems.count) {
         //
         //            for value in (currentItems.count..<formerItems.count).reversed(){
@@ -92,8 +129,10 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     }
     
     func calculateTotal(){
+        
         var tempValue:Float = 0.0
-        for value in currentItems{
+        
+        for value in currentItems[0]{
             tempValue+=value.btcAmount
         }
         
@@ -141,19 +180,36 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     // MARK: - Table view data source
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return currentItems.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return btcManager.fetchedBuys.count
+        return currentItems[section].count
     }
     
+//    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+//        var strings:[String] = []
+//        for value in currentItems{
+//            if let crypto = value[0].cryptoCurrency{
+//                strings.append(crypto)
+//            }
+//
+//        }
+//        return strings
+//    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        return currentItems[section][0].cryptoCurrency
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "btcbuy", for: indexPath) as! BTCBuyTableCell
         
-        let labelDict = btcPriceMonitor.processInfo(buy: currentItems[indexPath.row])
+        print(indexPath.section,indexPath.row)
+        
+        let labelDict = btcPriceMonitor.processInfo(buy: currentItems[indexPath.section][indexPath.row])
         let isRising = (labelDict["direction"] == "up")
         cell.initialiseTickerView(isRising: isRising)
         cell.btcAmountLabel.text = labelDict["buy"]

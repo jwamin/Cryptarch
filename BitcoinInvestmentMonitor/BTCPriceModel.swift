@@ -20,6 +20,7 @@ class BTCPriceModel: NSObject {
     var delegate:BTCPriceDelegate?
     let dispatch_group: DispatchGroup = DispatchGroup()
     
+    static let polling:[CryptoTicker] = [.btc,.ltc]
     
     override init() {
         btcRate = 0.0
@@ -28,9 +29,9 @@ class BTCPriceModel: NSObject {
     func getUpdateBitcoinPrice(){
         
         //Dispatch queue multiple async tasks, finally return tuple
-        let polling:[CryptoTicker] = [.btc,.ltc]
         
-        for ticker in polling{
+        
+        for ticker in BTCPriceModel.polling{
             
             request(ticker:ticker)
             
