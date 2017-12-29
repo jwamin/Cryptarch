@@ -59,6 +59,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             self.tableView.reloadData()
             if let refresh = self.refresh {
                 refresh.endRefreshing()
+                self.updatedCore()
                 //self.calculateTotal()
             }
         }
@@ -71,10 +72,10 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         
         //Process fetched buys into array of arrays
 
-        for (index,value) in BTCPriceModel.polling.enumerated(){
+        for value in BTCPriceModel.polling{
             var theseItems:[Buy] = []
             for buy in btcManager.fetchedBuys{
-                
+                print(buy.objectID)
                 if(buy.cryptoCurrency==value.stringValue()){
                     theseItems.append(buy)
                 } else if (buy.cryptoCurrency==nil) {
@@ -94,25 +95,47 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
                 items.append(theseItems)
             }
         }
-        print("about to print array:")
-        print(items,items.count)
+        //print("about to print array:")
+        //print(items,items.count)
         
         currentItems = items
         
-        var indexPaths:[IndexPath] = []
         
         //this worked before multi-section updates
-        
-        if(currentItems.count>formerItems.count){
-            tableView.beginUpdates()
-            for value in formerItems.count..<currentItems.count{
-                let indexpath = IndexPath(row: value, section: 0)
-                indexPaths.append(indexpath)
+        if formerItems.count>0{
+            
+            var indexPaths:[IndexPath] = []
+            for (index,items) in currentItems.enumerated(){
+                //print("inner loop",items,index)
+                //print(items.count,formerItems[index])
+                if(items.count>formerItems[index].count){
+                    for value in formerItems[index].count..<items.count{
+                        let indexpath = IndexPath(row: value, section: index)
+                        indexPaths.append(indexpath)
+                    }
+                }
+                
             }
-            tableView.insertRows(at: indexPaths, with: .right)
-            tableView.endUpdates()
+            
+            if indexPaths.count>0{
+                tableView.beginUpdates()
+                tableView.insertRows(at: indexPaths, with: .right)
+                tableView.endUpdates()
+            }
+            
+        } else {
+            tableView.reloadData()
         }
-        
+//        if(currentItems.count>formerItems.count){
+//            tableView.beginUpdates()
+//            for value in formerItems.count..<currentItems.count{
+//                let indexpath = IndexPath(row: value, section: 0)
+//                indexPaths.append(indexpath)
+//            }
+//            tableView.insertRows(at: indexPaths, with: .right)
+//            tableView.endUpdates()
+//        }
+//
         
         
         //else if (currentItems.count<formerItems.count) {
@@ -155,7 +178,10 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         
         
         //old set vs new, bulk update
-        updateTableItems()
+        if(btcPriceMonitor.cryptoRates.count>0){
+             updateTableItems()
+        }
+       
         
     }
     
@@ -248,7 +274,8 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            btcManager.clearCore(index: indexPath.row)
+            let id = currentItems[indexPath.section][indexPath.row].objectID
+            btcManager.clearCore(id: id)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view

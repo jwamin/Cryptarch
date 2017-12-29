@@ -20,12 +20,14 @@ class CDBTCManager: NSObject {
     let managedObjectContext:NSManagedObjectContext
     var fetchedBuys:[Buy] = []
     var delegate:BTCManagerDelegate?
+    
     override init() {
         appDelegate = UIApplication.shared.delegate as! AppDelegate
         managedObjectContext = appDelegate.persistentContainer.newBackgroundContext()
     }
     
     func initEntity(){
+        
         print("initialising entity")
         let buysFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Buy")
         
@@ -33,6 +35,7 @@ class CDBTCManager: NSObject {
             
             fetchedBuys = try managedObjectContext.fetch(buysFetch) as! [Buy]
             delegate?.updatedCore()
+            print(fetchedBuys,fetchedBuys.count)
         } catch {
             
             fatalError("Failed to fetch Buys: \(error)")
@@ -55,22 +58,31 @@ class CDBTCManager: NSObject {
         obj.cryptoCurrency = buyInfo["currency"]
         
         do {
+            
             try managedObjectContext.save()
             fetchedBuys.append(obj)
             delegate?.updatedCore()
+            
         } catch {
+            
             fatalError()
+            
         }
         
     }
     
-    func clearCore(index:Int){
+    func clearCore(id:NSManagedObjectID){
         
         do {
-            managedObjectContext.delete(fetchedBuys[index])
+            let object = try managedObjectContext.existingObject(with: id)
+            managedObjectContext.delete(object)
             try managedObjectContext.save()
-            
-            fetchedBuys.remove(at: index)
+            for (index,buy) in fetchedBuys.enumerated() {
+                if(buy.objectID==id){
+                    fetchedBuys.remove(at: index)
+                }
+            }
+            //fetchedBuys.remove(at: index)
             delegate?.updatedCore()
 
         } catch {
