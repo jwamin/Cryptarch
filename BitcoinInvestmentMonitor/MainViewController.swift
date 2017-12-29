@@ -60,7 +60,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             if let refresh = self.refresh {
                 refresh.endRefreshing()
                 self.updatedCore()
-                //self.calculateTotal()
+                self.calculateTotal()
             }
         }
     }
@@ -153,13 +153,18 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     
     func calculateTotal(){
         
-        var tempValue:Float = 0.0
-        
-        for value in currentItems[0]{
-            tempValue+=value.btcAmount
+        totalValue = 0.0
+        var outerTempValue:Float = 0.0
+        for items in currentItems{
+            var tempValue:Float = 0.0
+            for buy in items{
+                tempValue+=buy.btcAmount
+            }
+            let rate = Float(btcPriceMonitor.cryptoRates[items[0].cryptoCurrency!]!)
+            outerTempValue += (tempValue*rate)
         }
         
-        totalValue = tempValue*btcPriceMonitor.btcRate
+        totalValue = outerTempValue
         print("updated label value to: \(totalValue)")
     }
     
