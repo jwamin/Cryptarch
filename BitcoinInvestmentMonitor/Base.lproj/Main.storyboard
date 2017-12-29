@@ -177,6 +177,12 @@
                                     <outlet property="delegate" destination="Mfi-wI-obE" id="ZT3-tG-XpF"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kob-Ip-oNH">
+                                <rect key="frame" x="167" y="185" width="40.333333333333343" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -186,7 +192,9 @@
                             <constraint firstItem="HxZ-j5-h2x" firstAttribute="top" secondItem="X71-I6-9RN" secondAttribute="top" constant="126" id="UOS-lp-pZd"/>
                             <constraint firstItem="TTp-LV-Jv7" firstAttribute="height" secondItem="tnk-8U-wVw" secondAttribute="height" multiplier="0.5" id="dts-e5-nk8"/>
                             <constraint firstItem="TTp-LV-Jv7" firstAttribute="top" secondItem="HxZ-j5-h2x" secondAttribute="bottom" constant="137.66666666666666" id="i3t-Je-HDR"/>
+                            <constraint firstItem="HxZ-j5-h2x" firstAttribute="top" secondItem="Kob-Ip-oNH" secondAttribute="bottom" constant="8" id="t8A-AJ-KJR"/>
                             <constraint firstItem="HxZ-j5-h2x" firstAttribute="centerX" secondItem="X71-I6-9RN" secondAttribute="centerX" id="xRt-is-e9n"/>
+                            <constraint firstItem="Kob-Ip-oNH" firstAttribute="centerX" secondItem="X71-I6-9RN" secondAttribute="centerX" id="zA0-1M-1Dd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="X71-I6-9RN"/>
                     </view>
@@ -204,7 +212,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NRF-55-iVd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-180" y="44"/>
+            <point key="canvasLocation" x="-180" y="43.596059113300491"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
