@@ -93,7 +93,7 @@ class BTCPriceModel: NSObject {
     
     
     func processInfo(buy:Buy) -> Dictionary<String,String>{
-        print(cryptoRates[buy.cryptoCurrency!]!)
+        //print(cryptoRates[buy.cryptoCurrency!]!)
         var buyDict:Dictionary<String,String> = [:]
         let dateF = DateFormatter()
         dateF.dateFormat = "yyyy-MM-dd"

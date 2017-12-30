@@ -35,7 +35,7 @@ class CDBTCManager: NSObject {
             
             fetchedBuys = try managedObjectContext.fetch(buysFetch) as! [Buy]
             delegate?.updatedCore()
-            print(fetchedBuys,fetchedBuys.count)
+            //print(fetchedBuys,fetchedBuys.count)
         } catch {
             
             fatalError("Failed to fetch Buys: \(error)")

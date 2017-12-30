@@ -106,8 +106,8 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             
             var indexPaths:[IndexPath] = []
             for (index,items) in currentItems.enumerated(){
-                //print("inner loop",items,index)
-                //print(items.count,formerItems[index])
+                print("inner loop",items,index)
+                print(items.count,formerItems[index])
                 if(items.count>formerItems[index].count){
                     for value in formerItems[index].count..<items.count{
                         let indexpath = IndexPath(row: value, section: index)
@@ -116,7 +116,8 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
                 }
                 
             }
-            
+            print("got an indexpath")
+            print(indexPaths)
             if indexPaths.count>0{
                 tableView.beginUpdates()
                 tableView.insertRows(at: indexPaths, with: .right)
@@ -238,7 +239,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "btcbuy", for: indexPath) as! BTCBuyTableCell
         
-        print(indexPath.section,indexPath.row)
+        //print(indexPath.section,indexPath.row)
         
         let labelDict = btcPriceMonitor.processInfo(buy: currentItems[indexPath.section][indexPath.row])
         let isRising = (labelDict["direction"] == "up")
@@ -281,7 +282,9 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             // Delete the row from the data source
             let id = currentItems[indexPath.section][indexPath.row].objectID
             btcManager.clearCore(id: id)
+            tableView.beginUpdates()
             tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
             btcManager.commitToCore(buyInfo: ViewController.defaultSettings())
