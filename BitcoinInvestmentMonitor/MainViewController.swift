@@ -53,6 +53,9 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         self.title = "Cryptarch"
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        //tableView.register(BTCBuyTableCell, forCellReuseIdentifier: "btcbuy")
+        
         let point = CGPoint(x: tableView.frame.origin.x, y: tableView.frame.origin.y)
         refresh = UIRefreshControl(frame: CGRect(origin: point, size: CGSize(width: tableView.frame.width, height: 32.0)))
         
@@ -73,7 +76,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         DispatchQueue.main.async {
             
             //reload data is fine, not adding or removing in this transaction
-            self.tableView.reloadData()
+            self.tableReload()
             if let refresh = self.refresh {
                 refresh.endRefreshing()
                 self.updatedCore()
@@ -149,7 +152,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             }
             
         } else {
-            tableView.reloadData()
+            tableReload()
         }
         
         
@@ -245,7 +248,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        tableView.reloadData()
+        tableReload()
     }
     
     
@@ -277,13 +280,13 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "btcbuy", for: indexPath) as! BTCBuyTableCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "btcbuy") as! BTCBuyTableCell
         
         print("new cell",indexPath.section,indexPath.row)
         
         let labelDict = btcPriceMonitor.processInfo(buy: currentItems[indexPath.section][indexPath.row])
         let isRising = (labelDict["direction"] == "up")
-        cell.initialiseTickerView(isRising: isRising)
+        
         cell.btcAmountLabel.text = labelDict["buy"]
         cell.dateLabel.text = labelDict["date"]
         cell.btcRateAtBuyLabel.text = labelDict["rateAtBuy"]
@@ -294,15 +297,23 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         cell.appreciationLabel.text = (labelDict["direction"] == "up") ? "+"+labelDict["appreciation"]! : "-"+labelDict["appreciation"]!
         cell.appreciationLabel.textColor = isRising ? UIColor.green : UIColor.red
         
-        
+        print("labeldict",indexPath,labelDict,cell)
+        cell.initialiseTickerView(isRising: isRising)
         return cell
     }
     
+    //reload / reposition ticker view when about to appear
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let buycell = cell as! BTCBuyTableCell
+        let rising = buycell.ticker.rising
+        buycell.ticker.removeFromSuperview()
+        buycell.initialiseTickerView(isRising: rising)
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if(tableView.cellForRow(at: indexPath) != nil){
-            return 218.0 // Arbitrary, refactor
-        }
+
         return 218.0
+        
     }
     
     
@@ -360,6 +371,11 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             btcManager.commitToCore(buyInfo: ViewController.defaultSettings())
             
         }
+    }
+    
+    func tableReload(){
+        print("reloading table")
+        tableView.reloadData()
     }
     
     //    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
