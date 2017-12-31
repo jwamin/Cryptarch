@@ -21,6 +21,7 @@ class CDBTCManager: NSObject {
     var fetchedBuys:[Buy] = []
     var delegate:BTCManagerDelegate?
     
+    
     override init() {
         appDelegate = UIApplication.shared.delegate as! AppDelegate
         managedObjectContext = appDelegate.persistentContainer.newBackgroundContext()
@@ -58,13 +59,19 @@ class CDBTCManager: NSObject {
         obj.cryptoCurrency = buyInfo["currency"]
         
         do {
-            
+            print("doing core commit")
             try managedObjectContext.save()
-            fetchedBuys.append(obj)
-            delegate?.updatedCore()
+            
+            //local, use array
+            //fetchedBuys.append(obj) // do i need this?
+            //delegate?.updatedCore()
+            
+            //OR
+            //Reload
+            initEntity()
             
         } catch {
-            
+            print("core commit failed")
             fatalError()
             
         }

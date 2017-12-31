@@ -17,6 +17,7 @@
 		3DDDFB301FD982CF00C00561 /* BTCBuyTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB2F1FD982CF00C00561 /* BTCBuyTableCell.swift */; };
 		3DDDFB331FD9894A00C00561 /* BTCModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB311FD9894A00C00561 /* BTCModel.xcdatamodeld */; };
 		3DDDFB391FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB381FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift */; };
+		5742B0BB1FF963A300187550 /* TableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5742B0BA1FF963A300187550 /* TableModel.swift */; };
 		57DA6FE51FEE4EFC00568BEB /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DA6FE41FEE4EFC00568BEB /* Helpers.swift */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,7 @@
 		3DDDFB321FD9894A00C00561 /* BTCModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BTCModel.xcdatamodel; sourceTree = "<group>"; };
 		3DDDFB381FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataBitcoinBuyManager.swift; sourceTree = "<group>"; };
 		3DDDFB3A1FD9BE4D00C00561 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		5742B0BA1FF963A300187550 /* TableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableModel.swift; sourceTree = "<group>"; };
 		57DA6FE41FEE4EFC00568BEB /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,6 +74,7 @@
 				3DDDFAF81FD980DB00C00561 /* AppDelegate.swift */,
 				3DDDFAFA1FD980DB00C00561 /* AddEditScreenController.swift */,
 				3DDDFB381FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift */,
+				5742B0BA1FF963A300187550 /* TableModel.swift */,
 				3DDDFB0A1FD9814000C00561 /* BTCPriceModel.swift */,
 				3DDDFAFC1FD980DB00C00561 /* Main.storyboard */,
 				3DDDFB2F1FD982CF00C00561 /* BTCBuyTableCell.swift */,
@@ -164,6 +167,7 @@
 				3DDDFB301FD982CF00C00561 /* BTCBuyTableCell.swift in Sources */,
 				3DDDFB331FD9894A00C00561 /* BTCModel.xcdatamodeld in Sources */,
 				3DAEF53D1FE43A1B00F9B22C /* MainViewController.swift in Sources */,
+				5742B0BB1FF963A300187550 /* TableModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
