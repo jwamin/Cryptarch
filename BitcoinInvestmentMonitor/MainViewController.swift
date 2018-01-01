@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import CoreData
 
-class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,UITableViewDelegate,UITableViewDataSource {
+class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,UITableViewDelegate,UITableViewDataSource,NSFetchedResultsControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     let btcPriceMonitor:BTCPriceModel = BTCPriceModel()
@@ -282,7 +283,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "btcbuy") as! BTCBuyTableCell
         
-        print("new cell",indexPath.section,indexPath.row)
+        //print("new cell",indexPath.section,indexPath.row)
         
         let labelDict = btcPriceMonitor.processInfo(buy: currentItems[indexPath.section][indexPath.row])
         let isRising = (labelDict["direction"] == "up")
@@ -297,12 +298,12 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         cell.appreciationLabel.text = (labelDict["direction"] == "up") ? "+"+labelDict["appreciation"]! : "-"+labelDict["appreciation"]!
         cell.appreciationLabel.textColor = isRising ? UIColor.green : UIColor.red
         
-        print("labeldict",indexPath,labelDict,cell)
+        //print("labeldict",indexPath,labelDict,cell)
         cell.initialiseTickerView(isRising: isRising)
         return cell
     }
     
-    //reload / reposition ticker view when about to appear
+    //reload / reposition ticker view when about to appears
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let buycell = cell as! BTCBuyTableCell
         let rising = buycell.ticker.rising
@@ -331,45 +332,10 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         if editingStyle == .delete {
             // Delete the row from the data source
 
-            print("current items at start of update:\(currentItems.count)")
-            print("getting id for cd model")
             let id = currentItems[indexPath.section][indexPath.row].objectID
             
-            print("removing from local model,\(indexPath.section) \(indexPath.row)")
-            print("was",currentItems[indexPath.section].count)
-            currentItems[indexPath.section].remove(at: indexPath.row)
-            print("now",currentItems[indexPath.section].count)
-            
-            print("starting table view updates (delete), \(indexPath)")
-            tableView.beginUpdates()
-            print(currentItems[indexPath.section].count)
-            
-                
-     
-            
-            
-            print("deleting row")
-            tableView.deleteRows(at: [indexPath], with: .fade)
-
-            
-//            if(currentItems[indexPath.section].count==0){
-//                print("deleting section")
-//                tableView.deleteSections(IndexSet(integer:indexPath.section), with: .automatic)
-//
-//            }
-            
-            
-            print("ending updates")
-            tableView.endUpdates()
-            
-            
-            print("removing from cd model")
             btcManager.clearCore(id: id)
-            calculateTotals()
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-            btcManager.commitToCore(buyInfo: ViewController.defaultSettings())
-            
+     
         }
     }
     
@@ -378,16 +344,55 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         tableView.reloadData()
     }
     
-    //    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-    //        var strings:[String] = []
-    //        for value in currentItems{
-    //            if let crypto = value[0].cryptoCurrency{
-    //                strings.append(crypto)
-    //            }
-    //
-    //        }
-    //        return strings
-    //    }
+    func establishedController() {
+        print("established link",self.btcManager.fetchedResultsController)
+        self.btcManager.fetchedResultsController.delegate = self
+    }
+    
+// MARK: - Fetched results controller
+    
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        print("will change content")
+        //tableView.beginUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        switch type {
+        case .insert:
+            //tableView.insertSections(IndexSet(integer: sectionIndex), with: .fade)
+            print("got insert sections")
+        case .delete:
+            //tableView.deleteSections(IndexSet(integer: sectionIndex), with: .fade)
+            print("got remove sections")
+        default:
+            return
+        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        print(indexPath)
+        switch type {
+        case .insert:
+            //tableView.insertRows(at: [newIndexPath!], with: .fade)
+            print("got insert")
+        case .delete:
+            //tableView.deleteRows(at: [indexPath!], with: .fade)
+            print("got delete")
+        case .update:
+            print("got update")
+        case .move:
+            print("got move")
+            //tableView.moveRow(at: indexPath!, to: newIndexPath!)
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        print("did change content")
+        //tableView.endUpdates()
+    }
+
+    
     
     
 }
