@@ -273,7 +273,12 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         // handle if first section is empty, second has title
-        return BTCPriceModel.polling[section].stringValue()
+        if let section = btcManager.fetchedResultsController.sections?[section]{
+            let buy = section.objects![0] as! Buy
+            return CryptoTicker.ticker(ticker: buy.cryptoCurrency).stringValue()
+        }
+    
+        return "header"
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

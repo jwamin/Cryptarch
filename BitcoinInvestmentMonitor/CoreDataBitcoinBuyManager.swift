@@ -105,7 +105,7 @@ class CDBTCManager: NSObject {
         fetchRequest.sortDescriptors = [sortDescriptor]
         // Edit the section name key path and cache name if appropriate.
         // nil for section name key path means "no sections".
-        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: "Master")
+        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: "cryptoCurrency", cacheName: "Master")
         aFetchedResultsController.delegate = self.delegate as? NSFetchedResultsControllerDelegate
         _fetchedResultsController = aFetchedResultsController
         
