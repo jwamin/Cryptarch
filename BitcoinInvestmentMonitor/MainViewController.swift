@@ -35,20 +35,15 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             percentLabel.text = String(format: "%.2f%", totalPercentValue)
         }
     }
-    
-    
-    var currentItems:[[Buy]] = []
-    var formerItems:[[Buy]] = []
-    
+
     @IBOutlet weak var totalLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         btcPriceMonitor.delegate = self
         btcManager.delegate = self
-        //        tableView.delegate = self
-        //        tableView.dataSource = self
+
         btcPriceMonitor.getUpdateBitcoinPrice()
-        btcManager.initEntity()
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         self.title = "Cryptarch"
@@ -76,88 +71,83 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         print(btcPriceMonitor.btcRate)
         DispatchQueue.main.async {
             
-            //reload data is fine, not adding or removing in this transaction
-            self.tableReload()
-            if let refresh = self.refresh {
-                refresh.endRefreshing()
-                self.updatedCore()
-                self.calculateTotals()
-            }
+   
+                
+                //reload data is fine, not adding or removing in this transaction
+                self.tableReload()
+                if let refresh = self.refresh {
+                    refresh.endRefreshing()
+                    //self.updatedCore()
+                    self.calculateTotals()
+                }
+            
+            
+            
+
         }
     }
     
-    func updateTableItems(){
-        formerItems = currentItems
-        currentItems = []
-        var items:[[Buy]] = []
-        
-        //Process fetched buys into array of arrays
-        print("updating table items")
-        for value in BTCPriceModel.polling{
-            var theseItems:[Buy] = []
-            for buy in btcManager.fetchedBuys{
-                print(buy.objectID)
-                if(buy.cryptoCurrency==value.stringValue()){
-                    theseItems.append(buy)
-                } 
-                
-            }
-                items.append(theseItems)
-        }
-        print("DONE updating table items")
-        //print("about to print array:")
-        //print(items,items.count)
-        
-        currentItems = items
-        
-        
-        //this worked before multi-section updates
-        if formerItems.count>0{
-            
-            var indexPaths:[IndexPath] = []
-            for (index,items) in currentItems.enumerated(){
-                print("inner loop")
-                //Adding with empty index causes crash
-                //print(items.count,formerItems[index])
-                if(items.count>formerItems[index].count){
-                    for value in formerItems[index].count..<items.count{
-                        let indexpath = IndexPath(row: value, section: index)
-                        indexPaths.append(indexpath)
-                    }
-                }
-                
-            }
-
-            if indexPaths.count>0{
-                print("got an indexpath")
-                print(indexPaths)
-                tableView.beginUpdates()
-//                for path in indexPaths{
-//                    if(!indexPathIsValid(indexPath: path)){
-//                        
-//                        let set = IndexSet(integer:path.section)
-//                        print("path invalid, \(path)")
-//                        print("going to add index?, \(set)")
-//                        tableView.insertSections(set, with: .automatic)
-//                        
-//                    } else {
-//                        print("path valid, \(path)")
+//    func updateTableItems(){
+//        formerItems = currentItems
+//        currentItems = []
+//        var items:[[Buy]] = []
+//
+//        //Process fetched buys into array of arrays
+//        print("updating table items")
+//        for value in BTCPriceModel.polling{
+//            var theseItems:[Buy] = []
+//            for buy in btcManager.fetchedBuys{
+//                print(buy.objectID)
+//                if(buy.cryptoCurrency==value.stringValue()){
+//                    theseItems.append(buy)
+//                }
+//
+//            }
+//                items.append(theseItems)
+//        }
+//        print("DONE updating table items")
+//        //print("about to print array:")
+//        //print(items,items.count)
+//
+//        currentItems = items
+//
+//
+//        //this worked before multi-section updates
+//        if formerItems.count>0{
+//
+//            var indexPaths:[IndexPath] = []
+//            for (index,items) in currentItems.enumerated(){
+//                print("inner loop")
+//                //Adding with empty index causes crash
+//                //print(items.count,formerItems[index])
+//                if(items.count>formerItems[index].count){
+//                    for value in formerItems[index].count..<items.count{
+//                        let indexpath = IndexPath(row: value, section: index)
+//                        indexPaths.append(indexpath)
 //                    }
 //                }
-                    tableView.insertRows(at: indexPaths, with: .right)
-                
-                
-                
-                tableView.endUpdates()
-                calculateTotals()
-            }
-            
-        } else {
-            tableReload()
-        }
-        
-        
-    }
+//
+//            }
+//
+//            if indexPaths.count>0{
+//                print("got an indexpath")
+//                print(indexPaths)
+//                tableView.beginUpdates()
+//
+//                    tableView.insertRows(at: indexPaths, with: .right)
+//
+//
+//
+//                tableView.endUpdates()
+//                calculateTotals()
+//            }
+//
+//        } else {
+//            tableReload()
+//        }
+//
+//
+//    }
     
     func indexPathIsValid(indexPath: IndexPath) -> Bool {
         if indexPath.section >= tableView.numberOfSections {
@@ -173,30 +163,32 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
 
         
         print("calculating totals")
-            print(currentItems.count,currentItems)
+
         totalValue = 0.0
         totalSpendValue = 0.0
         var outerTempValue:Float = 0.0
         var tempSpend:Float = 0.0
         var rate:Float
-        for items in currentItems{
-            if(items.count>0){
-                
-            
-            var tempValue:Float = 0.0
-            
-            for buy in items{
-                tempValue+=buy.btcAmount
-                tempSpend+=(buy.btcAmount * Float(buy.btcRateAtPurchase))
-            }
-            if(btcPriceMonitor.cryptoRates.count>0){
-                rate = Float(btcPriceMonitor.cryptoRates[items[0].cryptoCurrency!]!) // less force unwrapping, guard?
-            } else {
-                rate = 0
-            }
-            outerTempValue += (tempValue*rate)
+        if let items = btcManager.fetchedResultsController.fetchedObjects{
+            for item in items{
+                if(items.count>0){
+                    
+                    var tempValue:Float = 0.0
+                    
+                    for buy in items{
+                        tempValue+=buy.btcAmount
+                        tempSpend+=(buy.btcAmount * Float(buy.btcRateAtPurchase))
+                    }
+                    if(btcPriceMonitor.cryptoRates.count>0){
+                        rate = Float(btcPriceMonitor.cryptoRates[items[0].cryptoCurrency!]!) // less force unwrapping, guard?
+                    } else {
+                        rate = 0
+                    }
+                    outerTempValue += (tempValue*rate)
+                }
             }
         }
+
         
         totalValue = outerTempValue
         totalSpendValue = tempSpend
@@ -218,17 +210,17 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         self.present(error, animated: true, completion: nil)
     }
     
-    func updatedCore() {
-        
-
-        
-        //old set vs new, bulk update
-        if(btcPriceMonitor.cryptoRates.count>0){
-            updateTableItems()
-        }
-        
-        
-    }
+//    func updatedCore() {
+//
+//        print("updated core called")
+//
+//        //old set vs new, bulk update
+//        if(btcPriceMonitor.cryptoRates.count>0){
+//            updateTableItems()
+//        }
+//
+//
+//    }
     
     
     
@@ -263,18 +255,22 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
 //                numberOfSections+=1
 //            }
 //        }
-        return BTCPriceModel.polling.count
+        //return BTCPriceModel.polling.count
+        return self.btcManager.fetchedResultsController.sections?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if(currentItems.count != 0){
-            return currentItems[section].count
-        }
-        return 0
+//        if(currentItems.count != 0){
+//            return currentItems[section].count
+//        }
+//        return 0
+        let sectionInfo = self.btcManager.fetchedResultsController.sections![section]
+        return sectionInfo.numberOfObjects
     }
     
 
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         // handle if first section is empty, second has title
         return BTCPriceModel.polling[section].stringValue()
@@ -285,7 +281,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         
         //print("new cell",indexPath.section,indexPath.row)
         
-        let labelDict = btcPriceMonitor.processInfo(buy: currentItems[indexPath.section][indexPath.row])
+        let labelDict = btcPriceMonitor.processInfo(buy: self.btcManager.fetchedResultsController.object(at: indexPath))
         let isRising = (labelDict["direction"] == "up")
         
         cell.btcAmountLabel.text = labelDict["buy"]
@@ -330,12 +326,19 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     // Override to support editing the table view.
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-
-            let id = currentItems[indexPath.section][indexPath.row].objectID
-            
-            btcManager.clearCore(id: id)
-     
+            do {
+                let context = self.btcManager.fetchedResultsController.managedObjectContext
+                context.delete(self.btcManager.fetchedResultsController.object(at: indexPath))
+                
+                do {
+                    try context.save()
+                } catch {
+                    // Replace this implementation with code to handle the error appropriately.
+                    // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                    let nserror = error as NSError
+                    fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                }
+            }
         }
     }
     
@@ -354,16 +357,16 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         print("will change content")
-        //tableView.beginUpdates()
+        tableView.beginUpdates()
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         switch type {
         case .insert:
-            //tableView.insertSections(IndexSet(integer: sectionIndex), with: .fade)
+            tableView.insertSections(IndexSet(integer: sectionIndex), with: .fade)
             print("got insert sections")
         case .delete:
-            //tableView.deleteSections(IndexSet(integer: sectionIndex), with: .fade)
+            tableView.deleteSections(IndexSet(integer: sectionIndex), with: .fade)
             print("got remove sections")
         default:
             return
@@ -374,22 +377,23 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         print(indexPath)
         switch type {
         case .insert:
-            //tableView.insertRows(at: [newIndexPath!], with: .fade)
+            tableView.insertRows(at: [newIndexPath!], with: .fade)
             print("got insert")
         case .delete:
-            //tableView.deleteRows(at: [indexPath!], with: .fade)
+            tableView.deleteRows(at: [indexPath!], with: .fade)
             print("got delete")
         case .update:
             print("got update")
         case .move:
             print("got move")
-            //tableView.moveRow(at: indexPath!, to: newIndexPath!)
+            tableView.moveRow(at: indexPath!, to: newIndexPath!)
         }
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         print("did change content")
-        //tableView.endUpdates()
+        tableView.endUpdates()
+        tableView.reloadData()
     }
 
     

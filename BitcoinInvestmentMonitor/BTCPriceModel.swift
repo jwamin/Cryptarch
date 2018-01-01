@@ -23,7 +23,11 @@ class BTCPriceModel: NSObject {
     static let polling:[CryptoTicker] = [.btc,.ltc]
     
     override init() {
+        //seed initial value of zero
         btcRate = 0.0
+        for cryp in BTCPriceModel.polling{
+            cryptoRates[cryp.stringValue()] = 0.0
+        }
     }
     
     func getUpdateBitcoinPrice(){
@@ -93,7 +97,7 @@ class BTCPriceModel: NSObject {
     
     
     func processInfo(buy:Buy) -> Dictionary<String,String>{
-        //print(cryptoRates[buy.cryptoCurrency!]!)
+        print(buy.btcAmount,buy.cryptoCurrency)
         var buyDict:Dictionary<String,String> = [:]
         let dateF = DateFormatter()
         dateF.dateFormat = "yyyy-MM-dd"

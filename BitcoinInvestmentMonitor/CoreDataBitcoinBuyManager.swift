@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 protocol BTCManagerDelegate {
-    func updatedCore()
+    //func updatedCore()
     func establishedController()
 }
 
@@ -82,25 +82,10 @@ class CDBTCManager: NSObject {
         
     }
     
-    func clearCore(id:NSManagedObjectID){
-        let context = fetchedResultsController.managedObjectContext
-        do {
-            let object = try context.existingObject(with: id)
-            context.delete(object)
-            try context.save()
-            for (index,buy) in fetchedBuys.enumerated() {
-                if(buy.objectID==id){
-                    fetchedBuys.remove(at: index)
-                }
-            }
-            //fetchedBuys.remove(at: index)
-            //delegate?.updatedCore()
-
-        } catch {
-            fatalError("Failed to fetch buys: \(error)")
-        } 
-    }
-    
+//    func clearCore(indexPath:IndexPath){
+//        
+//    }
+//    
     
     // MARK: - Fetched results controller
     
