@@ -36,6 +36,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         }
     }
 
+    
     @IBOutlet weak var totalLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +44,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         btcManager.delegate = self
 
         btcPriceMonitor.getUpdateBitcoinPrice()
-        
+        percentLabel.text = ""
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         self.title = "Cryptarch"
@@ -170,22 +171,23 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         var tempSpend:Float = 0.0
         var rate:Float
         if let items = btcManager.fetchedResultsController.fetchedObjects{
-            for item in items{
-                if(items.count>0){
+            for buy in items{
+                
                     
                     var tempValue:Float = 0.0
                     
-                    for buy in items{
+                   
                         tempValue+=buy.btcAmount
                         tempSpend+=(buy.btcAmount * Float(buy.btcRateAtPurchase))
-                    }
+                    
                     if(btcPriceMonitor.cryptoRates.count>0){
-                        rate = Float(btcPriceMonitor.cryptoRates[items[0].cryptoCurrency!]!) // less force unwrapping, guard?
+                        rate = Float(btcPriceMonitor.cryptoRates[buy.cryptoCurrency!]!) // less force unwrapping, guard?
                     } else {
                         rate = 0
                     }
+                
                     outerTempValue += (tempValue*rate)
-                }
+                
             }
         }
 
@@ -399,6 +401,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         print("did change content")
         tableView.endUpdates()
         tableView.reloadData()
+        calculateTotals()
     }
 
     
