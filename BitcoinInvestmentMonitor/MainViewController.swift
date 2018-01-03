@@ -32,7 +32,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     var totalPercentValue:Float! = 0.0 {
         didSet{
             percentLabel.textColor = (totalPercentValue>1) ? UIColor.green : UIColor.red
-            percentLabel.text = String(format: "%.2f%", totalPercentValue)
+            percentLabel.text = String(format: "$%.2f", totalPercentValue)
         }
     }
 

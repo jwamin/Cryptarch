@@ -32,7 +32,7 @@ class CDBTCManager: NSObject {
     func initEntity(){
         
         print("initialising entity")
-        print(fetchedResultsController.fetchedObjects)
+        //print(fetchedResultsController.fetchedObjects)
 //        let buysFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Buy")
 //
 //        do {
