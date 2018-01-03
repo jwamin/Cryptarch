@@ -15,8 +15,9 @@ Swift
 * `CoreGraphics` drawing arrows indicating changes in price
 
 ## TODO
-* Edit Screen
+* Edit Screen using `commit editingStyle`
 * `heightForRowAtIndexPath:`  or `isExpanded` - tap for detail
+* Clear out all old code
 
 ## Nice to have
 

@@ -306,6 +306,31 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         return cell
     }
     
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let context = self.btcManager.fetchedResultsController.managedObjectContext
+        
+        let edit = UITableViewRowAction.init(style: .normal, title: "Edit", handler: {(action,path) in
+            print(action,path)
+        })
+        
+        let delete = UITableViewRowAction.init(style: .destructive, title: "Delete", handler: {(action,path) in
+            
+            context.delete(self.btcManager.fetchedResultsController.object(at: path))
+            
+            do {
+                try context.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        })
+        let options:[UITableViewRowAction] = [delete,edit]
+        return options
+    }
+    
+    
     //reload / reposition ticker view when about to appears
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let buycell = cell as! BTCBuyTableCell
@@ -330,24 +355,24 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     
     
     
-    // Override to support editing the table view.
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            do {
-                let context = self.btcManager.fetchedResultsController.managedObjectContext
-                context.delete(self.btcManager.fetchedResultsController.object(at: indexPath))
-                
-                do {
-                    try context.save()
-                } catch {
-                    // Replace this implementation with code to handle the error appropriately.
-                    // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                    let nserror = error as NSError
-                    fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-                }
-            }
-        }
-    }
+//    // Override to support editing the table view.
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            do {
+//                let context = self.btcManager.fetchedResultsController.managedObjectContext
+//                context.delete(self.btcManager.fetchedResultsController.object(at: indexPath))
+//
+//                do {
+//                    try context.save()
+//                } catch {
+//                    // Replace this implementation with code to handle the error appropriately.
+//                    // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+//                    let nserror = error as NSError
+//                    fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+//                }
+//            }
+//        }
+//    }
     
     func tableReload(){
         print("reloading table")
