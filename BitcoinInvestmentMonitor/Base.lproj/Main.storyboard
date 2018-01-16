@@ -253,6 +253,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="percentLabel" destination="jLl-sO-pTW" id="3rr-c8-hIl"/>
+                        <outlet property="statContainer" destination="lIF-G9-97K" id="rgp-FE-2Cz"/>
                         <outlet property="tableView" destination="TTp-LV-Jv7" id="Ahh-IR-xyU"/>
                         <outlet property="totalLabel" destination="HxZ-j5-h2x" id="Xg5-bh-Jdb"/>
                         <outlet property="totalSpendLabel" destination="YFf-Tc-B8G" id="sQB-u3-B3E"/>
