@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lIF-G9-97K">
-                                <rect key="frame" x="0.0" y="165" width="375" height="207"/>
+                                <rect key="frame" x="0.0" y="165" width="375" height="138"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Total Spent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kob-Ip-oNH">
                                         <rect key="frame" x="8" y="8" width="367" height="21"/>
@@ -65,14 +65,14 @@
                                     <constraint firstAttribute="trailing" secondItem="YFf-Tc-B8G" secondAttribute="trailing" id="sfA-kI-Twc"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Percent LAbel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jLl-sO-pTW">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jLl-sO-pTW">
                                 <rect key="frame" x="0.0" y="88" width="375" height="69"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TTp-LV-Jv7">
-                                <rect key="frame" x="0.0" y="364" width="375" height="414"/>
+                                <rect key="frame" x="0.0" y="295" width="375" height="483"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
@@ -232,11 +232,11 @@
                             <constraint firstItem="X71-I6-9RN" firstAttribute="bottom" secondItem="TTp-LV-Jv7" secondAttribute="bottom" id="92M-Mp-f2Z"/>
                             <constraint firstItem="lIF-G9-97K" firstAttribute="top" secondItem="jLl-sO-pTW" secondAttribute="bottom" constant="8" id="AKw-tR-zC4"/>
                             <constraint firstItem="TTp-LV-Jv7" firstAttribute="leading" secondItem="X71-I6-9RN" secondAttribute="leading" id="FBk-cN-AYS"/>
-                            <constraint firstItem="lIF-G9-97K" firstAttribute="height" secondItem="X71-I6-9RN" secondAttribute="height" multiplier="0.3" id="GYk-fT-PV7"/>
+                            <constraint firstItem="lIF-G9-97K" firstAttribute="height" secondItem="X71-I6-9RN" secondAttribute="height" multiplier="0.2" id="GYk-fT-PV7"/>
                             <constraint firstItem="X71-I6-9RN" firstAttribute="trailing" secondItem="lIF-G9-97K" secondAttribute="trailing" id="JJF-3I-Hmk"/>
                             <constraint firstItem="jLl-sO-pTW" firstAttribute="top" secondItem="X71-I6-9RN" secondAttribute="top" id="QUD-vm-aBK"/>
                             <constraint firstItem="X71-I6-9RN" firstAttribute="trailing" secondItem="jLl-sO-pTW" secondAttribute="trailing" id="cmE-Gk-nBO"/>
-                            <constraint firstItem="TTp-LV-Jv7" firstAttribute="height" secondItem="X71-I6-9RN" secondAttribute="height" multiplier="0.6" id="dXC-pk-ctN"/>
+                            <constraint firstItem="TTp-LV-Jv7" firstAttribute="height" secondItem="X71-I6-9RN" secondAttribute="height" multiplier="0.7" id="dXC-pk-ctN"/>
                             <constraint firstItem="X71-I6-9RN" firstAttribute="trailing" secondItem="TTp-LV-Jv7" secondAttribute="trailing" id="l8K-60-fFu"/>
                             <constraint firstItem="lIF-G9-97K" firstAttribute="leading" secondItem="X71-I6-9RN" secondAttribute="leading" id="phf-4w-zs6"/>
                             <constraint firstItem="lIF-G9-97K" firstAttribute="leading" secondItem="jLl-sO-pTW" secondAttribute="trailing" constant="-375" id="sCS-Bm-nis"/>
