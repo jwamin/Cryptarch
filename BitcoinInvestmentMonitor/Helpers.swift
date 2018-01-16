@@ -30,7 +30,7 @@ enum CryptoTicker:Int {
             switch(validString){
             case "LTC":
                 return .ltc
-            case "ETC":
+            case "ETH":
                 return .eth
             default:
                 return .btc

@@ -64,10 +64,9 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         tableView.refreshControl = refresh
     }
     
-    override func viewWillLayoutSubviews() {
+    override func viewWillAppear(_ animated: Bool) {
+
         darkMode = UserDefaults.standard.bool(forKey: "dark_mode")
-        
-        
         
         if darkMode{
             self.navigationController?.navigationBar.barTintColor = UIColor.black
