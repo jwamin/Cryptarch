@@ -20,7 +20,7 @@ class BTCPriceModel: NSObject {
     var delegate:BTCPriceDelegate?
     let dispatch_group: DispatchGroup = DispatchGroup()
     
-    static let polling:[CryptoTicker] = [.btc,.ltc]
+    static let polling:[CryptoTicker] = [.btc,.ltc,.eth]
     
     override init() {
         //seed initial value of zero

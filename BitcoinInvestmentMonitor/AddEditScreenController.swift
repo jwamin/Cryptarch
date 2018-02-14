@@ -19,6 +19,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Add Crypto Buy"
+        
+        currencyPicker.removeAllSegments()
+        
+        var segments = 0
+        for val in BTCPriceModel.polling{
+            currencyPicker.insertSegment(withTitle: val.stringValue(), at: segments, animated: false)
+                segments+=1
+        }
+        
         datePicker.maximumDate = Date()
         // Do any additional setup after loading the view, typically from a nib.
     }
