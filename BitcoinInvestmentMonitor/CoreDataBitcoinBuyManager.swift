@@ -48,6 +48,22 @@ class CDBTCManager: NSObject {
         
     }
     
+    func updateToCore(){
+        let context = fetchedResultsController.managedObjectContext
+        do {
+            print("doing core update")
+            try context.save()
+            
+     
+            
+        } catch {
+            print("core commit failed")
+            fatalError()
+            
+        }
+        
+    }
+    
     func commitToCore(buyInfo:Dictionary<String,String>){
         let context = fetchedResultsController.managedObjectContext
         let obj = Buy(context: context)

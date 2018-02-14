@@ -16,9 +16,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var btcAmountField: UITextField!
     @IBOutlet weak var rateAtPurchaseField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
+    
+    var editObject:Buy?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Add Crypto Buy"
+        
+        print(editObject ?? "no object")
         
         currencyPicker.removeAllSegments()
         
@@ -26,6 +31,13 @@ class ViewController: UIViewController {
         for val in BTCPriceModel.polling{
             currencyPicker.insertSegment(withTitle: val.stringValue(), at: segments, animated: false)
                 segments+=1
+        }
+        
+        if let passedObject = editObject {
+            currencyPicker.selectedSegmentIndex = CryptoTicker.ticker(ticker: passedObject.cryptoCurrency).rawValue
+            btcAmountField.text = String(passedObject.btcAmount)
+            rateAtPurchaseField.text = String(passedObject.btcRateAtPurchase)
+            datePicker.date = passedObject.dateOfPurchase!
         }
         
         datePicker.maximumDate = Date()
@@ -69,7 +81,17 @@ class ViewController: UIViewController {
     
     
     @IBAction func add(_ sender: Any) {
-        
+        if let passedObject = editObject {
+            
+            passedObject.cryptoCurrency = CryptoTicker(rawValue: currencyPicker.selectedSegmentIndex)?.stringValue()
+            passedObject.btcAmount = Float(btcAmountField.text ?? "0.0") ?? 0.0
+            passedObject.btcRateAtPurchase = Double(rateAtPurchaseField.text ?? "0.0") ?? 0.0
+            passedObject.dateOfPurchase = datePicker.date
+            
+            tableViewParent?.btcManager.updateToCore()
+            navigationController?.popViewController(animated: true)
+            return
+        } else {
         let dateF = DateFormatter()
         dateF.dateFormat = "yyyy-MM-dd"
         
@@ -81,6 +103,7 @@ class ViewController: UIViewController {
         buyInfo["currency"] = CryptoTicker(rawValue: currencyPicker.selectedSegmentIndex)?.stringValue()
         tableViewParent?.btcManager.commitToCore(buyInfo:buyInfo)
         navigationController?.popViewController(animated: true)
+        }
     }
     
 }

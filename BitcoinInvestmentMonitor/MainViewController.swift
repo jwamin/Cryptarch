@@ -259,6 +259,9 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         switch segue.identifier! {
         case "addSegue":
             let vc = segue.destination as! ViewController
+            if sender is Buy{
+                vc.editObject = sender as? Buy
+            }
             vc.tableViewParent = self
         default:
             return
@@ -344,7 +347,8 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         let context = self.btcManager.fetchedResultsController.managedObjectContext
         
         let edit = UITableViewRowAction.init(style: .normal, title: "Edit", handler: {(action,path) in
-            print(action,path)
+            let object = self.btcManager.fetchedResultsController.object(at: path)
+            self.performSegue(withIdentifier: "addSegue", sender: object)
         })
         
         let delete = UITableViewRowAction.init(style: .destructive, title: "Delete", handler: {(action,path) in
