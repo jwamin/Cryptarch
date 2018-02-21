@@ -6,7 +6,8 @@ Swift
 
 # Features
 * Add/Remove and track investments vs. the current bitcoin price
-* Allows other cryptocurrency buys to be tracked. e.g LTC
+* Edit Screen using `commit editingStyle`, passing CD Object to new VC.
+* Allows other cryptocurrency buys to be tracked. e.g LTC, ETH
 * UITableView sections
 * Pull to refresh
 * Alert view on price fetch fail
@@ -15,12 +16,15 @@ Swift
 * `CoreGraphics` drawing arrows indicating changes in price
 
 ## TODO
-* Edit Screen using `commit editingStyle`
-* `heightForRowAtIndexPath:`  or `isExpanded` - tap for detail
+* Landscape layout fixes.
+* Dark mode color fixes for refresh and table headers
+* `heightForRowAtIndexPath:`  or `isExpanded` - tap for detail instead of full view.
 * Clear out all old code
 
 ## Nice to have
-
+* Apple Watch
+* Altcoins
+* CG coloured triangles for main total label.
 * more `UITableView` methods. Reorder
 * Comparitive rates
 * Cumulative view

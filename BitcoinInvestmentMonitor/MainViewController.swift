@@ -35,11 +35,16 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     
     var totalPercentValue:Float! = 0.0 {
         didSet{
-            percentLabel.textColor = (totalPercentValue>1) ? UIColor.green : UIColor.red
-            percentLabel.text = String(format: "$%.2f", totalPercentValue)
+            updateTotalValue()
         }
     }
     
+    func updateTotalValue(){
+        percentLabel.textColor = (totalPercentValue>1) ? UIColor.green : UIColor.red
+        let str = String(format: "$%.2f", totalPercentValue)
+     
+        percentLabel.text = (totalPercentValue>1) ? str : str.replacingOccurrences(of: "-", with: "")
+    }
     
     @IBOutlet weak var totalLabel: UILabel!
     override func viewDidLoad() {
@@ -75,7 +80,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             MainViewController.darkModeView(view: view)
             MainViewController.darkModeView(view: statContainer)
         }
-        
+        updateTotalValue()
     }
     
     static func darkModeView(view:UIView){

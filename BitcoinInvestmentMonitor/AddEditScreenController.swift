@@ -38,6 +38,8 @@ class ViewController: UIViewController {
             btcAmountField.text = String(passedObject.btcAmount)
             rateAtPurchaseField.text = String(passedObject.btcRateAtPurchase)
             datePicker.date = passedObject.dateOfPurchase!
+        } else {
+         currencyPicker.selectedSegmentIndex = 0
         }
         
         datePicker.maximumDate = Date()
