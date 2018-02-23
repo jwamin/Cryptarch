@@ -15,7 +15,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     @IBOutlet weak var tableView: UITableView!
     let btcPriceMonitor:BTCPriceModel = BTCPriceModel()
     let btcManager:CDBTCManager = CDBTCManager()
-    var refresh:UIRefreshControl?
+    var refresh:UIRefreshControl!
     
     var darkMode:Bool = false
     
@@ -40,10 +40,13 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     }
     
     func updateTotalValue(){
-        percentLabel.textColor = (totalPercentValue>1) ? UIColor.green : UIColor.red
+        
+        let neutralLabel:UIColor = (darkMode) ? UIColor.white : UIColor.black
+        let inTheGreen = (totalPercentValue==0) ? 2 : (totalPercentValue>1) ? 1 : 0;
+        percentLabel.textColor = (inTheGreen==2) ? neutralLabel : (inTheGreen==1) ? UIColor.green : UIColor.red;
         let str = String(format: "$%.2f", totalPercentValue)
      
-        percentLabel.text = (totalPercentValue>1) ? str : str.replacingOccurrences(of: "-", with: "")
+        percentLabel.text = (inTheGreen>0) ? str : "-"+str.replacingOccurrences(of: "-", with: "")
     }
     
     @IBOutlet weak var totalLabel: UILabel!
@@ -77,6 +80,8 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             self.navigationController?.navigationBar.barTintColor = UIColor.black
             self.navigationController?.navigationBar.tintColor = UIColor.white
             self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+            refresh.backgroundColor = UIColor.black
+            tableView.backgroundColor = UIColor.black
             MainViewController.darkModeView(view: view)
             MainViewController.darkModeView(view: statContainer)
         }
@@ -307,17 +312,33 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         return sectionInfo.numberOfObjects
     }
     
-    
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        // handle if first section is empty, second has title
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let returnView = UITableViewHeaderFooterView()
+        
         if let section = btcManager.fetchedResultsController.sections?[section]{
             let buy = section.objects![0] as! Buy
-            return CryptoTicker.ticker(ticker: buy.cryptoCurrency).stringValue()
+             returnView.textLabel?.text = CryptoTicker.ticker(ticker: buy.cryptoCurrency).stringValue()
+        }
+       
+        
+        if darkMode {
+             returnView.contentView.backgroundColor = UIColor.black
+            returnView.textLabel?.textColor = UIColor.red
         }
         
-        return "header"
+       
+        return returnView
     }
+    
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        // handle if first section is empty, second has title
+//        if let section = btcManager.fetchedResultsController.sections?[section]{
+//            let buy = section.objects![0] as! Buy
+//            return CryptoTicker.ticker(ticker: buy.cryptoCurrency).stringValue()
+//        }
+//
+//        return "header"
+//    }
     
     
     

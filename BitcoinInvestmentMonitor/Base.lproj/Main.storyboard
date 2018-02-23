@@ -370,6 +370,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="add" destination="ydz-Ad-713" id="Uet-nq-zyS"/>
                         <outlet property="btcAmountField" destination="slL-8r-IU1" id="RLV-yH-kJt"/>
                         <outlet property="currencyPicker" destination="wfb-TQ-I4S" id="say-hG-DZ1"/>
                         <outlet property="datePicker" destination="M5Q-xN-jWd" id="H3b-Vi-kZO"/>

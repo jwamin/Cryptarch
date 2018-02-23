@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var rateAtPurchaseField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
     
+    @IBOutlet weak var add: UIButton!
     var editObject:Buy?
     
     override func viewDidLoad() {
@@ -48,8 +49,11 @@ class ViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         if(tableViewParent?.darkMode)!{
+            let white = UIColor.white
             MainViewController.darkModeView(view: self.view)
-            datePicker.setValue(UIColor.white, forKey: "textColor")
+            currencyPicker.tintColor = white
+            add.tintColor = white
+            datePicker.setValue(white, forKey: "textColor")
         }
     }
     
