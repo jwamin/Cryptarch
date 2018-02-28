@@ -239,7 +239,6 @@
                             <constraint firstItem="TTp-LV-Jv7" firstAttribute="height" secondItem="X71-I6-9RN" secondAttribute="height" multiplier="0.7" id="dXC-pk-ctN"/>
                             <constraint firstItem="X71-I6-9RN" firstAttribute="trailing" secondItem="TTp-LV-Jv7" secondAttribute="trailing" id="l8K-60-fFu"/>
                             <constraint firstItem="lIF-G9-97K" firstAttribute="leading" secondItem="X71-I6-9RN" secondAttribute="leading" id="phf-4w-zs6"/>
-                            <constraint firstItem="lIF-G9-97K" firstAttribute="leading" secondItem="jLl-sO-pTW" secondAttribute="trailing" constant="-375" id="sCS-Bm-nis"/>
                             <constraint firstItem="jLl-sO-pTW" firstAttribute="leading" secondItem="X71-I6-9RN" secondAttribute="leading" id="sfg-jo-25Q"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="X71-I6-9RN"/>

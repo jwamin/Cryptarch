@@ -33,6 +33,15 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     }
     @IBOutlet weak var percentLabel: UILabel!
     
+//    override var preferredStatusBarStyle: UIStatusBarStyle{
+//        print("updating status bar")
+//        if(darkMode){
+//            return .lightContent
+//        } else {
+//            return .default
+//        }
+//    }
+    
     var totalPercentValue:Float! = 0.0 {
         didSet{
             updateTotalValue()
@@ -77,6 +86,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         darkMode = UserDefaults.standard.bool(forKey: "dark_mode")
         
         if darkMode{
+            self.view.backgroundColor = UIColor.black
             self.navigationController?.navigationBar.barTintColor = UIColor.black
             self.navigationController?.navigationBar.tintColor = UIColor.white
             self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
@@ -84,6 +94,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             tableView.backgroundColor = UIColor.black
             MainViewController.darkModeView(view: view)
             MainViewController.darkModeView(view: statContainer)
+            UIApplication.shared.statusBarStyle = .lightContent
         }
         updateTotalValue()
     }
@@ -91,7 +102,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     static func darkModeView(view:UIView){
         view.backgroundColor = UIColor.black
         for thisView in view.subviews{
-            print(thisView)
+            //print(thisView)
             if thisView is UILabel{
                 (thisView as! UILabel).textColor = UIColor.white
             }
@@ -126,78 +137,6 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         }
     }
     
-    //    func updateTableItems(){
-    //        formerItems = currentItems
-    //        currentItems = []
-    //        var items:[[Buy]] = []
-    //
-    //        //Process fetched buys into array of arrays
-    //        print("updating table items")
-    //        for value in BTCPriceModel.polling{
-    //            var theseItems:[Buy] = []
-    //            for buy in btcManager.fetchedBuys{
-    //                print(buy.objectID)
-    //                if(buy.cryptoCurrency==value.stringValue()){
-    //                    theseItems.append(buy)
-    //                }
-    //
-    //            }
-    //                items.append(theseItems)
-    //        }
-    //        print("DONE updating table items")
-    //        //print("about to print array:")
-    //        //print(items,items.count)
-    //
-    //        currentItems = items
-    //
-    //
-    //        //this worked before multi-section updates
-    //        if formerItems.count>0{
-    //
-    //            var indexPaths:[IndexPath] = []
-    //            for (index,items) in currentItems.enumerated(){
-    //                print("inner loop")
-    //                //Adding with empty index causes crash
-    //                //print(items.count,formerItems[index])
-    //                if(items.count>formerItems[index].count){
-    //                    for value in formerItems[index].count..<items.count{
-    //                        let indexpath = IndexPath(row: value, section: index)
-    //                        indexPaths.append(indexpath)
-    //                    }
-    //                }
-    //
-    //            }
-    //
-    //            if indexPaths.count>0{
-    //                print("got an indexpath")
-    //                print(indexPaths)
-    //                tableView.beginUpdates()
-    //
-    //                    tableView.insertRows(at: indexPaths, with: .right)
-    //
-    //
-    //
-    //                tableView.endUpdates()
-    //                calculateTotals()
-    //            }
-    //
-    //        } else {
-    //            tableReload()
-    //        }
-    //
-    //
-    //    }
-    
-    func indexPathIsValid(indexPath: IndexPath) -> Bool {
-        if indexPath.section >= tableView.numberOfSections {
-            return false
-        }
-        if indexPath.row >= tableView.numberOfRows(inSection: indexPath.section) {
-            return false
-        }
-        return true
-    }
-    
     func calculateTotals(){
         
         
@@ -211,9 +150,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         if let items = btcManager.fetchedResultsController.fetchedObjects{
             for buy in items{
                 
-                
                 var tempValue:Float = 0.0
-                
                 
                 tempValue+=buy.btcAmount
                 tempSpend+=(buy.btcAmount * Float(buy.btcRateAtPurchase))
