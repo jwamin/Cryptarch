@@ -187,6 +187,10 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         self.present(error, animated: true, completion: nil)
     }
     
+    func silentFail() {
+        self.refresh?.endRefreshing()
+    }
+    
     //    func updatedCore() {
     //
     //        print("updated core called")

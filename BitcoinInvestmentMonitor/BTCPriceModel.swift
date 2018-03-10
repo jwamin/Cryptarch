@@ -11,6 +11,7 @@ import UIKit
 protocol BTCPriceDelegate {
     func updatedPrice()
     func displayError()
+    func silentFail()
 }
 
 class BTCPriceModel: NSObject {
@@ -30,10 +31,16 @@ class BTCPriceModel: NSObject {
         }
     }
     
+    @objc func killAll(){
+        print("got kill All, removing observer")
+        self.delegate?.silentFail()
+        NotificationCenter.default.removeObserver(self, name: .UIApplicationWillResignActive, object: nil)
+    }
+    
     func getUpdateBitcoinPrice(){
         
         //Dispatch queue multiple async tasks, finally return tuple
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(killAll), name: .UIApplicationWillResignActive, object: nil)
         
         for ticker in BTCPriceModel.polling{
             
@@ -43,6 +50,7 @@ class BTCPriceModel: NSObject {
         
         dispatch_group.notify(queue: .main, execute: {
             print("tasks done",self.cryptoRates)
+            NotificationCenter.default.removeObserver(self, name: .UIApplicationWillResignActive, object: nil)
             self.delegate?.updatedPrice()
         })
 
