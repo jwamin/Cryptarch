@@ -19,7 +19,7 @@ class BTCPriceModel: NSObject {
     var btcRate:Float
     var cryptoRates:Dictionary<String,Float> = [:]
     var delegate:BTCPriceDelegate?
-    let dispatch_group: DispatchGroup = DispatchGroup()
+    var  dispatch_group: DispatchGroup? = DispatchGroup()
     
     static let polling:[CryptoTicker] = [.btc,.ltc,.eth]
     
@@ -32,7 +32,9 @@ class BTCPriceModel: NSObject {
     }
     
     @objc func killAll(){
-        print("got kill All, removing observer")
+        print("got kill All, removing observer, shanking dispatch group")
+    
+        dispatch_group = nil
         self.delegate?.silentFail()
         NotificationCenter.default.removeObserver(self, name: .UIApplicationWillResignActive, object: nil)
     }
@@ -48,7 +50,7 @@ class BTCPriceModel: NSObject {
             
         }
         
-        dispatch_group.notify(queue: .main, execute: {
+        dispatch_group?.notify(queue: .main, execute: {
             print("tasks done",self.cryptoRates)
             NotificationCenter.default.removeObserver(self, name: .UIApplicationWillResignActive, object: nil)
             self.delegate?.updatedPrice()
@@ -61,7 +63,11 @@ class BTCPriceModel: NSObject {
     
     
     func request(ticker:CryptoTicker){
-        dispatch_group.enter()
+        if (dispatch_group === nil){
+            print("rebuilding dispatch group")
+            dispatch_group = DispatchGroup()
+        }
+        dispatch_group?.enter()
         let cburl = "https://api.coinbase.com/v2/prices/"+ticker.stringValue()+"-USD/spot"
         //"https://api.coindesk.com/v1/bpi/currentprice.json"
         if let url = URL(string:cburl){
@@ -86,7 +92,7 @@ class BTCPriceModel: NSObject {
                                     self.btcRate = rate.floatValue
                                 }
                                 self.cryptoRates[ticker.stringValue()] = rate.floatValue
-                                self.dispatch_group.leave()
+                                self.dispatch_group?.leave()
                             } else {
                                 print("fail at rate")
                             }
