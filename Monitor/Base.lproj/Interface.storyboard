@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="13771" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch38" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="13756"/>
+    </dependencies>
+    <scenes>
+        <!--Interface Controller-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Monitor" customModuleProvider="target">
+                    <items>
+                        <label height="57" alignment="center" text="Label" textAlignment="center" id="cTE-Yh-lZ2">
+                            <fontDescription key="font" type="boldSystem" pointSize="27"/>
+                        </label>
+                        <timer width="136" alignment="center" textAlignment="center" id="2NN-ZW-4A4">
+                            <fontDescription key="font" type="system" pointSize="11"/>
+                            <calendarUnit key="units" minute="YES" second="YES"/>
+                        </timer>
+                        <table alignment="left" id="vv1-Yj-KXS">
+                            <items>
+                                <tableRow identifier="Main" id="Ekl-W3-Q1r" customClass="TableItem" customModule="Monitor_Extension">
+                                    <group key="rootItem" width="1" alignment="left" animationDuration="1" id="veH-6W-Cfa">
+                                        <items>
+                                            <label alignment="left" verticalAlignment="center" text="Label" id="dMi-Q7-sy0"/>
+                                            <label alignment="right" verticalAlignment="center" text="Label" textAlignment="right" id="i7w-Dn-Z0k"/>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="currencyLabel" destination="dMi-Q7-sy0" id="EzR-7n-HoL"/>
+                                        <outlet property="valueLabel" destination="i7w-Dn-Z0k" id="iux-2B-BvX"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="ago" destination="2NN-ZW-4A4" id="pKJ-E7-IoA"/>
+                        <outlet property="table" destination="vv1-Yj-KXS" id="utO-Wc-F1t"/>
+                        <outlet property="total" destination="cTE-Yh-lZ2" id="Che-pu-lyC"/>
+                    </connections>
+                </controller>
+            </objects>
+        </scene>
+    </scenes>
+</document>

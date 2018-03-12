@@ -19,8 +19,59 @@
 		3DDDFB391FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB381FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift */; };
 		5742B0BB1FF963A300187550 /* TableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5742B0BA1FF963A300187550 /* TableModel.swift */; };
 		577C9D7F200D225D0058F239 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 577C9D7E200D225D0058F239 /* Settings.bundle */; };
+		57A83BF82056037E002B0CA0 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57A83BF62056037E002B0CA0 /* Interface.storyboard */; };
+		57A83BFA2056037E002B0CA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57A83BF92056037E002B0CA0 /* Assets.xcassets */; };
+		57A83C012056037E002B0CA0 /* Monitor Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 57A83C002056037E002B0CA0 /* Monitor Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		57A83C062056037E002B0CA0 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A83C052056037E002B0CA0 /* InterfaceController.swift */; };
+		57A83C082056037E002B0CA0 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A83C072056037E002B0CA0 /* ExtensionDelegate.swift */; };
+		57A83C0A2056037E002B0CA0 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A83C092056037E002B0CA0 /* ComplicationController.swift */; };
+		57A83C0C2056037E002B0CA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57A83C0B2056037E002B0CA0 /* Assets.xcassets */; };
+		57A83C102056037E002B0CA0 /* Monitor.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 57A83BF42056037E002B0CA0 /* Monitor.app */; };
+		57A83C1A205605CA002B0CA0 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DA6FE41FEE4EFC00568BEB /* Helpers.swift */; };
 		57DA6FE51FEE4EFC00568BEB /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DA6FE41FEE4EFC00568BEB /* Helpers.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		57A83C022056037E002B0CA0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3DDDFAED1FD980DA00C00561 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57A83BFF2056037E002B0CA0;
+			remoteInfo = "Monitor Extension";
+		};
+		57A83C0E2056037E002B0CA0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3DDDFAED1FD980DA00C00561 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57A83BF32056037E002B0CA0;
+			remoteInfo = Monitor;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		57A83C162056037E002B0CA0 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				57A83C012056037E002B0CA0 /* Monitor Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57A83C182056037E002B0CA0 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				57A83C102056037E002B0CA0 /* Monitor.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3DAEF53C1FE43A1B00F9B22C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -38,11 +89,28 @@
 		3DDDFB3A1FD9BE4D00C00561 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		5742B0BA1FF963A300187550 /* TableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableModel.swift; sourceTree = "<group>"; };
 		577C9D7E200D225D0058F239 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		57A83BF42056037E002B0CA0 /* Monitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Monitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		57A83BF72056037E002B0CA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		57A83BF92056037E002B0CA0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		57A83BFB2056037E002B0CA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		57A83C002056037E002B0CA0 /* Monitor Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Monitor Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		57A83C052056037E002B0CA0 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		57A83C072056037E002B0CA0 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		57A83C092056037E002B0CA0 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
+		57A83C0B2056037E002B0CA0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		57A83C0D2056037E002B0CA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57DA6FE41FEE4EFC00568BEB /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		3DDDFAF21FD980DB00C00561 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57A83BFD2056037E002B0CA0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -57,6 +125,8 @@
 			children = (
 				3DDDFB3A1FD9BE4D00C00561 /* README.md */,
 				3DDDFAF71FD980DB00C00561 /* BitcoinInvestmentMonitor */,
+				57A83BF52056037E002B0CA0 /* Monitor */,
+				57A83C042056037E002B0CA0 /* Monitor Extension */,
 				3DDDFAF61FD980DB00C00561 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -65,6 +135,8 @@
 			isa = PBXGroup;
 			children = (
 				3DDDFAF51FD980DB00C00561 /* BitcoinInvestmentMonitor.app */,
+				57A83BF42056037E002B0CA0 /* Monitor.app */,
+				57A83C002056037E002B0CA0 /* Monitor Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -90,6 +162,28 @@
 			path = BitcoinInvestmentMonitor;
 			sourceTree = "<group>";
 		};
+		57A83BF52056037E002B0CA0 /* Monitor */ = {
+			isa = PBXGroup;
+			children = (
+				57A83BF62056037E002B0CA0 /* Interface.storyboard */,
+				57A83BF92056037E002B0CA0 /* Assets.xcassets */,
+				57A83BFB2056037E002B0CA0 /* Info.plist */,
+			);
+			path = Monitor;
+			sourceTree = "<group>";
+		};
+		57A83C042056037E002B0CA0 /* Monitor Extension */ = {
+			isa = PBXGroup;
+			children = (
+				57A83C052056037E002B0CA0 /* InterfaceController.swift */,
+				57A83C072056037E002B0CA0 /* ExtensionDelegate.swift */,
+				57A83C092056037E002B0CA0 /* ComplicationController.swift */,
+				57A83C0B2056037E002B0CA0 /* Assets.xcassets */,
+				57A83C0D2056037E002B0CA0 /* Info.plist */,
+			);
+			path = "Monitor Extension";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -100,15 +194,51 @@
 				3DDDFAF11FD980DB00C00561 /* Sources */,
 				3DDDFAF21FD980DB00C00561 /* Frameworks */,
 				3DDDFAF31FD980DB00C00561 /* Resources */,
+				57A83C182056037E002B0CA0 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				57A83C0F2056037E002B0CA0 /* PBXTargetDependency */,
 			);
 			name = BitcoinInvestmentMonitor;
 			productName = BitcoinInvestmentMonitor;
 			productReference = 3DDDFAF51FD980DB00C00561 /* BitcoinInvestmentMonitor.app */;
 			productType = "com.apple.product-type.application";
+		};
+		57A83BF32056037E002B0CA0 /* Monitor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 57A83C172056037E002B0CA0 /* Build configuration list for PBXNativeTarget "Monitor" */;
+			buildPhases = (
+				57A83BF22056037E002B0CA0 /* Resources */,
+				57A83C162056037E002B0CA0 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				57A83C032056037E002B0CA0 /* PBXTargetDependency */,
+			);
+			name = Monitor;
+			productName = Monitor;
+			productReference = 57A83BF42056037E002B0CA0 /* Monitor.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		57A83BFF2056037E002B0CA0 /* Monitor Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 57A83C152056037E002B0CA0 /* Build configuration list for PBXNativeTarget "Monitor Extension" */;
+			buildPhases = (
+				57A83BFC2056037E002B0CA0 /* Sources */,
+				57A83BFD2056037E002B0CA0 /* Frameworks */,
+				57A83BFE2056037E002B0CA0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Monitor Extension";
+			productName = "Monitor Extension";
+			productReference = 57A83C002056037E002B0CA0 /* Monitor Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -121,6 +251,14 @@
 				ORGANIZATIONNAME = "Joss Manger";
 				TargetAttributes = {
 					3DDDFAF41FD980DB00C00561 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					57A83BF32056037E002B0CA0 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					57A83BFF2056037E002B0CA0 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
 					};
@@ -140,6 +278,8 @@
 			projectRoot = "";
 			targets = (
 				3DDDFAF41FD980DB00C00561 /* BitcoinInvestmentMonitor */,
+				57A83BF32056037E002B0CA0 /* Monitor */,
+				57A83BFF2056037E002B0CA0 /* Monitor Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -153,6 +293,23 @@
 				3DDDFB031FD980DB00C00561 /* LaunchScreen.storyboard in Resources */,
 				3DDDFB001FD980DB00C00561 /* Assets.xcassets in Resources */,
 				3DDDFAFE1FD980DB00C00561 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57A83BF22056037E002B0CA0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57A83BFA2056037E002B0CA0 /* Assets.xcassets in Resources */,
+				57A83BF82056037E002B0CA0 /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57A83BFE2056037E002B0CA0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57A83C0C2056037E002B0CA0 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,7 +332,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		57A83BFC2056037E002B0CA0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57A83C082056037E002B0CA0 /* ExtensionDelegate.swift in Sources */,
+				57A83C062056037E002B0CA0 /* InterfaceController.swift in Sources */,
+				57A83C0A2056037E002B0CA0 /* ComplicationController.swift in Sources */,
+				57A83C1A205605CA002B0CA0 /* Helpers.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		57A83C032056037E002B0CA0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57A83BFF2056037E002B0CA0 /* Monitor Extension */;
+			targetProxy = 57A83C022056037E002B0CA0 /* PBXContainerItemProxy */;
+		};
+		57A83C0F2056037E002B0CA0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57A83BF32056037E002B0CA0 /* Monitor */;
+			targetProxy = 57A83C0E2056037E002B0CA0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3DDDFAFC1FD980DB00C00561 /* Main.storyboard */ = {
@@ -192,6 +373,14 @@
 				3DDDFB021FD980DB00C00561 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		57A83BF62056037E002B0CA0 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				57A83BF72056037E002B0CA0 /* Base */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -336,6 +525,80 @@
 			};
 			name = Release;
 		};
+		57A83C112056037E002B0CA0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3C42F7N9CQ;
+				IBSC_MODULE = Monitor_Extension;
+				INFOPLIST_FILE = Monitor/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jossy.BitcoinInvestmentMonitor.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.2;
+			};
+			name = Debug;
+		};
+		57A83C122056037E002B0CA0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3C42F7N9CQ;
+				IBSC_MODULE = Monitor_Extension;
+				INFOPLIST_FILE = Monitor/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jossy.BitcoinInvestmentMonitor.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.2;
+			};
+			name = Release;
+		};
+		57A83C132056037E002B0CA0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3C42F7N9CQ;
+				INFOPLIST_FILE = "Monitor Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jossy.BitcoinInvestmentMonitor.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.2;
+			};
+			name = Debug;
+		};
+		57A83C142056037E002B0CA0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3C42F7N9CQ;
+				INFOPLIST_FILE = "Monitor Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jossy.BitcoinInvestmentMonitor.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.2;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -353,6 +616,24 @@
 			buildConfigurations = (
 				3DDDFB081FD980DB00C00561 /* Debug */,
 				3DDDFB091FD980DB00C00561 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		57A83C152056037E002B0CA0 /* Build configuration list for PBXNativeTarget "Monitor Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57A83C132056037E002B0CA0 /* Debug */,
+				57A83C142056037E002B0CA0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		57A83C172056037E002B0CA0 /* Build configuration list for PBXNativeTarget "Monitor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57A83C112056037E002B0CA0 /* Debug */,
+				57A83C122056037E002B0CA0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

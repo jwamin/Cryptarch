@@ -36,6 +36,9 @@ class BTCPriceModel: NSObject {
     
         dispatch_group = nil
         self.delegate?.silentFail()
+        
+        
+        //shouldnt be in model... I guess.
         NotificationCenter.default.removeObserver(self, name: .UIApplicationWillResignActive, object: nil)
     }
     
