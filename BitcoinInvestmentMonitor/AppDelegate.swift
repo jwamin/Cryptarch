@@ -113,15 +113,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        print(activationState)
+        print(activationState==WCSessionActivationState.activated)
     }
     
-    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
         print("got message \(message)")
         if(WCSession.default.isReachable){
             if(message["method"] as! String=="refresh"){
                 let reply = ["hello":"hello world from appd"]
-               WCSession.default.sendMessage(reply, replyHandler: nil, errorHandler: nil)
+                WCSession.default.sendMessage(reply, replyHandler: {(replyMessage) in
+                    print(replyMessage)
+                    print("meesage on appdel")
+                }, errorHandler: nil)
                 
             } else {
                 print("not refresh?")
@@ -130,6 +133,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
             print("not reachable")
         }
     }
+    
+//    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+//        print("got message \(message)")
+//        if(WCSession.default.isReachable){
+//            if(message["method"] as! String=="refresh"){
+//                let reply = ["hello":"hello world from appd"]
+//               WCSession.default.sendMessage(reply, replyHandler: {(replyMessage) in
+//                print(replyMessage)
+//                print("meesage on appdel")
+//                }, errorHandler: nil)
+//
+//            } else {
+//                print("not refresh?")
+//            }
+//        } else {
+//            print("not reachable")
+//        }
+//    }
     
 
 }

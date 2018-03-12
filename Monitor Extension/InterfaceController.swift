@@ -7,17 +7,15 @@
 //
 
 import WatchKit
-
+import WatchConnectivity
 import Foundation
 
 let polling:[CryptoTicker] = [.btc,.ltc,.eth]
 
 
-class InterfaceController: WKInterfaceController,WCSessionDelegate {
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        print("activated \(activationState == WCSessionActivationState.activated)")
-    }
-    
+class InterfaceController: WKInterfaceController {
+
+   let delegate = WKExtension.shared().delegate as! ExtensionDelegate
     @IBOutlet var total: WKInterfaceLabel!
     
     @IBOutlet var table: WKInterfaceTable!
@@ -65,15 +63,12 @@ class InterfaceController: WKInterfaceController,WCSessionDelegate {
     
 
     
-    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
-        print("handle response")
-        print(message)
-    }
+
     
     func refresh(){
         
- 
-        
+       
+        delegate.refresh()
     }
     
     

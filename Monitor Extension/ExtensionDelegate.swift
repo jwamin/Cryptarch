@@ -12,6 +12,14 @@ import WatchConnectivity
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
     func applicationDidFinishLaunching() {
+        
+        
+        if(WCSession.isSupported()){
+            let session = WCSession.default
+            session.delegate = self
+            session.activate()
+        }
+        
         // Perform any final initialization of your application.
     }
 
@@ -51,17 +59,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
 }
 
 extension ExtensionDelegate: WCSessionDelegate {
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        
-    }
-    
-    func applicationDidFinishLaunching() {
-        if(WCSession.isSupported()){
-            let session = WCSession.default
-            session.delegate = self
-            session.activate()
-        }
-    }
     
     func refresh(){
         let message = ["method":"refresh"]
@@ -72,6 +69,13 @@ extension ExtensionDelegate: WCSessionDelegate {
         })
     }
     
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        print("activated \(activationState == WCSessionActivationState.activated)")
+    }
     
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+        print("handle response")
+        print(message)
+    }
     
 }
