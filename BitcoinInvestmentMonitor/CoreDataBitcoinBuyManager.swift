@@ -15,19 +15,39 @@ protocol BTCManagerDelegate {
 }
 
 
-class CDBTCManager: NSObject {
+class CDBTCManager: NSObject,BTCPriceDelegate {
 
-    let appDelegate:AppDelegate
+    let appDelegate:AppDelegate = UIApplication.shared.delegate as! AppDelegate
     var managedObjectContext: NSManagedObjectContext? = nil
     var fetchedBuys:[Buy] = []
     var delegate:BTCManagerDelegate?
+    var btcPriceMonitor:BTCPriceModel?
     
     var parent:MainViewController!
     
-    override init() {
-        appDelegate = UIApplication.shared.delegate as! AppDelegate
+    init(_ parent:MainViewController) {
+        super.init()
         managedObjectContext = appDelegate.persistentContainer.viewContext
+        btcPriceMonitor = BTCPriceModel(self)
+        self.parent = parent
     }
+    
+    
+    
+    //delegation of price model
+    
+    func updatedPrice() {
+        parent.updatedPrice()
+    }
+    
+    func silentFail() {
+        parent.silentFail()
+    }
+    
+    func displayError() {
+        parent.displayError()
+    }
+    
     
     func initEntity(){
         

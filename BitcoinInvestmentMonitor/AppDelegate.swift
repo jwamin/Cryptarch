@@ -8,15 +8,25 @@
 
 import UIKit
 import CoreData
+import WatchConnectivity
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
+
 
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        if(WCSession.isSupported()){
+            let session = WCSession.default
+            session.delegate = self
+            session.activate()
+        }
+        
+        
         return true
     }
 
@@ -89,6 +99,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    
+      // MARK: - WatchConnectivity
+    
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        print("deactivated wc session")
+    }
+    
+    func sessionDidDeactivate(_ session: WCSession) {
+        print("activated wc session")
+    }
+    
+    
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        print(activationState)
+    }
+    
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        print("got message \(message)")
+        if(WCSession.default.isReachable){
+            if(message["method"] as! String=="refresh"){
+                let reply = ["hello":"hello world from appd"]
+               WCSession.default.sendMessage(reply, replyHandler: nil, errorHandler: nil)
+                
+            } else {
+                print("not refresh?")
+            }
+        } else {
+            print("not reachable")
+        }
+    }
+    
 
 }
 

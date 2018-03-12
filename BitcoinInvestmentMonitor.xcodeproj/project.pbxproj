@@ -17,7 +17,6 @@
 		3DDDFB301FD982CF00C00561 /* BTCBuyTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB2F1FD982CF00C00561 /* BTCBuyTableCell.swift */; };
 		3DDDFB331FD9894A00C00561 /* BTCModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB311FD9894A00C00561 /* BTCModel.xcdatamodeld */; };
 		3DDDFB391FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB381FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift */; };
-		5742B0BB1FF963A300187550 /* TableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5742B0BA1FF963A300187550 /* TableModel.swift */; };
 		577C9D7F200D225D0058F239 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 577C9D7E200D225D0058F239 /* Settings.bundle */; };
 		57A83BF82056037E002B0CA0 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57A83BF62056037E002B0CA0 /* Interface.storyboard */; };
 		57A83BFA2056037E002B0CA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57A83BF92056037E002B0CA0 /* Assets.xcassets */; };
@@ -87,7 +86,6 @@
 		3DDDFB321FD9894A00C00561 /* BTCModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BTCModel.xcdatamodel; sourceTree = "<group>"; };
 		3DDDFB381FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataBitcoinBuyManager.swift; sourceTree = "<group>"; };
 		3DDDFB3A1FD9BE4D00C00561 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
-		5742B0BA1FF963A300187550 /* TableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableModel.swift; sourceTree = "<group>"; };
 		577C9D7E200D225D0058F239 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		57A83BF42056037E002B0CA0 /* Monitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Monitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57A83BF72056037E002B0CA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
@@ -149,7 +147,6 @@
 				3DDDFAF81FD980DB00C00561 /* AppDelegate.swift */,
 				3DDDFAFA1FD980DB00C00561 /* AddEditScreenController.swift */,
 				3DDDFB381FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift */,
-				5742B0BA1FF963A300187550 /* TableModel.swift */,
 				3DDDFB0A1FD9814000C00561 /* BTCPriceModel.swift */,
 				3DDDFAFC1FD980DB00C00561 /* Main.storyboard */,
 				3DDDFB2F1FD982CF00C00561 /* BTCBuyTableCell.swift */,
@@ -328,7 +325,6 @@
 				3DDDFB301FD982CF00C00561 /* BTCBuyTableCell.swift in Sources */,
 				3DDDFB331FD9894A00C00561 /* BTCModel.xcdatamodeld in Sources */,
 				3DAEF53D1FE43A1B00F9B22C /* MainViewController.swift in Sources */,
-				5742B0BB1FF963A300187550 /* TableModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

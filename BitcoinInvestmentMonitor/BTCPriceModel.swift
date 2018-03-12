@@ -16,36 +16,37 @@ protocol BTCPriceDelegate {
 
 class BTCPriceModel: NSObject {
 
-    var btcRate:Float
+    var btcRate:Float!
     var cryptoRates:Dictionary<String,Float> = [:]
     var delegate:BTCPriceDelegate?
+    var CDParent:CDBTCManager!
     var  dispatch_group: DispatchGroup? = DispatchGroup()
     
     static let polling:[CryptoTicker] = [.btc,.ltc,.eth]
     
-    override init() {
+    init(_ parent:CDBTCManager) {
+        super.init()
         //seed initial value of zero
+        CDParent = parent
+        self.delegate = parent
         btcRate = 0.0
         for cryp in BTCPriceModel.polling{
             cryptoRates[cryp.stringValue()] = 0.0
         }
     }
     
-    @objc func killAll(){
+    func killAll(){
         print("got kill All, removing observer, shanking dispatch group")
     
         dispatch_group = nil
         self.delegate?.silentFail()
         
-        
-        //shouldnt be in model... I guess.
-        NotificationCenter.default.removeObserver(self, name: .UIApplicationWillResignActive, object: nil)
+
     }
     
     func getUpdateBitcoinPrice(){
         
-        //Dispatch queue multiple async tasks, finally return tuple
-        NotificationCenter.default.addObserver(self, selector: #selector(killAll), name: .UIApplicationWillResignActive, object: nil)
+       
         
         for ticker in BTCPriceModel.polling{
             
@@ -55,8 +56,8 @@ class BTCPriceModel: NSObject {
         
         dispatch_group?.notify(queue: .main, execute: {
             print("tasks done",self.cryptoRates)
-            NotificationCenter.default.removeObserver(self, name: .UIApplicationWillResignActive, object: nil)
-            self.delegate?.updatedPrice()
+            
+            self.calculateTotals()
         })
 
         
@@ -110,6 +111,48 @@ class BTCPriceModel: NSObject {
             
             task.resume()
         }
+    }
+    
+    func calculateTotals(){
+        
+        
+        print("calculating totals")
+        
+        var totalValue:Float = 0.0
+        var totalSpendValue:Float = 0.0
+        var outerTempValue:Float = 0.0
+        var tempSpend:Float = 0.0
+        var rate:Float
+        if let items = CDParent.fetchedResultsController.fetchedObjects{
+            for buy in items{
+                
+                var tempValue:Float = 0.0
+                
+                tempValue+=buy.btcAmount
+                tempSpend+=(buy.btcAmount * Float(buy.btcRateAtPurchase))
+                
+                if(self.cryptoRates.count>0){
+                    rate = Float(self.cryptoRates[buy.cryptoCurrency!]!) // less force unwrapping, guard?
+                } else {
+                    rate = 0
+                }
+                
+                outerTempValue += (tempValue*rate)
+                
+            }
+        }
+        
+        
+        totalValue = outerTempValue
+        totalSpendValue = tempSpend
+        print("updated label value to: \(totalValue)")
+        print("updated spend label value to: \(totalSpendValue)")
+        
+        let appreciationDecimal = totalValue - totalSpendValue;
+        let totalPercentValue = appreciationDecimal// (appreciationDecimal>1) ? appreciationDecimal-1 : 1-appreciationDecimal
+        
+        self.delegate?.updatedPrice()
+        
     }
     
     

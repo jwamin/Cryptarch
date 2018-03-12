@@ -13,8 +13,8 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     
     @IBOutlet weak var statContainer: UIView!
     @IBOutlet weak var tableView: UITableView!
-    let btcPriceMonitor:BTCPriceModel = BTCPriceModel()
-    let btcManager:CDBTCManager = CDBTCManager()
+    
+    var btcManager:CDBTCManager!
     var refresh:UIRefreshControl!
     
     var darkMode:Bool = false
@@ -61,10 +61,10 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     @IBOutlet weak var totalLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        btcPriceMonitor.delegate = self
+        btcManager = CDBTCManager(self)
         btcManager.delegate = self
         
-        btcPriceMonitor.getUpdateBitcoinPrice()
+        btcManager.btcPriceMonitor?.getUpdateBitcoinPrice()
         percentLabel.text = ""
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -111,14 +111,20 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     
     @objc func handlePullToRefresh(_ sender:UIRefreshControl){
         sender.beginRefreshing()
-        btcPriceMonitor.getUpdateBitcoinPrice()
+        //Dispatch queue multiple async tasks, finally return tuple
+        NotificationCenter.default.addObserver(self, selector: #selector(callkillAll), name: .UIApplicationWillResignActive, object: nil)
+        btcManager.btcPriceMonitor?.getUpdateBitcoinPrice()
     }
     
+    @objc func callkillAll(){
+        btcManager.btcPriceMonitor?.killAll()
+    }
     
     
     func updatedPrice() {
         print("notified price update")
-        print(btcPriceMonitor.btcRate)
+        print(btcManager.btcPriceMonitor?.btcRate)
+        NotificationCenter.default.removeObserver(self, name: .UIApplicationWillResignActive, object: nil)
         DispatchQueue.main.async {
             
             
@@ -128,7 +134,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             if let refresh = self.refresh {
                 refresh.endRefreshing()
                 //self.updatedCore()
-                self.calculateTotals()
+                //self.calculateTotals()
             }
             
             
@@ -137,46 +143,46 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         }
     }
     
-    func calculateTotals(){
-        
-        
-        print("calculating totals")
-        
-        totalValue = 0.0
-        totalSpendValue = 0.0
-        var outerTempValue:Float = 0.0
-        var tempSpend:Float = 0.0
-        var rate:Float
-        if let items = btcManager.fetchedResultsController.fetchedObjects{
-            for buy in items{
-                
-                var tempValue:Float = 0.0
-                
-                tempValue+=buy.btcAmount
-                tempSpend+=(buy.btcAmount * Float(buy.btcRateAtPurchase))
-                
-                if(btcPriceMonitor.cryptoRates.count>0){
-                    rate = Float(btcPriceMonitor.cryptoRates[buy.cryptoCurrency!]!) // less force unwrapping, guard?
-                } else {
-                    rate = 0
-                }
-                
-                outerTempValue += (tempValue*rate)
-                
-            }
-        }
-        
-        
-        totalValue = outerTempValue
-        totalSpendValue = tempSpend
-        print("updated label value to: \(totalValue)")
-        print("updated spend label value to: \(totalSpendValue)")
-        
-        let appreciationDecimal = totalValue - totalSpendValue;
-        totalPercentValue = appreciationDecimal// (appreciationDecimal>1) ? appreciationDecimal-1 : 1-appreciationDecimal
-        
-    }
-    
+//    func calculateTotals(){
+//
+//
+//        print("calculating totals")
+//
+//        totalValue = 0.0
+//        totalSpendValue = 0.0
+//        var outerTempValue:Float = 0.0
+//        var tempSpend:Float = 0.0
+//        var rate:Float
+//        if let items = btcManager.fetchedResultsController.fetchedObjects{
+//            for buy in items{
+//
+//                var tempValue:Float = 0.0
+//
+//                tempValue+=buy.btcAmount
+//                tempSpend+=(buy.btcAmount * Float(buy.btcRateAtPurchase))
+//
+//                if(btcPriceMonitor.cryptoRates.count>0){
+//                    rate = Float(btcPriceMonitor.cryptoRates[buy.cryptoCurrency!]!) // less force unwrapping, guard?
+//                } else {
+//                    rate = 0
+//                }
+//
+//                outerTempValue += (tempValue*rate)
+//
+//            }
+//        }
+//
+//
+//        totalValue = outerTempValue
+//        totalSpendValue = tempSpend
+//        print("updated label value to: \(totalValue)")
+//        print("updated spend label value to: \(totalSpendValue)")
+//
+//        let appreciationDecimal = totalValue - totalSpendValue;
+//        totalPercentValue = appreciationDecimal// (appreciationDecimal>1) ? appreciationDecimal-1 : 1-appreciationDecimal
+//
+//    }
+//
     
     
     func displayError() {
@@ -189,6 +195,9 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     
     func silentFail() {
         self.refresh?.endRefreshing()
+        
+        //shouldnt be in model... I guess.
+        NotificationCenter.default.removeObserver(self, name: .UIApplicationWillResignActive, object: nil)
     }
     
     //    func updatedCore() {
@@ -282,13 +291,13 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
 //    }
     
     
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "btcbuy") as! BTCBuyTableCell
         
         //print("new cell",indexPath.section,indexPath.row)
         
-        let labelDict = btcPriceMonitor.processInfo(buy: self.btcManager.fetchedResultsController.object(at: indexPath))
+        let labelDict = btcManager.btcPriceMonitor!.processInfo(buy: self.btcManager.fetchedResultsController.object(at: indexPath))
         let isRising = (labelDict["direction"] == "up")
         
         if darkMode{
@@ -411,7 +420,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        print(indexPath)
+        //print(indexPath)
         switch type {
         case .insert:
             tableView.insertRows(at: [newIndexPath!], with: .fade)
@@ -431,7 +440,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         print("did change content")
         tableView.endUpdates()
         tableView.reloadData()
-        calculateTotals()
+        btcManager.btcPriceMonitor?.calculateTotals()
     }
     
     

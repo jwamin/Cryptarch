@@ -7,14 +7,17 @@
 //
 
 import WatchKit
+
 import Foundation
 
 let polling:[CryptoTicker] = [.btc,.ltc,.eth]
 
 
-
-
-class InterfaceController: WKInterfaceController {
+class InterfaceController: WKInterfaceController,WCSessionDelegate {
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        print("activated \(activationState == WCSessionActivationState.activated)")
+    }
+    
     @IBOutlet var total: WKInterfaceLabel!
     
     @IBOutlet var table: WKInterfaceTable!
@@ -23,7 +26,10 @@ class InterfaceController: WKInterfaceController {
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
+        
+        total.setText("inid'd")
         ago.setDate(Date.init())
+        
         // Configure interface objects here.
     }
     
@@ -43,12 +49,36 @@ class InterfaceController: WKInterfaceController {
         
     }
     
+    override func didAppear() {
+        print("hello")
+    }
+    
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
     }
+    
+    override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
+        print("\(table) select \(rowIndex)")
+        refresh()
+    }
+    
 
+    
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        print("handle response")
+        print(message)
+    }
+    
+    func refresh(){
+        
+ 
+        
+    }
+    
+    
 }
+
 
 class TableItem : NSObject {
     

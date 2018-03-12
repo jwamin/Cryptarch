@@ -7,6 +7,7 @@
 //
 
 import WatchKit
+import WatchConnectivity
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
@@ -47,4 +48,30 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         }
     }
 
+}
+
+extension ExtensionDelegate: WCSessionDelegate {
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        
+    }
+    
+    func applicationDidFinishLaunching() {
+        if(WCSession.isSupported()){
+            let session = WCSession.default
+            session.delegate = self
+            session.activate()
+        }
+    }
+    
+    func refresh(){
+        let message = ["method":"refresh"]
+        WCSession.default.sendMessage(message, replyHandler: { (thing) in
+            print(thing)
+        }, errorHandler: { (err) in
+            print("watch error")
+        })
+    }
+    
+    
+    
 }
