@@ -9,9 +9,9 @@
 import UIKit
 
 protocol BTCPriceDelegate {
-  func updatedPrice()
-func displayError()
-  func silentFail()
+    func updatedPrice()
+    func displayError()
+    func silentFail()
 }
 
 class BTCPriceModel: NSObject {
@@ -57,7 +57,7 @@ class BTCPriceModel: NSObject {
         dispatch_group?.notify(queue: .main, execute: {
             print("tasks done",self.cryptoRates)
             
-          //  self.calculateTotals()
+          self.CDParent?.updatedPrice()
         })
 
         
@@ -113,47 +113,7 @@ class BTCPriceModel: NSObject {
         }
     }
     
-    func calculateTotals(){
-        
-        
-        print("calculating totals")
-        
-        var totalValue:Float = 0.0
-        var totalSpendValue:Float = 0.0
-        var outerTempValue:Float = 0.0
-        var tempSpend:Float = 0.0
-        var rate:Float
-        if let items = CDParent?.fetchedResultsController.fetchedObjects{
-            for buy in items{
-                
-                var tempValue:Float = 0.0
-                
-                tempValue+=buy.btcAmount
-                tempSpend+=(buy.btcAmount * Float(buy.btcRateAtPurchase))
-                
-                if(self.cryptoRates.count>0){
-                    rate = Float(self.cryptoRates[buy.cryptoCurrency!]!) // less force unwrapping, guard?
-                } else {
-                    rate = 0
-                }
-                
-                outerTempValue += (tempValue*rate)
-                
-            }
-        }
-        
-        
-        totalValue = outerTempValue
-        totalSpendValue = tempSpend
-        print("updated label value to: \(totalValue)")
-        print("updated spend label value to: \(totalSpendValue)")
-        
-        let appreciationDecimal = totalValue - totalSpendValue;
-        let totalPercentValue = appreciationDecimal// (appreciationDecimal>1) ? appreciationDecimal-1 : 1-appreciationDecimal
-        
-        self.delegate?.updatedPrice()
-        
-    }
+
     
     
     func processInfo(buy:Buy) -> Dictionary<String,String>{

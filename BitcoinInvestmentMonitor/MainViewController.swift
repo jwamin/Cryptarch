@@ -134,7 +134,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             if let refresh = self.refresh {
                 refresh.endRefreshing()
                 //self.updatedCore()
-                //self.calculateTotals()
+                self.calculateTotals()
             }
             
             
@@ -143,46 +143,46 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         }
     }
     
-//    func calculateTotals(){
-//
-//
-//        print("calculating totals")
-//
-//        totalValue = 0.0
-//        totalSpendValue = 0.0
-//        var outerTempValue:Float = 0.0
-//        var tempSpend:Float = 0.0
-//        var rate:Float
-//        if let items = btcManager.fetchedResultsController.fetchedObjects{
-//            for buy in items{
-//
-//                var tempValue:Float = 0.0
-//
-//                tempValue+=buy.btcAmount
-//                tempSpend+=(buy.btcAmount * Float(buy.btcRateAtPurchase))
-//
-//                if(btcPriceMonitor.cryptoRates.count>0){
-//                    rate = Float(btcPriceMonitor.cryptoRates[buy.cryptoCurrency!]!) // less force unwrapping, guard?
-//                } else {
-//                    rate = 0
-//                }
-//
-//                outerTempValue += (tempValue*rate)
-//
-//            }
-//        }
-//
-//
-//        totalValue = outerTempValue
-//        totalSpendValue = tempSpend
-//        print("updated label value to: \(totalValue)")
-//        print("updated spend label value to: \(totalSpendValue)")
-//
-//        let appreciationDecimal = totalValue - totalSpendValue;
-//        totalPercentValue = appreciationDecimal// (appreciationDecimal>1) ? appreciationDecimal-1 : 1-appreciationDecimal
-//
-//    }
-//
+    func calculateTotals(){
+
+
+        print("calculating totals")
+
+        totalValue = 0.0
+        totalSpendValue = 0.0
+        var outerTempValue:Float = 0.0
+        var tempSpend:Float = 0.0
+        var rate:Float
+        if let items = btcManager.fetchedResultsController.fetchedObjects{
+            for buy in items{
+
+                var tempValue:Float = 0.0
+
+                tempValue+=buy.btcAmount
+                tempSpend+=(buy.btcAmount * Float(buy.btcRateAtPurchase))
+
+                if(btcManager.btcPriceMonitor.cryptoRates.count>0){
+                    rate = Float(btcManager.btcPriceMonitor.cryptoRates[buy.cryptoCurrency!]!) // less force unwrapping, guard?
+                } else {
+                    rate = 0
+                }
+
+                outerTempValue += (tempValue*rate)
+
+            }
+        }
+
+
+        totalValue = outerTempValue
+        totalSpendValue = tempSpend
+        print("updated label value to: \(totalValue)")
+        print("updated spend label value to: \(totalSpendValue)")
+
+        let appreciationDecimal = totalValue - totalSpendValue;
+        totalPercentValue = appreciationDecimal// (appreciationDecimal>1) ? appreciationDecimal-1 : 1-appreciationDecimal
+
+    }
+
     
     
     @objc func displayError() {
@@ -367,26 +367,48 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         return true
     }
     
-    
-    
-    //    // Override to support editing the table view.
-    //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-    //        if editingStyle == .delete {
-    //            do {
-    //                let context = self.btcManager.fetchedResultsController.managedObjectContext
-    //                context.delete(self.btcManager.fetchedResultsController.object(at: indexPath))
-    //
-    //                do {
-    //                    try context.save()
-    //                } catch {
-    //                    // Replace this implementation with code to handle the error appropriately.
-    //                    // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-    //                    let nserror = error as NSError
-    //                    fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-    //                }
-    //            }
-    //        }
-    //    }
+    //'fixed' version
+//    func calculateTotals(){
+//
+//
+//        print("calculating totals")
+//
+//        totalValue = 0.0
+//        totalSpendValue = 0.0
+//        var outerTempValue:Float = 0.0
+//        var tempSpend:Float = 0.0
+//        var rate:Float
+//        if let items = btcManager.fetchedResultsController.fetchedObjects{
+//            for buy in items{
+//
+//                var tempValue:Float = 0.0
+//
+//                tempValue+=buy.btcAmount
+//                tempSpend+=(buy.btcAmount * Float(buy.btcRateAtPurchase))
+//
+//                if(btcManager.btcPriceMonitor.cryptoRates.count>0){
+//                    rate = Float(btcManager.btcPriceMonitor.cryptoRates[buy.cryptoCurrency!]!) // less force unwrapping, guard?
+//                } else {
+//                    rate = 0
+//                }
+//
+//                outerTempValue += (tempValue*rate)
+//
+//            }
+//        }
+//
+//
+//        totalValue = outerTempValue
+//        totalSpendValue = tempSpend
+//        print("updated label value to: \(totalValue)")
+//        print("updated spend label value to: \(totalSpendValue)")
+//
+//        let appreciationDecimal = totalValue - totalSpendValue;
+//        totalPercentValue = appreciationDecimal// (appreciationDecimal>1) ? appreciationDecimal-1 : 1-appreciationDecimal
+//
+//        //updatedPrice()
+//
+//    }
     
     func tableReload(){
         print("reloading table")
@@ -440,7 +462,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         print("did change content")
         tableView.endUpdates()
         tableView.reloadData()
-        btcManager.btcPriceMonitor?.calculateTotals()
+        calculateTotals()
     }
     
     

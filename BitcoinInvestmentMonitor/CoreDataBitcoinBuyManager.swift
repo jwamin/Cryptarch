@@ -21,7 +21,7 @@ class CDBTCManager: NSObject,BTCPriceDelegate {
     var managedObjectContext: NSManagedObjectContext? = nil
     var fetchedBuys:[Buy] = []
     var delegate:BTCManagerDelegate?
-    var btcPriceMonitor:BTCPriceModel?
+    var btcPriceMonitor:BTCPriceModel!
     
     var parent:MainViewController!
     
