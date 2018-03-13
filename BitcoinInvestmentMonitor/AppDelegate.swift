@@ -135,7 +135,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
             
                     }
             
-            let rates = BTCPriceModel(nil)
+            let rates = BTCPriceModel()
             rates.getUpdateBitcoinPrice()
             if(message["method"] as! String=="refresh"){
                 
@@ -150,8 +150,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
                 
                 print(rates.cryptoRates)
                 for (key,value) in rates.cryptoRates{
-                    print(key,value)
-                    replyBody[key] = replyBody[key]! * value
+                    if let fl = replyBody[key]{
+                        replyBody[key] = fl * value
+                    }
                 }
                 
                 var reply = ["reply":replyBody];

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D8A20492058296A00881555 /* BTCPriceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB0A1FD9814000C00561 /* BTCPriceModel.swift */; };
+		3D8A204D20582B1100881555 /* Buy+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8A204B20582B1100881555 /* Buy+CoreDataClass.swift */; };
+		3D8A204E20582B1100881555 /* Buy+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8A204B20582B1100881555 /* Buy+CoreDataClass.swift */; };
+		3D8A204F20582B1100881555 /* Buy+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8A204C20582B1100881555 /* Buy+CoreDataProperties.swift */; };
+		3D8A205020582B1100881555 /* Buy+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8A204C20582B1100881555 /* Buy+CoreDataProperties.swift */; };
 		3DAEF53D1FE43A1B00F9B22C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAEF53C1FE43A1B00F9B22C /* MainViewController.swift */; };
 		3DDDFAF91FD980DB00C00561 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFAF81FD980DB00C00561 /* AppDelegate.swift */; };
 		3DDDFAFB1FD980DB00C00561 /* AddEditScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFAFA1FD980DB00C00561 /* AddEditScreenController.swift */; };
@@ -73,6 +78,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3D8A204B20582B1100881555 /* Buy+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Buy+CoreDataClass.swift"; path = "BitcoinInvestmentMonitor/Buy+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3D8A204C20582B1100881555 /* Buy+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Buy+CoreDataProperties.swift"; path = "BitcoinInvestmentMonitor/Buy+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3DAEF53C1FE43A1B00F9B22C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3DDDFAF51FD980DB00C00561 /* BitcoinInvestmentMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BitcoinInvestmentMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DDDFAF81FD980DB00C00561 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -121,6 +128,8 @@
 		3DDDFAEC1FD980DA00C00561 = {
 			isa = PBXGroup;
 			children = (
+				3D8A204B20582B1100881555 /* Buy+CoreDataClass.swift */,
+				3D8A204C20582B1100881555 /* Buy+CoreDataProperties.swift */,
 				3DDDFB3A1FD9BE4D00C00561 /* README.md */,
 				3DDDFAF71FD980DB00C00561 /* BitcoinInvestmentMonitor */,
 				57A83BF52056037E002B0CA0 /* Monitor */,
@@ -317,7 +326,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D8A204D20582B1100881555 /* Buy+CoreDataClass.swift in Sources */,
 				3DDDFAFB1FD980DB00C00561 /* AddEditScreenController.swift in Sources */,
+				3D8A204F20582B1100881555 /* Buy+CoreDataProperties.swift in Sources */,
 				3DDDFB0B1FD9814000C00561 /* BTCPriceModel.swift in Sources */,
 				3DDDFB391FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift in Sources */,
 				3DDDFAF91FD980DB00C00561 /* AppDelegate.swift in Sources */,
@@ -332,10 +343,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D8A204E20582B1100881555 /* Buy+CoreDataClass.swift in Sources */,
 				57A83C082056037E002B0CA0 /* ExtensionDelegate.swift in Sources */,
+				3D8A205020582B1100881555 /* Buy+CoreDataProperties.swift in Sources */,
 				57A83C062056037E002B0CA0 /* InterfaceController.swift in Sources */,
 				57A83C0A2056037E002B0CA0 /* ComplicationController.swift in Sources */,
 				57A83C1A205605CA002B0CA0 /* Helpers.swift in Sources */,
+				3D8A20492058296A00881555 /* BTCPriceModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

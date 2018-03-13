@@ -11,6 +11,10 @@ import WatchConnectivity
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
+    var values:[String:Any] = [:]
+    
+    var cryptoPrice:BTCPriceModel?
+    
     func applicationDidFinishLaunching() {
         
         
@@ -60,10 +64,16 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
 extension ExtensionDelegate: WCSessionDelegate {
     
-    func refresh(){
+    func refresh(sender: InterfaceController){
         let message = ["method":"refresh"]
+        if(self.cryptoPrice==nil){
+             self.cryptoPrice = BTCPriceModel()
+        }
+        self.cryptoPrice?.delegate = sender
         WCSession.default.sendMessage(message, replyHandler: { (thing) in
-            print(thing)
+
+           
+            
         }, errorHandler: { (err) in
             print("watch error")
         })
@@ -74,8 +84,10 @@ extension ExtensionDelegate: WCSessionDelegate {
     }
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
-        print("handle response")
-        print(message)
+        print("thingy")
+        self.values = message
+        
+        self.cryptoPrice?.getUpdateBitcoinPrice()
     }
     
 }

@@ -19,16 +19,15 @@ class BTCPriceModel: NSObject {
     var btcRate:Float!
     var cryptoRates:Dictionary<String,Float> = [:]
     var delegate:BTCPriceDelegate?
-    var CDParent:CDBTCManager?
+   
     var  dispatch_group: DispatchGroup? = DispatchGroup()
     
     static let polling:[CryptoTicker] = [.btc,.ltc,.eth]
     
-    init(_ parent:CDBTCManager?) {
+    override init() {
         super.init()
         //seed initial value of zero
-        CDParent = parent
-        self.delegate = parent
+
         btcRate = 0.0
         for cryp in BTCPriceModel.polling{
             cryptoRates[cryp.stringValue()] = 0.0
@@ -57,7 +56,7 @@ class BTCPriceModel: NSObject {
         dispatch_group?.notify(queue: .main, execute: {
             print("tasks done",self.cryptoRates)
             
-          self.CDParent?.updatedPrice()
+          self.delegate?.updatedPrice()
         })
 
         
@@ -126,7 +125,7 @@ class BTCPriceModel: NSObject {
         let appreciationDecimal = currentPrice / originalPrice;
         let actualDecimal = (appreciationDecimal>1) ? appreciationDecimal-1 : 1-appreciationDecimal
         buyDict["buy"] = String(buy.btcAmount)
-        buyDict["date"] = dateF.string(from: buy.dateOfPurchase!)
+        buyDict["date"] = dateF.string(from: buy.dateOfPurchase! as Date)
 
         buyDict["rateAtBuy"] = String(buy.btcRateAtPurchase)
         buyDict["priceAtBuy"] = String(originalPrice)

@@ -13,7 +13,7 @@ import Foundation
 let polling:[CryptoTicker] = [.btc,.ltc,.eth]
 
 
-class InterfaceController: WKInterfaceController {
+class InterfaceController: WKInterfaceController, BTCPriceDelegate {
 
    let delegate = WKExtension.shared().delegate as! ExtensionDelegate
     @IBOutlet var total: WKInterfaceLabel!
@@ -62,13 +62,24 @@ class InterfaceController: WKInterfaceController {
     }
     
 
-    
+    func updatedPrice() {
+        let gotValue = delegate.values
+        print("eee value")
+        print(gotValue)
+    }
 
+    func silentFail() {
+        
+    }
+    
+    func displayError() {
+        
+    }
     
     func refresh(){
         
        
-        delegate.refresh()
+        delegate.refresh(sender: self)
     }
     
     
