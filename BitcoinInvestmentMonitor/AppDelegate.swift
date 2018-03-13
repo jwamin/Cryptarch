@@ -119,10 +119,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
         print("got message \(message)")
         if(WCSession.default.isReachable){
+            
+            let context = self.persistentContainer.viewContext
+            
+            let buysFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Buy")
+            var fetchedBuys:[Buy] = []
+            
+                    do {
+                        
+                            fetchedBuys = try context.fetch(buysFetch) as! [Buy]
+
+                    } catch {
+            
+                        fatalError("Failed to fetch Buys: \(error)")
+            
+                    }
+            
             if(message["method"] as! String=="refresh"){
                 let reply = ["hello":"hello world from appd"]
+                print(fetchedBuys)
+                print("meesage on appdel")
                 WCSession.default.sendMessage(reply, replyHandler: {(replyMessage) in
-                    print(replyMessage)
+                    print(replyMessage,fetchedBuys)
                     print("meesage on appdel")
                 }, errorHandler: nil)
                 
