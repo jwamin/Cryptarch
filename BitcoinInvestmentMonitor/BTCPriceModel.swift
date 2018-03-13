@@ -14,20 +14,25 @@ protocol BTCPriceDelegate {
     func silentFail()
 }
 
-class BTCPriceModel: NSObject {
+class BTCPriceModel: NSObject,URLSessionDataDelegate {
 
     var btcRate:Float!
     var cryptoRates:Dictionary<String,Float> = [:]
     var delegate:BTCPriceDelegate?
    
+    let config = URLSessionConfiguration.background(withIdentifier: "background")
+    var session:URLSession!
+    
     var  dispatch_group: DispatchGroup? = DispatchGroup()
     
-    static let polling:[CryptoTicker] = [.btc,.ltc,.eth]
+    static let polling:Array<CryptoTicker> = [.btc,.ltc,.eth]
     
     override init() {
         super.init()
         //seed initial value of zero
-
+        //let queue = OperationQueue()
+        session = URLSession(configuration: URLSessionConfiguration.background(withIdentifier: "background"), delegate: self, delegateQueue: nil)
+        
         btcRate = 0.0
         for cryp in BTCPriceModel.polling{
             cryptoRates[cryp.stringValue()] = 0.0
@@ -43,12 +48,16 @@ class BTCPriceModel: NSObject {
 
     }
     
+    var taskNumber = 0
+    var responses:Dictionary<String,Data> = [:]
+    var map:Dictionary<String,Int>?
+    
     func getUpdateBitcoinPrice(){
         
-       
-        
+        map = [:]
+     
         for ticker in BTCPriceModel.polling{
-            
+            taskNumber+=1
             request(ticker:ticker)
             
         }
@@ -56,7 +65,7 @@ class BTCPriceModel: NSObject {
         dispatch_group?.notify(queue: .main, execute: {
             print("tasks done",self.cryptoRates)
             
-          self.delegate?.updatedPrice()
+         
         })
 
         
@@ -70,51 +79,113 @@ class BTCPriceModel: NSObject {
             print("rebuilding dispatch group")
             dispatch_group = DispatchGroup()
         }
-        dispatch_group?.enter()
+        //dispatch_group?.enter()
         let cburl = "https://api.coinbase.com/v2/prices/"+ticker.stringValue()+"-USD/spot"
         //"https://api.coindesk.com/v1/bpi/currentprice.json"
         if let url = URL(string:cburl){
-            var errorPointer:Error?
-            let task = URLSession.shared.dataTask(with: url, completionHandler: {
-                (data, response, error) in
-                if let gotError = error{
-                    errorPointer = gotError
-                    print(errorPointer as Any)
-                    self.delegate?.displayError()
-                } else {
-                    
-                    do{
-                        let dict = try JSONSerialization.jsonObject(with: data!, options: .init(rawValue: 0)) as! Dictionary<String,Any>
-                        print(dict)
-                        
-                        if let data = dict["data"] as? Dictionary<String,Any>{
-                            
-                            //print(usd)
-                            if let rate = data["amount"] as? NSString{
-                                if(ticker == .btc){
-                                    self.btcRate = rate.floatValue
-                                }
-                                self.cryptoRates[ticker.stringValue()] = rate.floatValue
-                                self.dispatch_group?.leave()
-                            } else {
-                                print("fail at rate")
-                            }
-                        }
-                        
-                    } catch {
-                        fatalError()
-                    }
-                    
-                }
-            })
             
+            let task = session.dataTask(with: url)
+            map?[ticker.stringValue()]=task.taskIdentifier
+            responses[String(task.taskIdentifier)] = Data()
             task.resume()
         }
     }
     
+//    func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
+//        session.getAllTasks(completionHandler: { (tasks) in
+//
+//        print(tasks,"task")
+//
+//            for task in tasks{
+//                                do{
+//                                    let dict = try JSONSerialization.jsonObject(with: self.responses[String(task.taskIdentifier)]!, options: .init(rawValue: 0)) as! Dictionary<String,Any>
+//                                    print(dict)
+//
+////                                    if let data = dict["data"] as? Dictionary<String,Any>{
+////
+////                                        //print(usd)
+////                                        if let rate = data["amount"] as? NSString{
+////                                            if(ticker == .btc){
+////                                                self.btcRate = rate.floatValue
+////                                            }
+////                                            self.cryptoRates[ticker.stringValue()] = rate.floatValue
+////                                            self.dispatch_group?.leave()
+////                                        } else {
+////                                            print("fail at rate")
+////                                        }
+////                                    }
+//
+//                                } catch {
+//                                    fatalError()
+//                                }
+//
+//            }
+//
+//        })
+//
+//
+//    }
+    
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+        print(dataTask.taskIdentifier)
+        responses[String(dataTask.taskIdentifier)]?.append(data)
+    }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
 
-    
-    
+        taskNumber-=1
+
+        task.cancel()
+        if(taskNumber==0){
+            print(responses, "responses")
+            for (responsekey,responsedata) in responses{
+                var ticker = CryptoTicker(rawValue: 0)
+                //print(map,responsekey,responsedata)
+                if let gotMap = map{
+                    for (key,id) in gotMap{
+                        print(key,id,responsekey)
+                        if(String(id)==responsekey){
+                            ticker = CryptoTicker.ticker(ticker: key)
+                        }
+                        
+                    }
+                    
+                } else {
+                    fatalError()
+                }
+                
+                print(ticker)
+                do{
+                    let dict = try JSONSerialization.jsonObject(with: responsedata, options: .init(rawValue: 0)) as! Dictionary<String,Any>
+                    print(dict)
+                    
+                      if let data = dict["data"] as? Dictionary<String,Any>{
+
+                                    if let rate = data["amount"] as? NSString{
+                                        if(ticker == .btc){
+                                            self.btcRate = rate.floatValue
+                                        }
+                                       
+                                        self.cryptoRates[ticker!.stringValue()] = rate.floatValue
+                                       
+                                    } else {
+                                        print("fail at rate")
+                                    }
+                                 }
+                    
+                } catch {
+                    fatalError()
+                }
+            }
+            //finally
+            print(cryptoRates, "cryptorates")
+             self.delegate?.updatedPrice()
+        } else {
+            print("tasks remaining \(taskNumber)")
+        }
+
+    }
+
     func processInfo(buy:Buy) -> Dictionary<String,String>{
         print(buy.btcAmount,buy.cryptoCurrency)
         var buyDict:Dictionary<String,String> = [:]
