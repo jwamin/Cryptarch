@@ -135,8 +135,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
             
                     }
             
+            let rates = BTCPriceModel(nil)
+            rates.getUpdateBitcoinPrice()
             if(message["method"] as! String=="refresh"){
-                let reply = ["hello":"hello world from appd"]
+                
+                var replyBody:[String:Float] = [:]
+                for items in fetchedBuys{
+                    if(replyBody[items.cryptoCurrency!] != nil){
+                        replyBody[items.cryptoCurrency!] = items.btcAmount + replyBody[items.cryptoCurrency!]!
+                    } else {
+                        replyBody[items.cryptoCurrency!] = items.btcAmount
+                    }
+                }
+                
+                print(rates.cryptoRates)
+                for (key,value) in rates.cryptoRates{
+                    print(key,value)
+                    replyBody[key] = replyBody[key]! * value
+                }
+                
+                var reply = ["reply":replyBody];
                 print(fetchedBuys)
                 print("meesage on appdel")
                 WCSession.default.sendMessage(reply, replyHandler: {(replyMessage) in

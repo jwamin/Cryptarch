@@ -9,9 +9,9 @@
 import UIKit
 
 protocol BTCPriceDelegate {
-    func updatedPrice()
-    func displayError()
-    func silentFail()
+  func updatedPrice()
+func displayError()
+  func silentFail()
 }
 
 class BTCPriceModel: NSObject {
@@ -19,12 +19,12 @@ class BTCPriceModel: NSObject {
     var btcRate:Float!
     var cryptoRates:Dictionary<String,Float> = [:]
     var delegate:BTCPriceDelegate?
-    var CDParent:CDBTCManager!
+    var CDParent:CDBTCManager?
     var  dispatch_group: DispatchGroup? = DispatchGroup()
     
     static let polling:[CryptoTicker] = [.btc,.ltc,.eth]
     
-    init(_ parent:CDBTCManager) {
+    init(_ parent:CDBTCManager?) {
         super.init()
         //seed initial value of zero
         CDParent = parent
@@ -57,7 +57,7 @@ class BTCPriceModel: NSObject {
         dispatch_group?.notify(queue: .main, execute: {
             print("tasks done",self.cryptoRates)
             
-            self.calculateTotals()
+          //  self.calculateTotals()
         })
 
         
@@ -123,7 +123,7 @@ class BTCPriceModel: NSObject {
         var outerTempValue:Float = 0.0
         var tempSpend:Float = 0.0
         var rate:Float
-        if let items = CDParent.fetchedResultsController.fetchedObjects{
+        if let items = CDParent?.fetchedResultsController.fetchedObjects{
             for buy in items{
                 
                 var tempValue:Float = 0.0

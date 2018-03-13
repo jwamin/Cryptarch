@@ -185,7 +185,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
 //
     
     
-    func displayError() {
+    @objc func displayError() {
         let error = UIAlertController(title: "Error refreshing price", message: "Please try again later...", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         error.addAction(action)
@@ -193,7 +193,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         self.present(error, animated: true, completion: nil)
     }
     
-    func silentFail() {
+    @objc func silentFail() {
         self.refresh?.endRefreshing()
         
         //shouldnt be in model... I guess.
