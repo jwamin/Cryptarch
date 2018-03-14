@@ -25,9 +25,8 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        total.setText("inid'd")
-        ago.setDate(Date.init())
-        
+        total.setText("loading...")
+
         // Configure interface objects here.
     }
     
@@ -35,13 +34,13 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
         
-        layoutTable()
+        
         
     }
     
     override func didAppear() {
         print("hello")
-        delegate.refresh(sender: self)
+       refresh()
     }
     
     override func didDeactivate() {
@@ -76,6 +75,8 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
                 count+=1;
             }
             total.setText("$"+String(totalFl))
+            ago.setDate(Date.init())
+            ago.start()
         } else {
             var count = 0;
             for item in polling {
@@ -108,7 +109,7 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
     
     func refresh(){
         
-       
+       ago.stop()
         delegate.refresh(sender: self)
     }
     
