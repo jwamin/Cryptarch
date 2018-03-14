@@ -146,7 +146,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     func calculateTotals(){
 
 
-        print("calculating totals")
+        //print("calculating totals")
 
         totalValue = 0.0
         totalSpendValue = 0.0
@@ -175,8 +175,8 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
 
         totalValue = outerTempValue
         totalSpendValue = tempSpend
-        print("updated label value to: \(totalValue)")
-        print("updated spend label value to: \(totalSpendValue)")
+        //print("updated label value to: \(totalValue)")
+        //print("updated spend label value to: \(totalSpendValue)")
 
         let appreciationDecimal = totalValue - totalSpendValue;
         totalPercentValue = appreciationDecimal// (appreciationDecimal>1) ? appreciationDecimal-1 : 1-appreciationDecimal

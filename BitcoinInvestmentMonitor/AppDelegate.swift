@@ -135,8 +135,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
             
                     }
             
-            let rates = BTCPriceModel()
-            rates.getUpdateBitcoinPrice()
+//            let rates = BTCPriceModel()
+//            rates.getUpdateBitcoinPrice()
             if(message["method"] as! String=="refresh"){
                 
                 var replyBody:[String:Float] = [:]
@@ -148,12 +148,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
                     }
                 }
                 
-                print(rates.cryptoRates)
-                for (key,value) in rates.cryptoRates{
-                    if let fl = replyBody[key]{
-                        replyBody[key] = fl * value
-                    }
-                }
+//                print(rates.cryptoRates)
+//                for (key,value) in rates.cryptoRates{
+//                    if let fl = replyBody[key]{
+//                        replyBody[key] = fl * value
+//                    }
+//                }
                 
                 var reply = ["reply":replyBody];
                 print(fetchedBuys)

@@ -66,13 +66,15 @@ extension ExtensionDelegate: WCSessionDelegate {
     
     func refresh(sender: InterfaceController){
         let message = ["method":"refresh"]
+        
         if(self.cryptoPrice==nil){
-             self.cryptoPrice = BTCPriceModel()
+            self.cryptoPrice = BTCPriceModel(backgroundTaskIdentifier:"watchBackgroundTask")
+             self.cryptoPrice?.delegate = sender
         }
-        self.cryptoPrice?.delegate = sender
+       
         WCSession.default.sendMessage(message, replyHandler: { (thing) in
 
-           
+           print("replyhandler")
             
         }, errorHandler: { (err) in
             print("watch error")
@@ -86,8 +88,12 @@ extension ExtensionDelegate: WCSessionDelegate {
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
         print("thingy")
         self.values = message
-        
+        print(self.values)
         self.cryptoPrice?.getUpdateBitcoinPrice()
+        
+        
+        
+        
     }
     
 }

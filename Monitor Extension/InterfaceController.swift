@@ -35,20 +35,13 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
         
-        table.setNumberOfRows(polling.count, withRowType: "Main")
-        
-        var count = 0;
-        for item in polling {
-            let row = self.table.rowController(at: count) as! TableItem
-            row.currencyLabel.setText(item.stringValue())
-            row.valueLabel.setText(item.stringValue())
-            count+=1;
-        }
+        layoutTable()
         
     }
     
     override func didAppear() {
         print("hello")
+        delegate.refresh(sender: self)
     }
     
     override func didDeactivate() {
@@ -61,11 +54,48 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
         refresh()
     }
     
+    func layoutTable(){
+        table.setNumberOfRows(polling.count, withRowType: "Main")
+        
+        if(delegate.values.count>0){
+            var count = 0;
+            var totalFl:Float = 0.0
+            for (key,item) in delegate.values["reply"] as! NSDictionary {
+                print(key,item)
+                let row = self.table.rowController(at: count) as! TableItem
+                row.currencyLabel.setText(key as! String)
+                let holding = item as! Float;
+                let rate = delegate.cryptoPrice!.cryptoRates[key as! String] as! Float
+                
+                let calc = (holding * rate)
+                totalFl+=calc
+                //let calc = Float(item as! String)! * (delegate.cryptoPrice!.cryptoRates[key as! String] as! Float))
+                
+                //row.valueLabel.setText("$"+String(calc))
+                row.valueLabel.setText("$"+String(calc))
+                count+=1;
+            }
+            total.setText("$"+String(totalFl))
+        } else {
+            var count = 0;
+            for item in polling {
+                let row = self.table.rowController(at: count) as! TableItem
+                row.currencyLabel.setText(item.stringValue())
+                row.valueLabel.setText(item.stringValue())
+                count+=1;
+            }
+        }
+        
+
+    }
 
     func updatedPrice() {
         let gotValue = delegate.values
         print("eee value")
-        print(gotValue)
+        print(delegate.values["reply"])
+        
+       layoutTable()
+        
     }
 
     func silentFail() {

@@ -19,20 +19,19 @@ class BTCPriceModel: NSObject,URLSessionDataDelegate {
     var btcRate:Float!
     var cryptoRates:Dictionary<String,Float> = [:]
     var delegate:BTCPriceDelegate?
+    var backgroundID:String!
    
-    let config = URLSessionConfiguration.background(withIdentifier: "background")
     var session:URLSession!
     
-    var  dispatch_group: DispatchGroup? = DispatchGroup()
+//    var  dispatch_group: DispatchGroup? = DispatchGroup()
     
     static let polling:Array<CryptoTicker> = [.btc,.ltc,.eth]
     
-    override init() {
+    init(backgroundTaskIdentifier:String) {
         super.init()
         //seed initial value of zero
         //let queue = OperationQueue()
-        session = URLSession(configuration: URLSessionConfiguration.background(withIdentifier: "background"), delegate: self, delegateQueue: nil)
-        
+        backgroundID=backgroundTaskIdentifier
         btcRate = 0.0
         for cryp in BTCPriceModel.polling{
             cryptoRates[cryp.stringValue()] = 0.0
@@ -42,7 +41,7 @@ class BTCPriceModel: NSObject,URLSessionDataDelegate {
     func killAll(){
         print("got kill All, removing observer, shanking dispatch group")
     
-        dispatch_group = nil
+//        dispatch_group = nil
         self.delegate?.silentFail()
         
 
@@ -55,18 +54,19 @@ class BTCPriceModel: NSObject,URLSessionDataDelegate {
     func getUpdateBitcoinPrice(){
         
         map = [:]
-     
+        responses = [:]
+        session = URLSession(configuration: URLSessionConfiguration.background(withIdentifier: backgroundID), delegate: self, delegateQueue: nil)
         for ticker in BTCPriceModel.polling{
             taskNumber+=1
             request(ticker:ticker)
             
         }
         
-        dispatch_group?.notify(queue: .main, execute: {
-            print("tasks done",self.cryptoRates)
-            
-         
-        })
+//        dispatch_group?.notify(queue: .main, execute: {
+//            print("tasks done",self.cryptoRates)
+//
+//
+//        })
 
         
         
@@ -75,10 +75,10 @@ class BTCPriceModel: NSObject,URLSessionDataDelegate {
     
     
     func request(ticker:CryptoTicker){
-        if (dispatch_group === nil){
-            print("rebuilding dispatch group")
-            dispatch_group = DispatchGroup()
-        }
+//        if (dispatch_group === nil){
+//            print("rebuilding dispatch group")
+//            dispatch_group = DispatchGroup()
+//        }
         //dispatch_group?.enter()
         let cburl = "https://api.coinbase.com/v2/prices/"+ticker.stringValue()+"-USD/spot"
         //"https://api.coindesk.com/v1/bpi/currentprice.json"
@@ -91,40 +91,6 @@ class BTCPriceModel: NSObject,URLSessionDataDelegate {
         }
     }
     
-//    func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
-//        session.getAllTasks(completionHandler: { (tasks) in
-//
-//        print(tasks,"task")
-//
-//            for task in tasks{
-//                                do{
-//                                    let dict = try JSONSerialization.jsonObject(with: self.responses[String(task.taskIdentifier)]!, options: .init(rawValue: 0)) as! Dictionary<String,Any>
-//                                    print(dict)
-//
-////                                    if let data = dict["data"] as? Dictionary<String,Any>{
-////
-////                                        //print(usd)
-////                                        if let rate = data["amount"] as? NSString{
-////                                            if(ticker == .btc){
-////                                                self.btcRate = rate.floatValue
-////                                            }
-////                                            self.cryptoRates[ticker.stringValue()] = rate.floatValue
-////                                            self.dispatch_group?.leave()
-////                                        } else {
-////                                            print("fail at rate")
-////                                        }
-////                                    }
-//
-//                                } catch {
-//                                    fatalError()
-//                                }
-//
-//            }
-//
-//        })
-//
-//
-//    }
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         print(dataTask.taskIdentifier)
@@ -135,15 +101,15 @@ class BTCPriceModel: NSObject,URLSessionDataDelegate {
 
         taskNumber-=1
 
-        task.cancel()
+        
         if(taskNumber==0){
-            print(responses, "responses")
+
             for (responsekey,responsedata) in responses{
+                
                 var ticker = CryptoTicker(rawValue: 0)
-                //print(map,responsekey,responsedata)
+                
                 if let gotMap = map{
                     for (key,id) in gotMap{
-                        print(key,id,responsekey)
                         if(String(id)==responsekey){
                             ticker = CryptoTicker.ticker(ticker: key)
                         }
@@ -154,7 +120,7 @@ class BTCPriceModel: NSObject,URLSessionDataDelegate {
                     fatalError()
                 }
                 
-                print(ticker)
+          
                 do{
                     let dict = try JSONSerialization.jsonObject(with: responsedata, options: .init(rawValue: 0)) as! Dictionary<String,Any>
                     print(dict)
@@ -179,6 +145,7 @@ class BTCPriceModel: NSObject,URLSessionDataDelegate {
             }
             //finally
             print(cryptoRates, "cryptorates")
+            self.session.finishTasksAndInvalidate()
              self.delegate?.updatedPrice()
         } else {
             print("tasks remaining \(taskNumber)")
@@ -187,7 +154,7 @@ class BTCPriceModel: NSObject,URLSessionDataDelegate {
     }
 
     func processInfo(buy:Buy) -> Dictionary<String,String>{
-        print(buy.btcAmount,buy.cryptoCurrency)
+        //print(buy.btcAmount,buy.cryptoCurrency)
         var buyDict:Dictionary<String,String> = [:]
         let dateF = DateFormatter()
         dateF.dateFormat = "yyyy-MM-dd"

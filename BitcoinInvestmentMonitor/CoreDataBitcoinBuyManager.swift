@@ -28,7 +28,7 @@ class CDBTCManager: NSObject,BTCPriceDelegate {
     init(_ parent:MainViewController) {
         super.init()
         managedObjectContext = appDelegate.persistentContainer.viewContext
-        btcPriceMonitor = BTCPriceModel()
+        btcPriceMonitor = BTCPriceModel(backgroundTaskIdentifier: "iOSBackground")
         btcPriceMonitor.delegate = self
         self.parent = parent
     }
