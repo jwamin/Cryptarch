@@ -27,7 +27,7 @@
                                     <group key="rootItem" width="1" alignment="left" animationDuration="1" id="veH-6W-Cfa">
                                         <items>
                                             <label alignment="left" verticalAlignment="center" text="Label" id="dMi-Q7-sy0"/>
-                                            <label alignment="right" verticalAlignment="center" text="Label" textAlignment="right" id="i7w-Dn-Z0k"/>
+                                            <label alignment="right" verticalAlignment="center" text="$0.00" textAlignment="right" id="i7w-Dn-Z0k"/>
                                         </items>
                                     </group>
                                     <connections>
