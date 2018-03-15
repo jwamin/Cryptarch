@@ -62,16 +62,17 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
             for (key,item) in delegate.values["reply"] as! NSDictionary {
                 print(key,item)
                 let row = self.table.rowController(at: count) as! TableItem
-                row.currencyLabel.setText(key as! String)
+                let labelText = key as! String
+                row.currencyLabel.setText(labelText)
                 let holding = item as! Float;
-                let rate = delegate.cryptoPrice!.cryptoRates[key as! String] as! Float
+                let rate = delegate.cryptoPrice!.cryptoRates[labelText]!
                 
                 let calc = (holding * rate)
                 totalFl+=calc
                 //let calc = Float(item as! String)! * (delegate.cryptoPrice!.cryptoRates[key as! String] as! Float))
                 
                 //row.valueLabel.setText("$"+String(calc))
-                row.valueLabel.setText("$"+String(calc))
+                row.valueLabel.setText(String(format: "$%.2f",calc))
                 count+=1;
             }
             total.setText("$"+String(totalFl))

@@ -135,8 +135,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
             
                     }
             
-//            let rates = BTCPriceModel()
-//            rates.getUpdateBitcoinPrice()
             if(message["method"] as! String=="refresh"){
                 
                 var replyBody:[String:Float] = [:]
@@ -148,19 +146,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
                     }
                 }
                 
-//                print(rates.cryptoRates)
-//                for (key,value) in rates.cryptoRates{
-//                    if let fl = replyBody[key]{
-//                        replyBody[key] = fl * value
-//                    }
-//                }
-                
-                var reply = ["reply":replyBody];
-                print(fetchedBuys)
-                print("meesage on appdel")
+                let reply = ["reply":replyBody];
                 WCSession.default.sendMessage(reply, replyHandler: {(replyMessage) in
                     print(replyMessage,fetchedBuys)
-                    print("meesage on appdel")
                 }, errorHandler: nil)
                 
             } else {
@@ -171,23 +159,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
         }
     }
     
-//    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
-//        print("got message \(message)")
-//        if(WCSession.default.isReachable){
-//            if(message["method"] as! String=="refresh"){
-//                let reply = ["hello":"hello world from appd"]
-//               WCSession.default.sendMessage(reply, replyHandler: {(replyMessage) in
-//                print(replyMessage)
-//                print("meesage on appdel")
-//                }, errorHandler: nil)
-//
-//            } else {
-//                print("not refresh?")
-//            }
-//        } else {
-//            print("not reachable")
-//        }
-//    }
     
 
 }

@@ -123,7 +123,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     
     func updatedPrice() {
         print("notified price update")
-        print(btcManager.btcPriceMonitor?.btcRate)
+        
         NotificationCenter.default.removeObserver(self, name: .UIApplicationWillResignActive, object: nil)
         DispatchQueue.main.async {
             
