@@ -92,7 +92,7 @@ class ViewController: UIViewController {
             passedObject.cryptoCurrency = CryptoTicker(rawValue: currencyPicker.selectedSegmentIndex)?.stringValue()
             passedObject.btcAmount = Float(btcAmountField.text ?? "0.0") ?? 0.0
             passedObject.btcRateAtPurchase = Double(rateAtPurchaseField.text ?? "0.0") ?? 0.0
-            passedObject.dateOfPurchase = datePicker.date as NSDate
+            passedObject.dateOfPurchase = datePicker.date 
             
             tableViewParent?.btcManager.updateToCore()
             navigationController?.popViewController(animated: true)

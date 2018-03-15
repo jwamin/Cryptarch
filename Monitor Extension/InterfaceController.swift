@@ -25,7 +25,7 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        total.setText("loading...")
+        total.setText("updating...")
 
         // Configure interface objects here.
     }
@@ -49,7 +49,7 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
     }
     
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
-        print("\(table) select \(rowIndex)")
+        
         refresh()
     }
     
@@ -75,6 +75,7 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
                 count+=1;
             }
             total.setText("$"+String(totalFl))
+            ago.setHidden(false)
             ago.setDate(Date.init())
             ago.start()
         } else {
@@ -91,10 +92,7 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
     }
 
     func updatedPrice() {
-        let gotValue = delegate.values
-        print("eee value")
-        print(delegate.values["reply"])
-        
+        print("got updated price, laying out table")
        layoutTable()
         
     }
@@ -110,7 +108,9 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
     func refresh(){
         
        ago.stop()
+        ago.setHidden(true)
         delegate.refresh(sender: self)
+        
     }
     
     

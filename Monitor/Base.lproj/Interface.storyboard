@@ -17,7 +17,7 @@
                         <label height="57" alignment="center" text="Label" textAlignment="center" id="cTE-Yh-lZ2">
                             <fontDescription key="font" type="boldSystem" pointSize="27"/>
                         </label>
-                        <timer width="136" alignment="center" textAlignment="center" id="2NN-ZW-4A4">
+                        <timer width="136" alignment="center" hidden="YES" textAlignment="center" format="short" id="2NN-ZW-4A4">
                             <fontDescription key="font" type="system" pointSize="11"/>
                             <calendarUnit key="units" minute="YES" second="YES"/>
                         </timer>

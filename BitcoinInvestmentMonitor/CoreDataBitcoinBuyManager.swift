@@ -94,7 +94,7 @@ class CDBTCManager: NSObject,BTCPriceDelegate {
         dateF.dateFormat = "yyyy-MM-dd"
         
         
-        obj.dateOfPurchase = dateF.date(from: buyInfo["date"]!) as! NSDate ?? Date() as NSDate
+        obj.dateOfPurchase = dateF.date(from: buyInfo["date"]!) ?? Date()
         obj.btcAmount = Float(buyInfo["btcAmount"] ?? "0.01") ?? 0.01
         obj.btcRateAtPurchase = Double(buyInfo["btcRate"] ?? "7800.120") ?? 7800.120
         obj.cryptoCurrency = buyInfo["currency"]
