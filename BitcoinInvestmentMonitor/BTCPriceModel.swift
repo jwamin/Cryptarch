@@ -68,7 +68,10 @@ class BTCPriceModel: NSObject,URLSessionDataDelegate {
         
         tasks = []
         
-        session = URLSession(configuration: URLSessionConfiguration.background(withIdentifier: backgroundID), delegate: self, delegateQueue: nil)
+        if(session == nil){
+           session = URLSession(configuration: URLSessionConfiguration.background(withIdentifier: backgroundID), delegate: self, delegateQueue: nil)
+        }
+        
         for ticker in BTCPriceModel.polling{
             
             request(ticker:ticker)
@@ -102,6 +105,10 @@ class BTCPriceModel: NSObject,URLSessionDataDelegate {
             }
             
         }
+    }
+    
+    func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
+        self.session = nil
     }
     
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
@@ -146,6 +153,7 @@ class BTCPriceModel: NSObject,URLSessionDataDelegate {
                 }
                 
             } catch {
+                print(tasks)
                 fatalError()
             }
         }
@@ -155,6 +163,15 @@ class BTCPriceModel: NSObject,URLSessionDataDelegate {
         self.delegate?.updatedPrice()
     }
     
+    func pauseAndInvalidate(){
+        
+        if(session != nil){
+            tasks = []
+              session.invalidateAndCancel()
+            
+        }
+      
+    }
 
 
 func processInfo(buy:Buy) -> Dictionary<String,String>{

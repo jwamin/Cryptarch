@@ -14,8 +14,8 @@ let polling:[CryptoTicker] = [.btc,.ltc,.eth]
 
 
 class InterfaceController: WKInterfaceController, BTCPriceDelegate {
-
-   let delegate = WKExtension.shared().delegate as! ExtensionDelegate
+    
+    let delegate = WKExtension.shared().delegate as! ExtensionDelegate
     @IBOutlet var total: WKInterfaceLabel!
     
     @IBOutlet var table: WKInterfaceTable!
@@ -25,8 +25,8 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        total.setText("updating...")
-
+        
+        
         // Configure interface objects here.
     }
     
@@ -34,13 +34,19 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
         
-        
-        
+         print("did appear, doing refresh")
+        refresh()
+    }
+    
+    
+    override func willDisappear() {
+        ago.stop()
+        ago.setHidden(true)
     }
     
     override func didAppear() {
-        print("did appear, doing refresh")
-       refresh()
+       print("visible")
+        
     }
     
     override func didDeactivate() {
@@ -85,15 +91,15 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
             total.setText("Buy Crypto!")
         }
         
-
-    }
-
-    func updatedPrice() {
-        print("got updated price, laying out table")
-       layoutTable()
         
     }
-
+    
+    func updatedPrice() {
+        print("got updated price, laying out table")
+        layoutTable()
+        
+    }
+    
     func silentFail() {
         
     }
@@ -103,8 +109,9 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
     }
     
     func refresh(){
-        
-       ago.stop()
+        total.setText("updating...")
+        table.setNumberOfRows(0, withRowType: "Main")
+        ago.stop()
         ago.setHidden(true)
         delegate.refresh(sender: self)
         

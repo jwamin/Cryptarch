@@ -12,9 +12,9 @@ import WatchConnectivity
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
     var values:NSDictionary = NSDictionary()
-    
+    var interface:InterfaceController!
     var cryptoPrice:BTCPriceModel?
-    
+    var active:Bool = false
     func applicationDidFinishLaunching() {
         
         
@@ -32,6 +32,13 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
     }
 
     func applicationWillResignActive() {
+        print("resigning active")
+        if(self.cryptoPrice != nil){
+            active = false
+            print("cryptoprice is active, halting and resetting interface")
+            cryptoPrice?.pauseAndInvalidate()
+            interface.layoutTable()
+        }
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, etc.
     }
@@ -66,11 +73,17 @@ extension ExtensionDelegate: WCSessionDelegate {
     
     func refresh(sender: InterfaceController){
         let message = ["method":"refresh"]
+        print("refresh called on WKED")
+        if(interface==nil){
+            interface = sender
+        }
         
         if(self.cryptoPrice==nil){
             self.cryptoPrice = BTCPriceModel(backgroundTaskIdentifier:"watchBackgroundTask")
              self.cryptoPrice?.delegate = sender
+            
         }
+        active = true;
        
         WCSession.default.sendMessage(message, replyHandler: { (thing) in
 
@@ -91,8 +104,10 @@ extension ExtensionDelegate: WCSessionDelegate {
         let reply = message["reply"] as! NSDictionary
         
         self.values = reply
-
-        self.cryptoPrice?.getUpdateBitcoinPrice()
+        if(active){
+            self.cryptoPrice?.getUpdateBitcoinPrice()
+        }
+        
         
         
         
