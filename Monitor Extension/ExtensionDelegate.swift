@@ -11,7 +11,7 @@ import WatchConnectivity
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
-    var values:[String:Any] = [:]
+    var values:NSDictionary = NSDictionary()
     
     var cryptoPrice:BTCPriceModel?
     
@@ -87,8 +87,11 @@ extension ExtensionDelegate: WCSessionDelegate {
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
         print("thingy")
-        self.values = message
-        print(self.values)
+        
+        let reply = message["reply"] as! NSDictionary
+        
+        self.values = reply
+
         self.cryptoPrice?.getUpdateBitcoinPrice()
         
         

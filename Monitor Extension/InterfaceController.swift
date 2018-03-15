@@ -39,7 +39,7 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
     }
     
     override func didAppear() {
-        print("hello")
+        print("did appear, doing refresh")
        refresh()
     }
     
@@ -54,12 +54,13 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
     }
     
     func layoutTable(){
-        table.setNumberOfRows(polling.count, withRowType: "Main")
+        
         
         if(delegate.values.count>0){
+            table.setNumberOfRows(delegate.values.count, withRowType: "Main")
             var count = 0;
             var totalFl:Float = 0.0
-            for (key,item) in delegate.values["reply"] as! NSDictionary {
+            for (key,item) in delegate.values {
                 print(key,item)
                 let row = self.table.rowController(at: count) as! TableItem
                 let labelText = key as! String
@@ -80,13 +81,8 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
             ago.setDate(Date.init())
             ago.start()
         } else {
-            var count = 0;
-            for item in polling {
-                let row = self.table.rowController(at: count) as! TableItem
-                row.currencyLabel.setText(item.stringValue())
-                row.valueLabel.setText(item.stringValue())
-                count+=1;
-            }
+            table.setNumberOfRows(0, withRowType: "Main")
+            total.setText("Buy Crypto!")
         }
         
 

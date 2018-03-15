@@ -14,7 +14,7 @@
 			<key>Key</key>
 			<string>dark_mode</string>
 			<key>DefaultValue</key>
-			<false/>
+			<true/>
 		</dict>
 	</array>
 </dict>
