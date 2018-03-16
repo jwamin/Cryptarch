@@ -127,7 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
             
                     do {
                         
-                            fetchedBuys = try context.fetch(buysFetch) as! [Buy]
+                        fetchedBuys = try context.fetch(buysFetch) as! [Buy]
 
                     } catch {
             
@@ -135,25 +135,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
             
                     }
             
-            if(message["method"] as! String=="refresh"){
-                
-                var replyBody:[String:Float] = [:]
-                for items in fetchedBuys{
-                    if(replyBody[items.cryptoCurrency!] != nil){
-                        replyBody[items.cryptoCurrency!] = items.btcAmount + replyBody[items.cryptoCurrency!]!
-                    } else {
-                        replyBody[items.cryptoCurrency!] = items.btcAmount
+            switch(message["method"] as! String){
+                case "refresh":
+                    var replyBody:[String:Float] = [:]
+                    for items in fetchedBuys{
+                        if(replyBody[items.cryptoCurrency!] != nil){
+                            replyBody[items.cryptoCurrency!] = items.btcAmount + replyBody[items.cryptoCurrency!]!
+                        } else {
+                            replyBody[items.cryptoCurrency!] = items.btcAmount
+                        }
                     }
-                }
-                
-                let reply = ["reply":replyBody];
-                WCSession.default.sendMessage(reply, replyHandler: {(replyMessage) in
-                    print(replyMessage,fetchedBuys)
-                }, errorHandler: nil)
-                
-            } else {
-                print("not refresh?")
+                    
+                    let reply = ["reply":replyBody];
+                    WCSession.default.sendMessage(reply, replyHandler: {(replyMessage) in
+                        print(replyMessage,fetchedBuys)
+                    }, errorHandler: nil)
+                default:
+                    print("guess it wasnt any of the options")
             }
+    
         } else {
             print("not reachable")
         }

@@ -24,7 +24,7 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        
+        refresh()
         
         
         // Configure interface objects here.
@@ -34,8 +34,8 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
         
-         print("did appear, doing refresh")
-        refresh()
+      
+        
     }
     
     
@@ -54,10 +54,7 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
         super.didDeactivate()
     }
     
-    override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
-        
-        refresh()
-    }
+
     
     func layoutTable(){
         
@@ -94,6 +91,9 @@ class InterfaceController: WKInterfaceController, BTCPriceDelegate {
         
     }
     
+    @IBAction func refreshMenuItem() {
+        refresh()
+    }
     func updatedPrice() {
         print("got updated price, laying out table")
         layoutTable()

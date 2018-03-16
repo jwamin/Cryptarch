@@ -38,6 +38,15 @@
                             </items>
                         </table>
                     </items>
+                    <menu key="menu" id="R7O-B9-xQW">
+                        <items>
+                            <menuItem title="Refresh" icon="resume" id="RO0-zZ-cqH">
+                                <connections>
+                                    <action selector="refreshMenuItem" destination="AgC-eL-Hgc" id="27s-zO-Mn8"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                     <connections>
                         <outlet property="ago" destination="2NN-ZW-4A4" id="pKJ-E7-IoA"/>
                         <outlet property="table" destination="vv1-Yj-KXS" id="utO-Wc-F1t"/>
