@@ -86,12 +86,11 @@ extension ExtensionDelegate: WCSessionDelegate {
         active = true;
        
         WCSession.default.sendMessage(message, replyHandler: { (thing) in
-
            print("replyhandler")
-            
         }, errorHandler: { (err) in
             print("watch error")
-        })
+        });
+        
     }
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
@@ -107,10 +106,6 @@ extension ExtensionDelegate: WCSessionDelegate {
         if(active){
             self.cryptoPrice?.getUpdateBitcoinPrice()
         }
-        
-        
-        
-        
         
     }
     
