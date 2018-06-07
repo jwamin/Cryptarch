@@ -28,7 +28,7 @@ public class NewCell : UITableViewCell{
 @IBDesignable
 public class PieView : UIView{
     
-    @IBInspectable public var percentage:Double = 0.5 {
+    @IBInspectable public var percentage:Double = 0.0 {
         didSet{
             updateLayerProperties()
             
@@ -40,6 +40,16 @@ public class PieView : UIView{
             
         }
     }
+    
+    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        print("will redisplay")
+        self.layer.sublayers?.removeAll()
+        backgroundRingLayer = nil
+        ringLayer = nil
+       self.setNeedsDisplay()
+    }
+    
+
     
     func animate(percentFloat:CGFloat){
         if(ringLayer != nil){
@@ -118,6 +128,7 @@ public class PieView : UIView{
     
     public override func layoutSubviews() {
         super.layoutSubviews()
+        print("drawing")
         if !(backgroundRingLayer != nil){
             backgroundRingLayer = CAShapeLayer()
             layer.addSublayer(backgroundRingLayer)
