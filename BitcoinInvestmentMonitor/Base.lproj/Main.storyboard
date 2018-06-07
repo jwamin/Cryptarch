@@ -122,6 +122,7 @@
                     <connections>
                         <outlet property="mainPie" destination="qSL-CH-xrA" id="FIe-F8-Lvb"/>
                         <outlet property="percentLabel" destination="jLl-sO-pTW" id="3rr-c8-hIl"/>
+                        <outlet property="statContainer" destination="7Jh-zE-O5N" id="jmd-O6-t6M"/>
                         <outlet property="tableView" destination="D1S-IJ-Agk" id="X1n-2t-Ojn"/>
                         <outlet property="totalLabel" destination="HxZ-j5-h2x" id="Xg5-bh-Jdb"/>
                         <outlet property="totalSpendLabel" destination="YFf-Tc-B8G" id="sQB-u3-B3E"/>

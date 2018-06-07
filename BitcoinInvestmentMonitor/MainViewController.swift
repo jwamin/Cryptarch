@@ -111,6 +111,11 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             if thisView is UILabel{
                 (thisView as! UILabel).textColor = UIColor.white
             }
+//            for sub in thisView.subviews{
+//                if thisView is UILabel{
+//                    (thisView as! UILabel).textColor = UIColor.white
+//                }
+//            }
         }
     }
     
