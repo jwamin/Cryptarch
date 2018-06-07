@@ -14,6 +14,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     
     @IBOutlet weak var statContainer: UIView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var mainPie: PieView!
     
     var btcManager:CDBTCManager!
     var refresh:UIRefreshControl!
@@ -54,6 +55,9 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         let neutralLabel:UIColor = (darkMode) ? UIColor.white : UIColor.black
         let inTheGreen = (totalPercentValue==0) ? 2 : (totalPercentValue>1) ? 1 : 0;
         percentLabel.textColor = (inTheGreen==2) ? neutralLabel : (inTheGreen==1) ? UIColor.green : UIColor.red;
+        let double = Double(totalValue/totalSpendValue)
+        mainPie.percentage = (double<1) ? -double : double
+        print(mainPie.percentage)
         let str = String(format: "$%.2f", totalPercentValue)
      
         percentLabel.text = (inTheGreen>0) ? str : "-"+str.replacingOccurrences(of: "-", with: "")
