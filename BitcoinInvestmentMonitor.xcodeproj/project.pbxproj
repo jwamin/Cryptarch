@@ -19,6 +19,11 @@
 		3DDDFB331FD9894A00C00561 /* BTCModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB311FD9894A00C00561 /* BTCModel.xcdatamodeld */; };
 		3DDDFB391FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB381FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift */; };
 		3DF78DE4205ABAB8008AC829 /* BTCModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB311FD9894A00C00561 /* BTCModel.xcdatamodeld */; };
+		3DFACF7220C969E600CCC092 /* PieCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DFACF7020C969E600CCC092 /* PieCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3DFACF7520C969E600CCC092 /* PieCell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFACF6E20C969E600CCC092 /* PieCell.framework */; };
+		3DFACF7620C969E600CCC092 /* PieCell.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFACF6E20C969E600CCC092 /* PieCell.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3DFACF7D20C96A0100CCC092 /* JOSSYRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFACF7B20C96A0100CCC092 /* JOSSYRingView.swift */; };
+		3DFACF7E20C96A0100CCC092 /* Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DFACF7C20C96A0100CCC092 /* Cell.xib */; };
 		577C9D7F200D225D0058F239 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 577C9D7E200D225D0058F239 /* Settings.bundle */; };
 		57A83BF82056037E002B0CA0 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57A83BF62056037E002B0CA0 /* Interface.storyboard */; };
 		57A83BFA2056037E002B0CA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57A83BF92056037E002B0CA0 /* Assets.xcassets */; };
@@ -33,6 +38,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3DFACF7320C969E600CCC092 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3DDDFAED1FD980DA00C00561 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3DFACF6D20C969E600CCC092;
+			remoteInfo = PieCell;
+		};
 		57A83C022056037E002B0CA0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3DDDFAED1FD980DA00C00561 /* Project object */;
@@ -50,6 +62,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		3DFACF7A20C969E600CCC092 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3DFACF7620C969E600CCC092 /* PieCell.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		57A83C162056037E002B0CA0 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -88,6 +111,11 @@
 		3DDDFB321FD9894A00C00561 /* BTCModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BTCModel.xcdatamodel; sourceTree = "<group>"; };
 		3DDDFB381FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataBitcoinBuyManager.swift; sourceTree = "<group>"; };
 		3DDDFB3A1FD9BE4D00C00561 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		3DFACF6E20C969E600CCC092 /* PieCell.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PieCell.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DFACF7020C969E600CCC092 /* PieCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PieCell.h; sourceTree = "<group>"; };
+		3DFACF7120C969E600CCC092 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3DFACF7B20C96A0100CCC092 /* JOSSYRingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JOSSYRingView.swift; sourceTree = "<group>"; };
+		3DFACF7C20C96A0100CCC092 /* Cell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Cell.xib; sourceTree = "<group>"; };
 		577C9D7E200D225D0058F239 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		57A83BF42056037E002B0CA0 /* Monitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Monitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57A83BF72056037E002B0CA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
@@ -104,6 +132,14 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		3DDDFAF21FD980DB00C00561 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DFACF7520C969E600CCC092 /* PieCell.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3DFACF6A20C969E600CCC092 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -127,6 +163,7 @@
 				3DDDFAF71FD980DB00C00561 /* BitcoinInvestmentMonitor */,
 				57A83BF52056037E002B0CA0 /* Monitor */,
 				57A83C042056037E002B0CA0 /* Monitor Extension */,
+				3DFACF6F20C969E600CCC092 /* PieCell */,
 				3DDDFAF61FD980DB00C00561 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -137,6 +174,7 @@
 				3DDDFAF51FD980DB00C00561 /* BitcoinInvestmentMonitor.app */,
 				57A83BF42056037E002B0CA0 /* Monitor.app */,
 				57A83C002056037E002B0CA0 /* Monitor Extension.appex */,
+				3DFACF6E20C969E600CCC092 /* PieCell.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -159,6 +197,17 @@
 				3DDDFB041FD980DB00C00561 /* Info.plist */,
 			);
 			path = BitcoinInvestmentMonitor;
+			sourceTree = "<group>";
+		};
+		3DFACF6F20C969E600CCC092 /* PieCell */ = {
+			isa = PBXGroup;
+			children = (
+				3DFACF7C20C96A0100CCC092 /* Cell.xib */,
+				3DFACF7B20C96A0100CCC092 /* JOSSYRingView.swift */,
+				3DFACF7020C969E600CCC092 /* PieCell.h */,
+				3DFACF7120C969E600CCC092 /* Info.plist */,
+			);
+			path = PieCell;
 			sourceTree = "<group>";
 		};
 		57A83BF52056037E002B0CA0 /* Monitor */ = {
@@ -185,6 +234,17 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		3DFACF6B20C969E600CCC092 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DFACF7220C969E600CCC092 /* PieCell.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		3DDDFAF41FD980DB00C00561 /* BitcoinInvestmentMonitor */ = {
 			isa = PBXNativeTarget;
@@ -194,16 +254,36 @@
 				3DDDFAF21FD980DB00C00561 /* Frameworks */,
 				3DDDFAF31FD980DB00C00561 /* Resources */,
 				57A83C182056037E002B0CA0 /* Embed Watch Content */,
+				3DFACF7A20C969E600CCC092 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				57A83C0F2056037E002B0CA0 /* PBXTargetDependency */,
+				3DFACF7420C969E600CCC092 /* PBXTargetDependency */,
 			);
 			name = BitcoinInvestmentMonitor;
 			productName = BitcoinInvestmentMonitor;
 			productReference = 3DDDFAF51FD980DB00C00561 /* BitcoinInvestmentMonitor.app */;
 			productType = "com.apple.product-type.application";
+		};
+		3DFACF6D20C969E600CCC092 /* PieCell */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3DFACF7920C969E600CCC092 /* Build configuration list for PBXNativeTarget "PieCell" */;
+			buildPhases = (
+				3DFACF6920C969E600CCC092 /* Sources */,
+				3DFACF6A20C969E600CCC092 /* Frameworks */,
+				3DFACF6B20C969E600CCC092 /* Headers */,
+				3DFACF6C20C969E600CCC092 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PieCell;
+			productName = PieCell;
+			productReference = 3DFACF6E20C969E600CCC092 /* PieCell.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		57A83BF32056037E002B0CA0 /* Monitor */ = {
 			isa = PBXNativeTarget;
@@ -253,6 +333,11 @@
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
 					};
+					3DFACF6D20C969E600CCC092 = {
+						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 0940;
+						ProvisioningStyle = Automatic;
+					};
 					57A83BF32056037E002B0CA0 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
@@ -279,6 +364,7 @@
 				3DDDFAF41FD980DB00C00561 /* BitcoinInvestmentMonitor */,
 				57A83BF32056037E002B0CA0 /* Monitor */,
 				57A83BFF2056037E002B0CA0 /* Monitor Extension */,
+				3DFACF6D20C969E600CCC092 /* PieCell */,
 			);
 		};
 /* End PBXProject section */
@@ -292,6 +378,14 @@
 				3DDDFB031FD980DB00C00561 /* LaunchScreen.storyboard in Resources */,
 				3DDDFB001FD980DB00C00561 /* Assets.xcassets in Resources */,
 				3DDDFAFE1FD980DB00C00561 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3DFACF6C20C969E600CCC092 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DFACF7E20C96A0100CCC092 /* Cell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +424,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3DFACF6920C969E600CCC092 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DFACF7D20C96A0100CCC092 /* JOSSYRingView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		57A83BFC2056037E002B0CA0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -346,6 +448,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3DFACF7420C969E600CCC092 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3DFACF6D20C969E600CCC092 /* PieCell */;
+			targetProxy = 3DFACF7320C969E600CCC092 /* PBXContainerItemProxy */;
+		};
 		57A83C032056037E002B0CA0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 57A83BFF2056037E002B0CA0 /* Monitor Extension */;
@@ -496,6 +603,7 @@
 		3DDDFB081FD980DB00C00561 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3C42F7N9CQ;
@@ -512,6 +620,7 @@
 		3DDDFB091FD980DB00C00561 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3C42F7N9CQ;
@@ -522,6 +631,65 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		3DFACF7720C969E600CCC092 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 3C42F7N9CQ;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = PieCell/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jossy.PieCell;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		3DFACF7820C969E600CCC092 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 3C42F7N9CQ;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = PieCell/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jossy.PieCell;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -616,6 +784,15 @@
 			buildConfigurations = (
 				3DDDFB081FD980DB00C00561 /* Debug */,
 				3DDDFB091FD980DB00C00561 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3DFACF7920C969E600CCC092 /* Build configuration list for PBXNativeTarget "PieCell" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3DFACF7720C969E600CCC092 /* Debug */,
+				3DFACF7820C969E600CCC092 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
