@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import PieCell
 
 class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,UITableViewDelegate,UITableViewDataSource,NSFetchedResultsControllerDelegate {
     
@@ -290,12 +291,9 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
 //        return "header"
 //    }
     
-    
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "btcbuy") as! BTCBuyTableCell
         
-        //print("new cell",indexPath.section,indexPath.row)
+        let cell = Bundle(for: NewCell.self).loadNibNamed("Cell", owner: self, options: nil)![0] as! NewCell
         
         let labelDict = btcManager.btcPriceMonitor!.processInfo(buy: self.btcManager.fetchedResultsController.object(at: indexPath))
         let isRising = (labelDict["direction"] == "up")
@@ -303,21 +301,44 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         if darkMode{
             MainViewController.darkModeView(view: cell.contentView)
         }
-        
-        cell.btcAmountLabel.text = labelDict["buy"]
-        cell.dateLabel.text = labelDict["date"]
-        cell.btcRateAtBuyLabel.text = labelDict["rateAtBuy"]
-        cell.usdAtBuyLabel.text = "$"+(labelDict["priceAtBuy"] ?? "missing")
-        cell.currentRateLabel.text = labelDict["currentRate"]
-        
-        cell.currentPriceLabel.text = "$"+(labelDict["currentPrice"] ?? "missing")
-        cell.appreciationLabel.text = (labelDict["direction"] == "up") ? "+"+labelDict["appreciation"]! : "-"+labelDict["appreciation"]!
-        cell.appreciationLabel.textColor = isRising ? UIColor.green : UIColor.red
-        
-        //print("labeldict",indexPath,labelDict,cell)
+        cell.priceAtBuy.text = labelDict["buy"]
+        cell.currentPrice.text = "$"+(labelDict["currentPrice"] ?? "missing")
+        cell.toplabel.text = "Buy amount"
+        cell.bottomlabel.text = "Current value"
+        print(labelDict["direction"]!,labelDict["actualDecimal"]!)
+        cell.pieView.percentage = (labelDict["direction"] == "up") ? Double(labelDict["actualDecimal"]!)! : -Double(labelDict["actualDecimal"]!)!
         cell.initialiseTickerView(isRising: isRising)
+
         return cell
+        
     }
+
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "btcbuy") as! BTCBuyTableCell
+//
+//        //print("new cell",indexPath.section,indexPath.row)
+//
+//        let labelDict = btcManager.btcPriceMonitor!.processInfo(buy: self.btcManager.fetchedResultsController.object(at: indexPath))
+//        let isRising = (labelDict["direction"] == "up")
+//
+//        if darkMode{
+//            MainViewController.darkModeView(view: cell.contentView)
+//        }
+//
+//        cell.btcAmountLabel.text = labelDict["buy"]
+//        cell.dateLabel.text = labelDict["date"]
+//        cell.btcRateAtBuyLabel.text = labelDict["rateAtBuy"]
+//        cell.usdAtBuyLabel.text = "$"+(labelDict["priceAtBuy"] ?? "missing")
+//        cell.currentRateLabel.text = labelDict["currentRate"]
+//
+//        cell.currentPriceLabel.text = "$"+(labelDict["currentPrice"] ?? "missing")
+//        cell.appreciationLabel.text = (labelDict["direction"] == "up") ? "+"+labelDict["appreciation"]! : "-"+labelDict["appreciation"]!
+//        cell.appreciationLabel.textColor = isRising ? UIColor.green : UIColor.red
+//
+//        //print("labeldict",indexPath,labelDict,cell)
+//        cell.initialiseTickerView(isRising: isRising)
+//        return cell
+//    }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let context = self.btcManager.fetchedResultsController.managedObjectContext
@@ -347,15 +368,23 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     
     //reload / reposition ticker view when about to appears
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let buycell = cell as! BTCBuyTableCell
-        let rising = buycell.ticker.rising
-        buycell.ticker.removeFromSuperview()
-        buycell.initialiseTickerView(isRising: rising)
+        if cell is BTCBuyTableCell{
+            let buycell = cell as! BTCBuyTableCell
+            let rising = buycell.ticker.rising
+            buycell.ticker.removeFromSuperview()
+            buycell.initialiseTickerView(isRising: rising)
+        }
+
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return 218.0
+        if(tableView.cellForRow(at: indexPath) is BTCBuyTableCell){
+            return 218.0
+        } else {
+            return 85.0
+        }
+        
         
     }
     

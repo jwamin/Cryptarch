@@ -175,6 +175,10 @@ class BTCPriceModel: NSObject,URLSessionDataDelegate {
 
 
 func processInfo(buy:Buy) -> Dictionary<String,String>{
+    
+    //REFACTOR THE SHIT OUT OF THIS TO RETURN STRUCT
+    
+    
     //print(buy.btcAmount,buy.cryptoCurrency)
     var buyDict:Dictionary<String,String> = [:]
     let dateF = DateFormatter()
@@ -185,7 +189,7 @@ func processInfo(buy:Buy) -> Dictionary<String,String>{
     let actualDecimal = (appreciationDecimal>1) ? appreciationDecimal-1 : 1-appreciationDecimal
     buyDict["buy"] = String(buy.btcAmount)
     buyDict["date"] = dateF.string(from: buy.dateOfPurchase! as Date)
-    
+    buyDict["actualDecimal"] = String(actualDecimal)
     buyDict["rateAtBuy"] = String(buy.btcRateAtPurchase)
     buyDict["priceAtBuy"] = String(originalPrice)
     buyDict["currentRate"] = String(cryptoRates[buy.cryptoCurrency!]!)

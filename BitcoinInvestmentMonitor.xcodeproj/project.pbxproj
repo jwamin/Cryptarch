@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D43CACD20C97F760028629E /* OldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D43CACC20C97F760028629E /* OldCell.xib */; };
 		3D8A20492058296A00881555 /* BTCPriceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB0A1FD9814000C00561 /* BTCPriceModel.swift */; };
 		3DAEF53D1FE43A1B00F9B22C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAEF53C1FE43A1B00F9B22C /* MainViewController.swift */; };
 		3DDDFAF91FD980DB00C00561 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFAF81FD980DB00C00561 /* AppDelegate.swift */; };
@@ -98,6 +99,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3D43CACC20C97F760028629E /* OldCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OldCell.xib; sourceTree = "<group>"; };
 		3DAEF53C1FE43A1B00F9B22C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3DDDFAF51FD980DB00C00561 /* BitcoinInvestmentMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BitcoinInvestmentMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DDDFAF81FD980DB00C00561 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				3DDDFB381FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift */,
 				3DDDFB0A1FD9814000C00561 /* BTCPriceModel.swift */,
 				3DDDFAFC1FD980DB00C00561 /* Main.storyboard */,
+				3D43CACC20C97F760028629E /* OldCell.xib */,
 				3DDDFB2F1FD982CF00C00561 /* BTCBuyTableCell.swift */,
 				57DA6FE41FEE4EFC00568BEB /* Helpers.swift */,
 				3DDDFB311FD9894A00C00561 /* BTCModel.xcdatamodeld */,
@@ -375,6 +378,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				577C9D7F200D225D0058F239 /* Settings.bundle in Resources */,
+				3D43CACD20C97F760028629E /* OldCell.xib in Resources */,
 				3DDDFB031FD980DB00C00561 /* LaunchScreen.storyboard in Resources */,
 				3DDDFB001FD980DB00C00561 /* Assets.xcassets in Resources */,
 				3DDDFAFE1FD980DB00C00561 /* Main.storyboard in Resources */,
@@ -651,7 +655,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = PieCell/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jossy.PieCell;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -681,7 +685,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = PieCell/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jossy.PieCell;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
