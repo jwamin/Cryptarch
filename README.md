@@ -20,6 +20,7 @@ Swift
 
 ## TODO
 * Work on Cell view.
+* Size classes
 * `heightForRowAtIndexPath:`  or `isExpanded` - tap for detail instead of full view. 
 * Refactor model to use `struct`. 
 * Timeout and other error handling for Pull To Refresh
