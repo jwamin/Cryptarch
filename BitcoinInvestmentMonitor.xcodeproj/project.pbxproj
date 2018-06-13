@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3D8A20492058296A00881555 /* BTCPriceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB0A1FD9814000C00561 /* BTCPriceModel.swift */; };
+		3DAB149B20D1A02100DBBF85 /* UIHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAB149A20D1A02100DBBF85 /* UIHelpers.swift */; };
 		3DAEF53D1FE43A1B00F9B22C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAEF53C1FE43A1B00F9B22C /* MainViewController.swift */; };
 		3DDDFAF91FD980DB00C00561 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFAF81FD980DB00C00561 /* AppDelegate.swift */; };
 		3DDDFAFB1FD980DB00C00561 /* AddEditScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFAFA1FD980DB00C00561 /* AddEditScreenController.swift */; };
@@ -98,6 +99,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3DAB149A20D1A02100DBBF85 /* UIHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelpers.swift; sourceTree = "<group>"; };
 		3DAEF53C1FE43A1B00F9B22C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3DDDFAF51FD980DB00C00561 /* Cryptarch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cryptarch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DDDFAF81FD980DB00C00561 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				3DDDFAFF1FD980DB00C00561 /* Assets.xcassets */,
 				3DDDFB011FD980DB00C00561 /* LaunchScreen.storyboard */,
 				3DDDFB041FD980DB00C00561 /* Info.plist */,
+				3DAB149A20D1A02100DBBF85 /* UIHelpers.swift */,
 			);
 			path = BitcoinInvestmentMonitor;
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 				3DDDFAFB1FD980DB00C00561 /* AddEditScreenController.swift in Sources */,
 				3DDDFB0B1FD9814000C00561 /* BTCPriceModel.swift in Sources */,
 				3DDDFB391FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift in Sources */,
+				3DAB149B20D1A02100DBBF85 /* UIHelpers.swift in Sources */,
 				3DDDFAF91FD980DB00C00561 /* AppDelegate.swift in Sources */,
 				57DA6FE51FEE4EFC00568BEB /* Helpers.swift in Sources */,
 				3DDDFB301FD982CF00C00561 /* BTCBuyTableCell.swift in Sources */,

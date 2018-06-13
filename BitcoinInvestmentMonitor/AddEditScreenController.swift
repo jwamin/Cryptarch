@@ -50,7 +50,7 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         if(tableViewParent?.darkMode)!{
             let white = UIColor.white
-            MainViewController.darkModeView(view: self.view)
+            darkModeView(view: self.view)
             currencyPicker.tintColor = white
             add.tintColor = white
             datePicker.setValue(white, forKey: "textColor")

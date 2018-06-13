@@ -102,25 +102,14 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
             refresh.backgroundColor = UIColor.black
             tableView.backgroundColor = UIColor.black
-            MainViewController.darkModeView(view: view)
-            MainViewController.darkModeView(view: statContainer)
+            darkModeView(view: view)
+            darkModeView(view: statContainer)
             UIApplication.shared.statusBarStyle = .lightContent
         }
         updateTotalValue()
     }
     
-    static func darkModeView(view:UIView){
-        view.backgroundColor = UIColor.black
-        for thisView in view.subviews{
-            //print(thisView)
-            if thisView is UILabel{
-                (thisView as! UILabel).textColor = UIColor.white
-            }
-            for sub in thisView.subviews{
-                darkModeView(view: sub)
-            }
-        }
-    }
+
     
     @objc func handlePullToRefresh(_ sender:UIRefreshControl){
         sender.beginRefreshing()
@@ -311,7 +300,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         let isRising = (labelDict["direction"] == "up")
         
         if darkMode{
-            MainViewController.darkModeView(view: cell.contentView)
+            darkModeView(view: cell.contentView)
         }
         cell.priceAtBuy.text = "$"+(labelDict["priceAtBuy"] ?? "missing")
         cell.currentPrice.text = "$"+(labelDict["currentPrice"] ?? "missing")
