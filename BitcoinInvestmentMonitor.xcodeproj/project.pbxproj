@@ -99,7 +99,7 @@
 
 /* Begin PBXFileReference section */
 		3DAEF53C1FE43A1B00F9B22C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		3DDDFAF51FD980DB00C00561 /* BitcoinInvestmentMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BitcoinInvestmentMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DDDFAF51FD980DB00C00561 /* Cryptarch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cryptarch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DDDFAF81FD980DB00C00561 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DDDFAFA1FD980DB00C00561 /* AddEditScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditScreenController.swift; sourceTree = "<group>"; };
 		3DDDFAFD1FD980DB00C00561 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -171,7 +171,7 @@
 		3DDDFAF61FD980DB00C00561 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3DDDFAF51FD980DB00C00561 /* BitcoinInvestmentMonitor.app */,
+				3DDDFAF51FD980DB00C00561 /* Cryptarch.app */,
 				57A83BF42056037E002B0CA0 /* Monitor.app */,
 				57A83C002056037E002B0CA0 /* Monitor Extension.appex */,
 				3DFACF6E20C969E600CCC092 /* PieCell.framework */,
@@ -264,7 +264,7 @@
 			);
 			name = BitcoinInvestmentMonitor;
 			productName = BitcoinInvestmentMonitor;
-			productReference = 3DDDFAF51FD980DB00C00561 /* BitcoinInvestmentMonitor.app */;
+			productReference = 3DDDFAF51FD980DB00C00561 /* Cryptarch.app */;
 			productType = "com.apple.product-type.application";
 		};
 		3DFACF6D20C969E600CCC092 /* PieCell */ = {
@@ -611,7 +611,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jossy.BitcoinInvestmentMonitor;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Cryptarch;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -628,7 +628,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jossy.BitcoinInvestmentMonitor;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Cryptarch;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
