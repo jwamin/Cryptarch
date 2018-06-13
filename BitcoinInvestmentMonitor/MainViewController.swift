@@ -55,8 +55,13 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         let neutralLabel:UIColor = (darkMode) ? UIColor.white : UIColor.black
         let inTheGreen = (totalPercentValue==0) ? 2 : (totalPercentValue>1) ? 1 : 0;
         percentLabel.textColor = (inTheGreen==2) ? neutralLabel : (inTheGreen==1) ? UIColor.green : UIColor.red;
-        let double = Double(totalValue/totalSpendValue)
-        mainPie.percentage = (double<1) ? -double : double
+        var double = Double(totalValue/totalSpendValue)
+        
+        //PieView.percentage needs signed normal between -1 and 1
+        double = (double<1) ? -(1-double) : double
+        print("mainPie double:\(double)")
+        mainPie.percentage = double
+        
         print(mainPie.percentage)
         let str = String(format: "$%.2f", totalPercentValue)
      
@@ -111,11 +116,9 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             if thisView is UILabel{
                 (thisView as! UILabel).textColor = UIColor.white
             }
-//            for sub in thisView.subviews{
-//                if thisView is UILabel{
-//                    (thisView as! UILabel).textColor = UIColor.white
-//                }
-//            }
+            for sub in thisView.subviews{
+                darkModeView(view: sub)
+            }
         }
     }
     
@@ -310,10 +313,10 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         if darkMode{
             MainViewController.darkModeView(view: cell.contentView)
         }
-        cell.priceAtBuy.text = labelDict["buy"]
+        cell.priceAtBuy.text = "$"+(labelDict["priceAtBuy"] ?? "missing")
         cell.currentPrice.text = "$"+(labelDict["currentPrice"] ?? "missing")
-        cell.toplabel.text = "Buy amount"
-        cell.bottomlabel.text = "Current value"
+        cell.toplabel.text = "Current value"
+        cell.bottomlabel.text = "Buy value"
         print(labelDict["direction"]!,labelDict["actualDecimal"]!)
         cell.pieView.percentage = (labelDict["direction"] == "up") ? Double(labelDict["actualDecimal"]!)! : -Double(labelDict["actualDecimal"]!)!
         cell.initialiseTickerView(isRising: isRising)

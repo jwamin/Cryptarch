@@ -17,11 +17,17 @@ public class NewCell : UITableViewCell{
     public func initialiseTickerView(isRising:Bool=true){
         ticker = TickerView(parent: self, isRising: isRising)
         ticker.backgroundColor = UIColor.clear
+        ticker.autoresizingMask = [.flexibleTopMargin,.flexibleLeftMargin]
         self.addSubview(ticker)
     }
     
     @IBOutlet public weak var toplabel: UILabel!
     @IBOutlet public weak var bottomlabel: UILabel!
+    
+    public override func prepareForReuse() {
+        ticker.removeFromSuperview()
+    }
+    
 }
 
 
