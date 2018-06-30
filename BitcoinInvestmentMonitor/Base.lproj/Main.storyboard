@@ -16,7 +16,7 @@
         <!--Main View Controller-->
         <scene sceneID="ouf-P5-CPh">
             <objects>
-                <viewController id="Mfi-wI-obE" customClass="MainViewController" customModule="BitcoinInvestmentMonitor" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Mfi-wI-obE" customClass="MainViewController" customModule="Cryptarch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tnk-8U-wVw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -149,7 +149,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="btcbuy" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="btcbuy" rowHeight="221" id="Ey9-fe-qJd" customClass="BTCBuyTableCell" customModule="BitcoinInvestmentMonitor" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="btcbuy" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="btcbuy" rowHeight="221" id="Ey9-fe-qJd" customClass="BTCBuyTableCell" customModule="Cryptarch" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="375" height="221"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ey9-fe-qJd" id="HFM-2M-6wB">
@@ -318,7 +318,7 @@
         <!--Main View Controller-->
         <scene sceneID="NDm-Id-8Fw">
             <objects>
-                <viewController id="mAi-V1-spH" customClass="MainViewController" customModule="BitcoinInvestmentMonitor" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="mAi-V1-spH" customClass="MainViewController" customModule="Cryptarch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="teD-va-zne">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -415,7 +415,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="BitcoinInvestmentMonitor" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Cryptarch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
