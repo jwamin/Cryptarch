@@ -60,7 +60,7 @@ public class PieView : UIView{
     func animate(percentFloat:CGFloat){
         if(ringLayer != nil){
             
-            var normalFloat:CGFloat = {
+            let normalFloat:CGFloat = {
                 switch percentFloat {
                 case let p where p > 1.0:
                     return 1.0

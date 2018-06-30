@@ -21,6 +21,17 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     
     var darkMode:Bool = false
     
+    override var preferredStatusBarStyle: UIStatusBarStyle{
+        get{
+            if(darkMode){
+                return .lightContent
+            } else {
+                return .default
+            }
+        }
+    }
+    
+    
     var totalValue:Float! = 0.0 {
         didSet{
             totalLabel.text = String(format: "$%.2f", totalValue)
@@ -104,7 +115,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             tableView.backgroundColor = UIColor.black
             darkModeView(view: view)
             darkModeView(view: statContainer)
-            UIApplication.shared.statusBarStyle = .lightContent
+            
         }
         updateTotalValue()
     }
