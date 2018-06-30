@@ -52,6 +52,8 @@ class ViewController: UIViewController {
             let white = UIColor.white
             darkModeView(view: self.view)
             currencyPicker.tintColor = white
+            btcAmountField.textColor = white
+            rateAtPurchaseField.textColor = white
             add.tintColor = white
             datePicker.setValue(white, forKey: "textColor")
         }

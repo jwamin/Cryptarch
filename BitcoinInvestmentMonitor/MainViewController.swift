@@ -19,7 +19,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     var btcManager:CDBTCManager!
     var refresh:UIRefreshControl!
     
-    var darkMode:Bool = false
+    var darkMode:Bool = true
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
         get{
@@ -82,9 +82,16 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     @IBOutlet weak var totalLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+     
+        let defaultsNumber = UserDefaults.standard.object(forKey: "dark_mode")
+        
+        if(defaultsNumber==nil){
+            UserDefaults.standard.set(true, forKey: "dark_mode")
+            darkMode = true
+        }
+        
         btcManager = CDBTCManager(self)
         btcManager.delegate = self
-        
         btcManager.btcPriceMonitor?.getUpdateBitcoinPrice()
         percentLabel.text = ""
         // Uncomment the following line to preserve selection between presentations
@@ -104,7 +111,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     
     override func viewWillAppear(_ animated: Bool) {
 
-        darkMode = UserDefaults.standard.bool(forKey: "dark_mode")
+        
         
         if darkMode{
             self.view.backgroundColor = UIColor.black
