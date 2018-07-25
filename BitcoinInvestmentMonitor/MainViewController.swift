@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import PieCell
 
-class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,UITableViewDelegate,UITableViewDataSource,NSFetchedResultsControllerDelegate {
+class MainViewController: UIViewController, BTCPriceDelegate, BTCManagerDelegate, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
     
     @IBOutlet weak var statContainer: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -95,7 +95,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             darkMode = true
         }
         
-        
+        darkMode = UserDefaults.standard.bool(forKey: "dark_mode")
         
         btcManager = CDBTCManager(self)
         btcManager.delegate = self
@@ -139,7 +139,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             darkModeView(view: statContainer)
         }
         
-        updateTotalValue()
+        //updateTotalValue()
         
         
     }
@@ -285,7 +285,12 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         //            }
         //        }
         //return BTCPriceModel.polling.count
-        return self.btcManager.fetchedResultsController.sections?.count ?? 0
+        if(!btcManager.btcPriceMonitor.gotPrices){
+            return 0
+        } else {
+            return self.btcManager.fetchedResultsController.sections?.count ?? 0
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -294,8 +299,13 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         //            return currentItems[section].count
         //        }
         //        return 0
-        let sectionInfo = self.btcManager.fetchedResultsController.sections![section]
-        return sectionInfo.numberOfObjects
+        if(!btcManager.btcPriceMonitor.gotPrices){
+            return 0
+        } else {
+            let sectionInfo = self.btcManager.fetchedResultsController.sections![section]
+            return sectionInfo.numberOfObjects
+        }
+      
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

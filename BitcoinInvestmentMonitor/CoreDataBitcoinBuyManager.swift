@@ -93,7 +93,6 @@ class CDBTCManager: NSObject,BTCPriceDelegate {
         let dateF = DateFormatter()
         dateF.dateFormat = "yyyy-MM-dd"
         
-        print(buyInfo["currency"])
         obj.dateOfPurchase = dateF.date(from: buyInfo["date"]!) ?? Date()
         obj.btcAmount = Float(buyInfo["btcAmount"] ?? "0.01") ?? 0.01
         obj.btcRateAtPurchase = Double(buyInfo["btcRate"] ?? "7800.120") ?? 7800.120

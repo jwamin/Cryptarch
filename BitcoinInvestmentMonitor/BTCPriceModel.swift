@@ -35,7 +35,7 @@ class BTCPriceModel: NSObject,URLSessionDataDelegate {
     var cryptoRates:Dictionary<String,Float> = [:]
     var delegate:BTCPriceDelegate?
     var backgroundID:String!
-    
+    var gotPrices:Bool = false
     var session:URLSession!
     
     //    var  dispatch_group: DispatchGroup? = DispatchGroup()
@@ -158,6 +158,7 @@ class BTCPriceModel: NSObject,URLSessionDataDelegate {
             }
         }
         //finally
+        gotPrices = true
         print(cryptoRates)
         self.session.finishTasksAndInvalidate()
         self.delegate?.updatedPrice()
