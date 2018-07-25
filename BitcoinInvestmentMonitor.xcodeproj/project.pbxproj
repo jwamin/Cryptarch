@@ -19,6 +19,7 @@
 		3DDDFB301FD982CF00C00561 /* BTCBuyTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB2F1FD982CF00C00561 /* BTCBuyTableCell.swift */; };
 		3DDDFB331FD9894A00C00561 /* BTCModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB311FD9894A00C00561 /* BTCModel.xcdatamodeld */; };
 		3DDDFB391FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB381FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift */; };
+		3DE556FE2108D0F4007A2A63 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE556FD2108D0F4007A2A63 /* NavigationController.swift */; };
 		3DF78DE4205ABAB8008AC829 /* BTCModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3DDDFB311FD9894A00C00561 /* BTCModel.xcdatamodeld */; };
 		3DFACF7220C969E600CCC092 /* PieCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DFACF7020C969E600CCC092 /* PieCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DFACF7520C969E600CCC092 /* PieCell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFACF6E20C969E600CCC092 /* PieCell.framework */; };
@@ -113,6 +114,7 @@
 		3DDDFB321FD9894A00C00561 /* BTCModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BTCModel.xcdatamodel; sourceTree = "<group>"; };
 		3DDDFB381FD98F6A00C00561 /* CoreDataBitcoinBuyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataBitcoinBuyManager.swift; sourceTree = "<group>"; };
 		3DDDFB3A1FD9BE4D00C00561 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		3DE556FD2108D0F4007A2A63 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		3DFACF6E20C969E600CCC092 /* PieCell.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PieCell.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DFACF7020C969E600CCC092 /* PieCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PieCell.h; sourceTree = "<group>"; };
 		3DFACF7120C969E600CCC092 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				3DDDFAFF1FD980DB00C00561 /* Assets.xcassets */,
 				3DDDFB011FD980DB00C00561 /* LaunchScreen.storyboard */,
 				3DDDFB041FD980DB00C00561 /* Info.plist */,
+				3DE556FD2108D0F4007A2A63 /* NavigationController.swift */,
 				3DAB149A20D1A02100DBBF85 /* UIHelpers.swift */,
 			);
 			path = BitcoinInvestmentMonitor;
@@ -423,6 +426,7 @@
 				3DDDFAF91FD980DB00C00561 /* AppDelegate.swift in Sources */,
 				57DA6FE51FEE4EFC00568BEB /* Helpers.swift in Sources */,
 				3DDDFB301FD982CF00C00561 /* BTCBuyTableCell.swift in Sources */,
+				3DE556FE2108D0F4007A2A63 /* NavigationController.swift in Sources */,
 				3DDDFB331FD9894A00C00561 /* BTCModel.xcdatamodeld in Sources */,
 				3DAEF53D1FE43A1B00F9B22C /* MainViewController.swift in Sources */,
 			);

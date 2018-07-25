@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
             session.activate()
         }
         
-        
+         
         return true
     }
 

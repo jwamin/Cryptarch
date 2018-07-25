@@ -533,7 +533,7 @@
         <!--Navigation Controller-->
         <scene sceneID="itH-Gc-gQh">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="EzD-AM-pYH" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="EzD-AM-pYH" customClass="NavigationController" customModule="Cryptarch" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8QK-R6-fZv">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>

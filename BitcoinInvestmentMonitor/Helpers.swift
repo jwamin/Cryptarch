@@ -11,8 +11,11 @@ import Foundation
 enum CryptoTicker:Int {
     
     case btc = 0
-    case ltc = 1
+    case bch = 1
     case eth = 2
+    case ltc = 3
+    
+    
     
     func stringValue() -> String {
         switch(self){
@@ -22,6 +25,8 @@ enum CryptoTicker:Int {
             return "LTC"
         case .eth:
             return "ETH"
+        case .bch:
+            return "BCH"
         }
     }
     
@@ -30,6 +35,8 @@ enum CryptoTicker:Int {
             switch(validString){
             case "LTC":
                 return .ltc
+            case "BCH":
+                return .bch
             case "ETH":
                 return .eth
             default:

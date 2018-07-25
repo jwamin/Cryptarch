@@ -19,9 +19,13 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     var btcManager:CDBTCManager!
     var refresh:UIRefreshControl!
     
-    var darkMode:Bool = true
+    var darkMode:Bool = true {
+        didSet{
+            self.navigationController?.setNeedsStatusBarAppearanceUpdate()
+        }
+    }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle{
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         get{
             if(darkMode){
                 return .lightContent
@@ -29,6 +33,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
                 return .default
             }
         }
+        
     }
     
     
@@ -90,6 +95,8 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             darkMode = true
         }
         
+        
+        
         btcManager = CDBTCManager(self)
         btcManager.delegate = self
         btcManager.btcPriceMonitor?.getUpdateBitcoinPrice()
@@ -109,9 +116,17 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         tableView.refreshControl = refresh
     }
     
+    override func setNeedsStatusBarAppearanceUpdate() {
+        super.setNeedsStatusBarAppearanceUpdate()
+        print(self.preferredStatusBarStyle.rawValue)
+    }
+    
+    override var childViewControllerForStatusBarStyle: UIViewController?{
+        return self
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
 
-        
         
         if darkMode{
             self.view.backgroundColor = UIColor.black
@@ -122,11 +137,12 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
             tableView.backgroundColor = UIColor.black
             darkModeView(view: view)
             darkModeView(view: statContainer)
-            
         }
+        
         updateTotalValue()
+        
+        
     }
-    
 
     
     @objc func handlePullToRefresh(_ sender:UIRefreshControl){
