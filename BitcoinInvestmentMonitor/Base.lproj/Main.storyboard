@@ -468,6 +468,9 @@
                                     <segment title="BTC"/>
                                     <segment title="LTC"/>
                                 </segments>
+                                <connections>
+                                    <action selector="pickerChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Gwn-bV-71B"/>
+                                </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currency" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yau-go-Jlv">
                                 <rect key="frame" x="16" y="102" width="343" height="21"/>
@@ -521,6 +524,7 @@
                     <connections>
                         <outlet property="add" destination="ydz-Ad-713" id="Uet-nq-zyS"/>
                         <outlet property="btcAmountField" destination="slL-8r-IU1" id="RLV-yH-kJt"/>
+                        <outlet property="currencyLabel" destination="Tnm-Ri-4NM" id="vWI-cP-MYq"/>
                         <outlet property="currencyPicker" destination="wfb-TQ-I4S" id="say-hG-DZ1"/>
                         <outlet property="datePicker" destination="M5Q-xN-jWd" id="H3b-Vi-kZO"/>
                         <outlet property="rateAtPurchaseField" destination="QKo-ML-hj6" id="nyV-a3-NBb"/>

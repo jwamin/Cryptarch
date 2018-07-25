@@ -93,9 +93,11 @@ class MainViewController: UIViewController, BTCPriceDelegate, BTCManagerDelegate
         if(defaultsNumber==nil){
             UserDefaults.standard.set(true, forKey: "dark_mode")
             darkMode = true
+        } else {
+            darkMode = UserDefaults.standard.bool(forKey: "dark_mode")
         }
         
-        darkMode = UserDefaults.standard.bool(forKey: "dark_mode")
+        self.title = "Cryptarch"
         
         btcManager = CDBTCManager(self)
         btcManager.delegate = self
@@ -103,28 +105,18 @@ class MainViewController: UIViewController, BTCPriceDelegate, BTCManagerDelegate
         percentLabel.text = ""
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-        self.title = "Cryptarch"
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
-        //tableView.register(BTCBuyTableCell, forCellReuseIdentifier: "btcbuy")
         
         let point = CGPoint(x: tableView.frame.origin.x, y: tableView.frame.origin.y)
         refresh = UIRefreshControl(frame: CGRect(origin: point, size: CGSize(width: tableView.frame.width, height: 32.0)))
         
         refresh!.addTarget(self, action: #selector(handlePullToRefresh), for: UIControlEvents.valueChanged)
         tableView.refreshControl = refresh
+        
     }
-    
-    override func setNeedsStatusBarAppearanceUpdate() {
-        super.setNeedsStatusBarAppearanceUpdate()
-        print(self.preferredStatusBarStyle.rawValue)
-    }
-    
-    override var childViewControllerForStatusBarStyle: UIViewController?{
-        return self
-    }
-    
+
     override func viewWillAppear(_ animated: Bool) {
 
         
