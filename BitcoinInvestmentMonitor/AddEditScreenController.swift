@@ -21,6 +21,17 @@ class ViewController: UIViewController {
     @IBOutlet weak var add: UIButton!
     var editObject:Buy?
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        get{
+            if(tableViewParent?.darkMode)!{
+                return .lightContent
+            } else {
+                return .default
+            }
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -57,6 +68,9 @@ class ViewController: UIViewController {
             add.tintColor = white
             datePicker.setValue(white, forKey: "textColor")
         }
+        
+        self.navigationController?.setNeedsStatusBarAppearanceUpdate()
+        
     }
     
     
