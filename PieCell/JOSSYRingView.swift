@@ -105,15 +105,16 @@ public class PieView : UIView{
             
             var strokeColor = UIColor.lightGray
             
+            var bez = UIBezierPath(ovalIn: getInsetRect())
+            ringLayer.path = bez.cgPath
+            
             switch percentFloat {
             case let a where a <= 0.0:
                 strokeColor = UIColor.red
-                let bez = UIBezierPath(ovalIn: getInsetRect()).reversing()
+                bez = bez.reversing()
                 ringLayer.path = bez.cgPath
                 percentFloat = 0 - percentFloat
             case let a where a > 0.0:
-                let bez = UIBezierPath(ovalIn: getInsetRect())
-                ringLayer.path = bez.cgPath
                 strokeColor = UIColor.green
             default:
                 print("fall through")
