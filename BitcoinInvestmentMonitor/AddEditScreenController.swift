@@ -16,15 +16,26 @@ class ViewController: UIViewController {
     @IBOutlet weak var btcAmountField: UITextField!
     @IBOutlet weak var rateAtPurchaseField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var currencyLabel: UILabel!
     
     @IBOutlet weak var add: UIButton!
     var editObject:Buy?
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        get{
+            if(tableViewParent?.darkMode)!{
+                return .lightContent
+            } else {
+                return .default
+            }
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
         self.title = "Add Crypto Buy"
-        
-        print(editObject ?? "no object")
         
         currencyPicker.removeAllSegments()
         
@@ -57,6 +68,9 @@ class ViewController: UIViewController {
             add.tintColor = white
             datePicker.setValue(white, forKey: "textColor")
         }
+        
+        self.navigationController?.setNeedsStatusBarAppearanceUpdate()
+        
     }
     
     
@@ -69,8 +83,20 @@ class ViewController: UIViewController {
 //        view.endEditing(false)
 //    }
     
+    
     @IBAction func endEditing(_ sender:Any){
         view.endEditing(false)
+    }
+    
+    @IBAction func pickerChanged(_ sender: Any) {
+        
+       let picker = sender as! UISegmentedControl
+   
+        let str = "USD->%@ Rate at Purchase"
+        let tickerString = CryptoTicker(rawValue: picker.selectedSegmentIndex)!.stringValue()
+        currencyLabel.text = String(format: str, tickerString)
+        
+        
     }
     
     static func defaultSettings()->Dictionary<String,String>{

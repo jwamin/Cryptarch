@@ -8,7 +8,7 @@ Swift
 * Add/Remove and track investments vs. the current bitcoin price
 * Edit Screen using `commit editingStyle`, passing CD Object to 'new' VC.
 * Spring animated Pie views that show how much money you've lost.
-* Allows other cryptocurrency buys to be tracked. e.g LTC, ETH, rates from coinbase
+* Allows other cryptocurrency buys to be tracked. e.g BCH, LTC, ETH. Rates from Coinbase
 * UITableView sections
 * Pull to refresh
 * Alert view on price fetch fail
@@ -20,24 +20,22 @@ Swift
 
 ## TODO
 * Work on Cell view.
-* Size classes
+* System currency 
+* Over double to result in a blue circle in PieView
+* Size classes for iPad layout
 * `heightForRowAtIndexPath:`  or `isExpanded` - tap for detail instead of full view. 
 * Refactor model to use `struct`. 
 * Timeout and other error handling for Pull To Refresh
 * Streamline processes. DRY.
 * Refactor returned JSON code using `Codeable` class.
 * Refactor add screen. Less lame.
-
 * Clear out all old code - partially complete
 
 ## Nice to have
-* Icons
 * Complication placeholder for AW.
+* Better AW Interface.
 * more `UITableView` methods. Reorder
 * Comparitive rates
-* Cumulative view
-* Altcoins
-
 ### Techniques Used
 * Parsing JSON with Swift
 * NSURLSession to get current prices

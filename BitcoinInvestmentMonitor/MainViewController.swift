@@ -10,18 +10,32 @@ import UIKit
 import CoreData
 import PieCell
 
-class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,UITableViewDelegate,UITableViewDataSource,NSFetchedResultsControllerDelegate {
+class MainViewController: UIViewController, BTCPriceDelegate, BTCManagerDelegate, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
+    
+    // MARK: - InterfaceBuilder Outlets
     
     @IBOutlet weak var statContainer: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var mainPie: PieView!
+    @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var totalSpendLabel: UILabel!
+    @IBOutlet weak var percentLabel: UILabel!
+    
+    
+    // MARK: - Instance Variables
     
     var btcManager:CDBTCManager!
     var refresh:UIRefreshControl!
     
-    var darkMode:Bool = true
     
-    override var preferredStatusBarStyle: UIStatusBarStyle{
+    // MARK: - Variables with property observers
+    var darkMode:Bool = true {
+        didSet{
+            self.navigationController?.setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         get{
             if(darkMode){
                 return .lightContent
@@ -29,8 +43,8 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
                 return .default
             }
         }
+        
     }
-    
     
     var totalValue:Float! = 0.0 {
         didSet{
@@ -38,26 +52,97 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         }
     }
     
-    @IBOutlet weak var totalSpendLabel: UILabel!
     var totalSpendValue:Float! = 0.0 {
         didSet{
             totalSpendLabel.text = String(format: "$%.2f", totalSpendValue)
         }
     }
-    @IBOutlet weak var percentLabel: UILabel!
-    
-//    override var preferredStatusBarStyle: UIStatusBarStyle{
-//        print("updating status bar")
-//        if(darkMode){
-//            return .lightContent
-//        } else {
-//            return .default
-//        }
-//    }
     
     var totalPercentValue:Float! = 0.0 {
         didSet{
             updateTotalValue()
+        }
+    }
+    
+    // MARK: - ViewController Lifecycle Methods
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+     
+        let defaultsNumber = UserDefaults.standard.object(forKey: "dark_mode")
+        
+        if(defaultsNumber==nil){
+            UserDefaults.standard.set(true, forKey: "dark_mode")
+            darkMode = true
+        } else {
+            darkMode = UserDefaults.standard.bool(forKey: "dark_mode")
+        }
+        
+        self.title = "Cryptarch"
+        
+        btcManager = CDBTCManager(self)
+        btcManager.delegate = self
+        btcManager.btcPriceMonitor?.getUpdateBitcoinPrice()
+        percentLabel.text = ""
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+        
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        let point = CGPoint(x: tableView.frame.origin.x, y: tableView.frame.origin.y)
+        refresh = UIRefreshControl(frame: CGRect(origin: point, size: CGSize(width: tableView.frame.width, height: 32.0)))
+        
+        refresh!.addTarget(self, action: #selector(handlePullToRefresh), for: UIControlEvents.valueChanged)
+        tableView.refreshControl = refresh
+        
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+
+        if darkMode{
+            setDarkMode()
+        }
+        
+    }
+
+    // MARK: - View Updates
+    
+    private func setDarkMode(){
+        self.view.backgroundColor = UIColor.black
+        self.navigationController?.navigationBar.barTintColor = UIColor.black
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        refresh.backgroundColor = UIColor.black
+        tableView.backgroundColor = UIColor.black
+        darkModeView(view: view)
+        darkModeView(view: statContainer)
+    }
+    
+    
+    @objc func handlePullToRefresh(_ sender:UIRefreshControl){
+        sender.beginRefreshing()
+        //Dispatch queue multiple async tasks, finally return tuple
+        NotificationCenter.default.addObserver(self, selector: #selector(callkillAll), name: .UIApplicationWillResignActive, object: nil)
+        btcManager.btcPriceMonitor?.getUpdateBitcoinPrice()
+    }
+    
+    // MARK: - Data Processing for views
+    
+    func updatedPrice() {
+        print("notified price update")
+        
+        NotificationCenter.default.removeObserver(self, name: .UIApplicationWillResignActive, object: nil)
+        DispatchQueue.main.async {
+            
+            //reload data is fine, not adding or removing in this transaction
+            self.tableReload()
+            if let refresh = self.refresh {
+                refresh.endRefreshing()
+                //self.updatedCore()
+                self.calculateTotals()
+            }
+            
         }
     }
     
@@ -75,98 +160,11 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         
         print(mainPie.percentage)
         let str = String(format: "$%.2f", totalPercentValue)
-     
+        
         percentLabel.text = (inTheGreen>0) ? str : "-"+str.replacingOccurrences(of: "-", with: "")
     }
     
-    @IBOutlet weak var totalLabel: UILabel!
-    override func viewDidLoad() {
-        super.viewDidLoad()
-     
-        let defaultsNumber = UserDefaults.standard.object(forKey: "dark_mode")
-        
-        if(defaultsNumber==nil){
-            UserDefaults.standard.set(true, forKey: "dark_mode")
-            darkMode = true
-        }
-        
-        btcManager = CDBTCManager(self)
-        btcManager.delegate = self
-        btcManager.btcPriceMonitor?.getUpdateBitcoinPrice()
-        percentLabel.text = ""
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        self.title = "Cryptarch"
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
-        //tableView.register(BTCBuyTableCell, forCellReuseIdentifier: "btcbuy")
-        
-        let point = CGPoint(x: tableView.frame.origin.x, y: tableView.frame.origin.y)
-        refresh = UIRefreshControl(frame: CGRect(origin: point, size: CGSize(width: tableView.frame.width, height: 32.0)))
-        
-        refresh!.addTarget(self, action: #selector(handlePullToRefresh), for: UIControlEvents.valueChanged)
-        tableView.refreshControl = refresh
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-
-        
-        
-        if darkMode{
-            self.view.backgroundColor = UIColor.black
-            self.navigationController?.navigationBar.barTintColor = UIColor.black
-            self.navigationController?.navigationBar.tintColor = UIColor.white
-            self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
-            refresh.backgroundColor = UIColor.black
-            tableView.backgroundColor = UIColor.black
-            darkModeView(view: view)
-            darkModeView(view: statContainer)
-            
-        }
-        updateTotalValue()
-    }
-    
-
-    
-    @objc func handlePullToRefresh(_ sender:UIRefreshControl){
-        sender.beginRefreshing()
-        //Dispatch queue multiple async tasks, finally return tuple
-        NotificationCenter.default.addObserver(self, selector: #selector(callkillAll), name: .UIApplicationWillResignActive, object: nil)
-        btcManager.btcPriceMonitor?.getUpdateBitcoinPrice()
-    }
-    
-    @objc func callkillAll(){
-        btcManager.btcPriceMonitor?.killAll()
-    }
-    
-    
-    func updatedPrice() {
-        print("notified price update")
-        
-        NotificationCenter.default.removeObserver(self, name: .UIApplicationWillResignActive, object: nil)
-        DispatchQueue.main.async {
-            
-            
-            
-            //reload data is fine, not adding or removing in this transaction
-            self.tableReload()
-            if let refresh = self.refresh {
-                refresh.endRefreshing()
-                //self.updatedCore()
-                self.calculateTotals()
-            }
-            
-            
-            
-            
-        }
-    }
-    
     func calculateTotals(){
-
-
-        //print("calculating totals")
 
         totalValue = 0.0
         totalSpendValue = 0.0
@@ -203,7 +201,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
 
     }
 
-    
+     // MARK: - Call to refresh model
     
     @objc func displayError() {
         let error = UIAlertController(title: "Error refreshing price", message: "Please try again later...", preferredStyle: .alert)
@@ -213,6 +211,10 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         self.present(error, animated: true, completion: nil)
     }
     
+    @objc func callkillAll(){
+        btcManager.btcPriceMonitor?.killAll()
+    }
+    
     @objc func silentFail() {
         self.refresh?.endRefreshing()
         
@@ -220,20 +222,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         NotificationCenter.default.removeObserver(self, name: .UIApplicationWillResignActive, object: nil)
     }
     
-    //    func updatedCore() {
-    //
-    //        print("updated core called")
-    //
-    //        //old set vs new, bulk update
-    //        if(btcPriceMonitor.cryptoRates.count>0){
-    //            updateTableItems()
-    //        }
-    //
-    //
-    //    }
-    
-    
-    
+    // MARK: - Segue Handling
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
@@ -248,28 +237,17 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        tableReload()
-    }
-    
     
     // MARK: - Table view data source
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        //        var numberOfSections = 0
-        //        // if section is now empty, remove it
-        //        for set in currentItems{
-        //            if(set.count>0){
-        //                numberOfSections+=1
-        //            }
-        //        }
-        //return BTCPriceModel.polling.count
-        return self.btcManager.fetchedResultsController.sections?.count ?? 0
+
+        if(!btcManager.btcPriceMonitor.gotPrices){
+            return 0
+        } else {
+            return self.btcManager.fetchedResultsController.sections?.count ?? 0
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -278,8 +256,13 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         //            return currentItems[section].count
         //        }
         //        return 0
-        let sectionInfo = self.btcManager.fetchedResultsController.sections![section]
-        return sectionInfo.numberOfObjects
+        if(!btcManager.btcPriceMonitor.gotPrices){
+            return 0
+        } else {
+            let sectionInfo = self.btcManager.fetchedResultsController.sections![section]
+            return sectionInfo.numberOfObjects
+        }
+      
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -300,15 +283,7 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         return returnView
     }
     
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        // handle if first section is empty, second has title
-//        if let section = btcManager.fetchedResultsController.sections?[section]{
-//            let buy = section.objects![0] as! Buy
-//            return CryptoTicker.ticker(ticker: buy.cryptoCurrency).stringValue()
-//        }
-//
-//        return "header"
-//    }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -332,32 +307,12 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         
     }
 
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "btcbuy") as! BTCBuyTableCell
-//
-//        //print("new cell",indexPath.section,indexPath.row)
-//
-//        let labelDict = btcManager.btcPriceMonitor!.processInfo(buy: self.btcManager.fetchedResultsController.object(at: indexPath))
-//        let isRising = (labelDict["direction"] == "up")
-//
-//        if darkMode{
-//            MainViewController.darkModeView(view: cell.contentView)
-//        }
-//
-//        cell.btcAmountLabel.text = labelDict["buy"]
-//        cell.dateLabel.text = labelDict["date"]
-//        cell.btcRateAtBuyLabel.text = labelDict["rateAtBuy"]
-//        cell.usdAtBuyLabel.text = "$"+(labelDict["priceAtBuy"] ?? "missing")
-//        cell.currentRateLabel.text = labelDict["currentRate"]
-//
-//        cell.currentPriceLabel.text = "$"+(labelDict["currentPrice"] ?? "missing")
-//        cell.appreciationLabel.text = (labelDict["direction"] == "up") ? "+"+labelDict["appreciation"]! : "-"+labelDict["appreciation"]!
-//        cell.appreciationLabel.textColor = isRising ? UIColor.green : UIColor.red
-//
-//        //print("labeldict",indexPath,labelDict,cell)
-//        cell.initialiseTickerView(isRising: isRising)
-//        return cell
-//    }
+    // Override to support conditional editing of the table view.
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let context = self.btcManager.fetchedResultsController.managedObjectContext
@@ -408,72 +363,29 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
     }
     
     
+   
     
-    // Override to support conditional editing of the table view.
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        tableReload()
     }
-    
-    //'fixed' version
-//    func calculateTotals(){
-//
-//
-//        print("calculating totals")
-//
-//        totalValue = 0.0
-//        totalSpendValue = 0.0
-//        var outerTempValue:Float = 0.0
-//        var tempSpend:Float = 0.0
-//        var rate:Float
-//        if let items = btcManager.fetchedResultsController.fetchedObjects{
-//            for buy in items{
-//
-//                var tempValue:Float = 0.0
-//
-//                tempValue+=buy.btcAmount
-//                tempSpend+=(buy.btcAmount * Float(buy.btcRateAtPurchase))
-//
-//                if(btcManager.btcPriceMonitor.cryptoRates.count>0){
-//                    rate = Float(btcManager.btcPriceMonitor.cryptoRates[buy.cryptoCurrency!]!) // less force unwrapping, guard?
-//                } else {
-//                    rate = 0
-//                }
-//
-//                outerTempValue += (tempValue*rate)
-//
-//            }
-//        }
-//
-//
-//        totalValue = outerTempValue
-//        totalSpendValue = tempSpend
-//        print("updated label value to: \(totalValue)")
-//        print("updated spend label value to: \(totalSpendValue)")
-//
-//        let appreciationDecimal = totalValue - totalSpendValue;
-//        totalPercentValue = appreciationDecimal// (appreciationDecimal>1) ? appreciationDecimal-1 : 1-appreciationDecimal
-//
-//        //updatedPrice()
-//
-//    }
     
     func tableReload(){
         print("reloading table")
         tableView.reloadData()
     }
     
-    func establishedController() {
-        print("established link",self.btcManager.fetchedResultsController)
-        self.btcManager.fetchedResultsController.delegate = self
-    }
-    
+
     // MARK: - Fetched results controller
     
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         print("will change content")
         tableView.beginUpdates()
+    }
+    
+    func establishedController() {
+        print("established link",self.btcManager.fetchedResultsController)
+        self.btcManager.fetchedResultsController.delegate = self
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
@@ -513,7 +425,10 @@ class MainViewController: UIViewController,BTCPriceDelegate,BTCManagerDelegate,U
         calculateTotals()
     }
     
-    
-    
+    // MARK: - Memory Warning
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     
 }

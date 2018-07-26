@@ -57,7 +57,7 @@ public class PieView : UIView{
     
 
     
-    func animate(percentFloat:CGFloat){
+    private func animate(percentFloat:CGFloat){
         if(ringLayer != nil){
             
             let normalFloat:CGFloat = {
@@ -98,18 +98,20 @@ public class PieView : UIView{
         layoutSubviews()
     }
     
-    func updateLayerProperties(){
+    private func updateLayerProperties(){
         if(ringLayer != nil){
             
             var percentFloat = CGFloat(percentage)
             
-            
             var strokeColor = UIColor.lightGray
+            
+            var bez = UIBezierPath(ovalIn: getInsetRect())
+            ringLayer.path = bez.cgPath
             
             switch percentFloat {
             case let a where a <= 0.0:
                 strokeColor = UIColor.red
-                let bez = UIBezierPath(ovalIn: getInsetRect()).reversing()
+                bez = bez.reversing()
                 ringLayer.path = bez.cgPath
                 percentFloat = 0 - percentFloat
             case let a where a > 0.0:
@@ -126,7 +128,7 @@ public class PieView : UIView{
     
 
     
-    func getInsetRect()->CGRect{
+    private func getInsetRect()->CGRect{
         var rect = bounds
         rect = rect.insetBy(dx: CGFloat(lineWidth) / 2.0, dy: CGFloat(lineWidth)/2.0)
         return rect
@@ -134,7 +136,7 @@ public class PieView : UIView{
     
     public override func layoutSubviews() {
         super.layoutSubviews()
-        print("drawing")
+        
         if !(backgroundRingLayer != nil){
             backgroundRingLayer = CAShapeLayer()
             layer.addSublayer(backgroundRingLayer)

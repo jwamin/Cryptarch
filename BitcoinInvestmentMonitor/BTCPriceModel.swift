@@ -35,12 +35,12 @@ class BTCPriceModel: NSObject,URLSessionDataDelegate {
     var cryptoRates:Dictionary<String,Float> = [:]
     var delegate:BTCPriceDelegate?
     var backgroundID:String!
-    
+    var gotPrices:Bool = false
     var session:URLSession!
     
     //    var  dispatch_group: DispatchGroup? = DispatchGroup()
     
-    static let polling:Array<CryptoTicker> = [.btc,.ltc,.eth]
+    static let polling:Array<CryptoTicker> = [.btc,.bch,.eth,.ltc]
     
     init(backgroundTaskIdentifier:String) {
         super.init()
@@ -129,7 +129,7 @@ class BTCPriceModel: NSObject,URLSessionDataDelegate {
         }
         
         if(finished==false){
-            print("not complete")
+            
             return
         }
         
@@ -153,12 +153,13 @@ class BTCPriceModel: NSObject,URLSessionDataDelegate {
                 }
                 
             } catch {
-                print(tasks)
+                
                 fatalError()
             }
         }
         //finally
-        print(cryptoRates, "cryptorates")
+        gotPrices = true
+        print(cryptoRates)
         self.session.finishTasksAndInvalidate()
         self.delegate?.updatedPrice()
     }
